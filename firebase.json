@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "big_feelings/build/web",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "projectId": "big-feelings-project-1234"
+  }
+}
