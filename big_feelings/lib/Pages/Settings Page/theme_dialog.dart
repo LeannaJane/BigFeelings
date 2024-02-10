@@ -13,10 +13,12 @@ class ThemeDropdownDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //! Using the Provider package to manage theme and font data
+    //! Extracting theme and font information from providers
     final currentTheme = themeNotifier.currentTheme;
     final fontProvider = Provider.of<FontProvider>(context);
     final selectedFontFamily = fontProvider.selectedFontFamily;
-
+    //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
     Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
         ? Colors.grey[800]!
         : Colors.white;
@@ -25,17 +27,19 @@ class ThemeDropdownDialog extends StatelessWidget {
 
     Color iconColor =
         currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-
+    //! -Setting the initial value for the theme dropdown
     ThemeData? dropdownValue;
     if (currentTheme == ThemeNotifier.darkTheme) {
       dropdownValue = ThemeNotifier.darkTheme;
     } else if (currentTheme == ThemeNotifier.lightTheme) {
       dropdownValue = ThemeNotifier.lightTheme;
     }
-
+    //! Building the Scaffold widget
     return AlertDialog(
+        //! Setting the current theme as the background colour.
         backgroundColor: backgroundColor,
         title: Text(
+          //! Select a theme option in settings page with the chosen font family.
           'Select a theme:',
           style: TextStyle(
             fontFamily: selectedFontFamily,
@@ -44,6 +48,7 @@ class ThemeDropdownDialog extends StatelessWidget {
             color: textColor,
           ),
         ),
+        //! Presenting the drop down selections with the textColour theme and background colours applied.
         content: DropdownButton<ThemeData>(
           value: dropdownValue,
           dropdownColor: backgroundColor,
@@ -73,6 +78,7 @@ class ThemeDropdownDialog extends StatelessWidget {
             ),
           ],
           onChanged: (ThemeData? newValue) {
+            //! Update the theme when a new one is selected
             if (newValue != null && newValue != dropdownValue) {
               themeNotifier.setTheme(newValue);
             }
@@ -83,6 +89,7 @@ class ThemeDropdownDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
+            //! A piece of text that allows the user to select ok to return back to the settings page without confusion.
             child: Text(
               'OK',
               style: TextStyle(
