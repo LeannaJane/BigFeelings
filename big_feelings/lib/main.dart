@@ -1,3 +1,4 @@
+import 'package:big_feelings/Classes/authentication_refresh.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
@@ -12,29 +13,27 @@ import 'package:big_feelings/Pages/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/minigames_page.dart';
 import 'package:big_feelings/Pages/mood_tracker_page.dart';
 import 'package:big_feelings/Pages/quizzes_page.dart';
-
 import 'package:big_feelings/Pages/yourjournal_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /*
-This code for the adding a ChangeNotiferProvider was assited by the flutter website.
-Reference:
-flutterbyexample.com. (n.d.). ChangeNotifierProvider. [online] Available at: https://flutterbyexample.com/lesson/change-notifier-provider [Accessed 3 Feb. 2024].
-The change notifier is a class provided by the provider package, this is used for managing and providing
-instances.
-
-In this case I used it to create and provider a instance of the Font provider class. 
-This is used to change the font state, and then the changes will adapt. 
+* This code for the adding a ChangeNotiferProvider was assited by the flutter website.
+! Reference:
+* flutterbyexample.com. (n.d.). ChangeNotifierProvider. [online] Available at: https://flutterbyexample.com/lesson/change-notifier-provider [Accessed 3 Feb. 2024].
+* The change notifier is a class provided by the provider package, this is used for managing and providing
+* instances.
+* In this case I used it to create and provider a instance of the Font provider class. 
+* This is used to change the font state, and then the changes will adapt. 
 ‌*/
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  //! Initialise firebase.
   await Firebase.initializeApp(
+    //! My firebase web config. Copied from firebase console s.
     options: const FirebaseOptions(
       apiKey: "AIzaSyAb003siF7HEjnysZ2HKX3xoF7msO5CmNc",
       authDomain: "big-feelings-project-1234.firebaseapp.com",
@@ -46,20 +45,21 @@ void main() async {
     ),
   );
 
-  // Load the saved theme preference from shared preferences
+  //! Load the saved theme preference from shared preferences
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? isDarkTheme = prefs.getBool('isDarkTheme');
 
-  // Set the theme based on the saved preference or use the default light theme
+  //! Set the theme based on the saved preference or use the default light theme
   ThemeData selectedTheme =
       isDarkTheme ?? false ? ThemeNotifier.darkTheme : ThemeNotifier.lightTheme;
 
-  // Create a ThemeNotifier instance with the selected theme
+  //! Create a ThemeNotifier instance with the selected theme
   ThemeNotifier themeNotifier = ThemeNotifier(selectedTheme);
 
   runApp(
     MultiProvider(
       providers: [
+        //! Font size provider to manage the fonts, and sizes and the theme changes.
         ChangeNotifierProvider(create: (_) => FontProvider()),
         ChangeNotifierProvider(create: (_) => FontSizeProvider()),
         ChangeNotifierProvider<ThemeNotifier>(
@@ -71,38 +71,20 @@ void main() async {
   );
 }
 
+// ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Retrieve the themeNotifier from the provider
-
     return MaterialApp(
+      //! Title for the Big feelings application.
       title: 'Big Feelings',
+      //! Retriving the current theme.
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
+      //! Settubg the home for the reset based on the whether there is a user logged in or not.
+      //! If a user is logged in they will return to the home page when they refresh the page.
+      //! If a user is not logged in they will return to the welcome page.
       home: const AuthenticationWrapper(),
       onGenerateRoute: _createRoute,
-    );
-  }
-}
-
-class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper();
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          User? user = snapshot.data;
-          if (user == null) {
-            return const WelcomePage(); //This returns to user to the welcome page once they have logged out.
-          }
-          return HomePage(); // If the user refreshes the page they wont instantly log out or return to the welcome page, they will stay logged in till they log themselves out.
-        }
-        // While determining the auth state it will show loading spinner
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      },
     );
   }
 }
@@ -152,21 +134,24 @@ Route<dynamic> _createRoute(RouteSettings settings) {
   return _forwardanimation(page);
 }
 
-// Page route transition animation for forward navigation
+//! Page route transition animation for forward navigation
 PageRouteBuilder _forwardanimation(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       var begin = const Offset(
-          1.0, 0.0); // This changes where the slide starts and finishes.
+          //! This changes where the slide starts and finishes.
+          1.0,
+          0.0);
       var end = Offset.zero;
-      var curve = Curves.easeInOutExpo; // This changes how it comes in and out.
+      //! This changes how it comes in and out.
+      var curve = Curves.easeInOutExpo;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
       var offsetAnimation = animation.drive(tween);
 
-      // Check if it's a back navigation
+      //! Check if it's a back navigation
       if (secondaryAnimation.status == AnimationStatus.reverse) {
-        // Slide to the left for back navigation
+        //! Slide to the left for back navigation
         offsetAnimation = secondaryAnimation
             .drive(Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero));
       }
@@ -179,12 +164,13 @@ PageRouteBuilder _forwardanimation(Widget page) {
   );
 }
 
-// Page route transition animation for backward navigation
+//! Page route transition animation for backward navigation
 PageRouteBuilder _backanimation(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = const Offset(-1.0, 0.0); // Slide from the left
+      //! Slide from the left
+      var begin = const Offset(-1.0, 0.0);
       var end = Offset.zero;
       var curve = Curves.easeInExpo;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
