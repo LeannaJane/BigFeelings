@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 
-// Moved class into its own lib.
+//! Moved class into its own lib.
 class CustomBottomAppBar extends StatelessWidget {
   final VoidCallback onHomePressed;
   final VoidCallback onSettingsPressed;
-  // A constuctor used to initlise the call backs.
+  //! A constuctor used to initlise the call backs.
+  // ignore: use_super_parameters
   const CustomBottomAppBar({
     Key? key,
     required this.onHomePressed,
     required this.onSettingsPressed,
   }) : super(key: key);
 
-  // This creates a bottom app bar that has a transparent background, and the elevation is set to 0, to
-  // remove the shadow of the bottom app bar.
+  //! This creates a bottom app bar that has a transparent background, and the elevation is set to 0, to
+  //! remove the shadow of the bottom app bar.
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +23,15 @@ class CustomBottomAppBar extends StatelessWidget {
       builder: (context, themeNotifier, child) {
         final currentTheme = themeNotifier.currentTheme;
 
-        // Define the color for the buttons based on the current theme
+        //! Define the color for the buttons based on the current theme
         Color buttonColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]! // Set the color to grey for dark theme
-            : Colors.white; // Set the color to white for light theme
+            ? Colors.grey[800]! //! Set the color to grey for dark theme
+            : Colors.white; //! Set the color to white for light theme
 
-        // Define the icon color based on the current theme
+        //! Define the icon color based on the current theme
         Color iconColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.white // Set the icon color to white for dark theme
-            : Colors.black; // Set the icon color to black for light theme
+            ? Colors.white //! Set the icon color to white for dark theme
+            : Colors.black; //! Set the icon color to black for light theme
 
         return BottomAppBar(
           color: Colors.transparent,
@@ -46,9 +47,12 @@ class CustomBottomAppBar extends StatelessWidget {
                   height: 50,
                   child: FloatingActionButton(
                     onPressed: onHomePressed,
+                    //! Home icon to let the user know the home page.
                     tooltip: 'Home',
                     heroTag: 'homeBtn',
+                    //! Setting the button colour based on the theme.
                     backgroundColor: buttonColor,
+                    //! Setting the icon colour.
                     child: Icon(Icons.home, color: iconColor, size: 30),
                   ),
                 ),
@@ -62,9 +66,12 @@ class CustomBottomAppBar extends StatelessWidget {
                   height: 50,
                   child: FloatingActionButton(
                     onPressed: onSettingsPressed,
+                    //! Settings icon to let the user know the settings page.
                     tooltip: 'Settings',
                     heroTag: 'settingsBtn',
-                    backgroundColor: buttonColor, // Use buttonColor here
+                    //! Setting the button colour based on the theme.
+                    backgroundColor: buttonColor,
+                    //! Setting the icon colour. // Use buttonColor here
                     child: Icon(Icons.settings, color: iconColor, size: 30),
                   ),
                 ),
