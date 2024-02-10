@@ -36,11 +36,14 @@ class HomePage extends StatelessWidget {
         double menuItemSpacing = screenWidth * 0.008;
         double minSpacing = 5.0;
         menuItemSpacing = menuItemSpacing.clamp(minSpacing, double.infinity);
-        //! Determining background and text colors based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
+        //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
         Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
             ? Colors.grey[800]!
             : Colors.white;
         Color textColor = currentTheme == ThemeNotifier.darkTheme
+            ? Colors.white
+            : Colors.black;
+        Color iconColor = currentTheme == ThemeNotifier.darkTheme
             ? Colors.white
             : Colors.black;
         //! Building the Scaffold widget
@@ -117,13 +120,13 @@ class HomePage extends StatelessWidget {
                         },
                         //! The menu item will contain the title, an icon, the selected font family, the menu item spacing and the background colour.
                         child: menuItem(
-                          context,
-                          menuItems[index]['title'],
-                          menuItems[index]['icon'],
-                          selectedFontFamily,
-                          menuItemSpacing,
-                          backgroundColor,
-                        ),
+                            context,
+                            menuItems[index]['title'],
+                            menuItems[index]['icon'],
+                            selectedFontFamily,
+                            menuItemSpacing,
+                            backgroundColor,
+                            iconColor), //! Adding iconcolour as an argument.
                       );
                     },
                   ),
@@ -205,8 +208,14 @@ class HomePage extends StatelessWidget {
     },
   ];
   //! Widget for displaying each menu item this contains the parameters, context, title, icon data, font family, spacing and background colour
-  Widget menuItem(BuildContext context, String title, IconData icon,
-      String selectedFontFamily, double spacing, Color backgroundColor) {
+  Widget menuItem(
+      BuildContext context,
+      String title,
+      IconData icon,
+      String selectedFontFamily,
+      double spacing,
+      Color backgroundColor,
+      Color iconColor) {
     //! Container to hold each menu item with spacing and styling
     return Container(
       margin: EdgeInsets.symmetric(
@@ -237,7 +246,8 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        leading: Icon(icon, color: Colors.black),
+        //! Adding the icon colour based on theme changer.
+        leading: Icon(icon, color: iconColor),
       ),
     );
   }
