@@ -15,26 +15,26 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  // Adding the same menu spacing I used in the home page.
+  //! Adding the same menu spacing I used in the home page.
   double menuItemSpacing = 10.0;
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
+        //! Using the Provider package to manage theme and font data
+        //! Extracting theme and font information from providers
         final currentTheme = themeNotifier.currentTheme;
         final fontProvider = Provider.of<FontProvider>(context);
-        final selectedFontFamily =
-            fontProvider.selectedFontFamily; // Get the FontProvider
-        // This calculates the item spacing based on screen width
+        final selectedFontFamily = fontProvider.selectedFontFamily;
+        //! Setting up spacing variables based on screen width
         final screenWidth = MediaQuery.of(context).size.width;
-        // When the screen width increases the spacing between each button increases, so when the page is in full screen, the menu item buttons are more spread.
-        // Calculate item spacing based on screen width
+        //! When the screen width increases the spacing between each button increases, so when the page is in full screen, the menu item buttons are more spread.
+        //! Calculate item spacing based on screen width
         double menuItemSpacing = screenWidth * 0.008;
         double minSpacing = 5.0;
-        // This ensures that there is a minimum spacing so that the buttons do not overlap on very small screens
+        //! This ensures that there is a minimum spacing so that the buttons do not overlap on very small screens
         menuItemSpacing = menuItemSpacing.clamp(minSpacing, double.infinity);
-
-        // Adding the if statements depending on the theme.
+        //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
         Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
             ? Colors.grey[800]!
             : Colors.white;
@@ -48,8 +48,8 @@ class _SettingsPageState extends State<SettingsPage> {
             backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
             title: Text(
               'Settings',
-              // Seting the title to settings.
-              // Adding a text style to control the fontweight, family and size.
+              //! Seting the title to settings.
+              //! Adding a text style to control the fontweight, family and size.
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: selectedFontFamily,
@@ -57,17 +57,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: themeNotifier.currentTheme.textTheme.headline6?.color,
               ),
             ),
-            // added a automatcallyimplylead to remove the return icon in the top left corner.
+            //! added a automatcallyimplylead to remove the return icon in the top left corner.
             automaticallyImplyLeading: false,
-            // Centering the title.
+            //! Centering the title.
             centerTitle: true,
-            // Set app bar background color
+            //! Set app bar background color
           ),
           body: Column(
             children: [
-              // Adding a sized box within the title and the settings container.
+              //! Adding a sized box within the title and the settings container.
               const SizedBox(height: 20),
-              // Add spacing between app bar and settings items
+              //! Add spacing between app bar and settings items
               Container(
                 margin: EdgeInsets.symmetric(
                   vertical: menuItemSpacing,
@@ -75,43 +75,47 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 decoration: BoxDecoration(
                   color:
-                      backgroundColor, // Set container background colour to background colour based on the theme.
+                      //! Set container background colour to background colour based on the theme.
+                      backgroundColor,
                   borderRadius:
-                      BorderRadius.circular(15.0), // Set border radius
+                      //! Set border radius
+                      BorderRadius.circular(15.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(
-                          0.5), // Set box shadow color with opacity
+                          //! Set box shadow color with opacity
+                          0.5),
                       spreadRadius: 1,
                       blurRadius: 6,
-                      offset: const Offset(0, 3), // Set shadow offset
+                      //! Set shadow offset
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: ListTile(
                   title: Center(
                     child: Text(
-                      // Creating a button called customise fonts, this will allow the user to select the button and choose a font.
-                      'Customise Fonts', // Set the menu item text
+                      //! Creating a button called customise fonts, this will allow the user to select the button and choose a font.
+                      'Customise Fonts',
                       style: TextStyle(
-                        fontFamily: selectedFontFamily, // Set font family
-                        // Setting the font size to 16 for now.
+                        //! Set font family. fontmsoze and text colour.
+                        fontFamily: selectedFontFamily,
                         fontSize: 16.0,
-                        color:
-                            textColor, // Setting the text colour to text color based on the theme.
+                        color: textColor,
                       ),
                     ),
                   ),
-                  // Show font customisation dialog
-                  // Added a barrier color to make the background go dark when the dialog is opened.
-                  // When the showdialog is called flutter automatically created a overlay entry which includes a model barrier,
-                  // and this dims the background. So I used this line of code to increase the opacity.
+                  //! Show font customisation dialog
+                  //! Added a barrier color to make the background go dark when the dialog is opened.
+                  //! When the showdialog is called flutter automatically created a overlay entry which includes a model barrier,
+                  //! and this dims the background. So I used this line of code to increase the opacity.
                   onTap: () {
                     showDialog(
                       context: context,
                       barrierColor: Colors.black.withOpacity(0.85),
                       builder: (BuildContext context) {
-                        return const FontDropdownDialog(); // Create an instance of FontDropdownDialog
+                        //! Create an instance of FontDropdownDialog
+                        return const FontDropdownDialog();
                       },
                     );
                   },
@@ -123,35 +127,38 @@ class _SettingsPageState extends State<SettingsPage> {
                   horizontal: 16.0,
                 ),
                 decoration: BoxDecoration(
-                  color: backgroundColor, // Set container background colour
+                  //! Set container background colour
+                  color: backgroundColor,
                   borderRadius:
-                      BorderRadius.circular(15.0), // Setting the border radius
+                      //! Setting the border radius
+                      BorderRadius.circular(15.0),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(
-                          0.5), // Setting the box shadow color with opacity
+                      //! Setting the box shadow color with opacity
+                      color: Colors.black.withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 6,
-                      offset: const Offset(0, 3), // Set shadow offset
+                      //! Set shadow offset
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
-                // Added a customise theme button that allows the users to select a theme they want so that the
-                // text colour and background colours change.
+                //! Added a customise theme button that allows the users to select a theme they want so that the
+                //! text colour and background colours change.
                 child: ListTile(
                   title: Center(
                     child: Text(
                       'Customise Theme',
                       style: TextStyle(
-                        fontFamily:
-                            selectedFontFamily, // Setting the font family.
-                        fontSize: 16.0, // Setting the font size.
-                        color: textColor, // Setting the text colour
+                        fontFamily: // Setting the font family, font text and colour
+                            selectedFontFamily,
+                        fontSize: 16.0,
+                        color: textColor,
                       ),
                     ),
                   ),
-                  // Showing the customise themes dialog when they click on the button. Which presents the text in the font type and then
-                  // the theme in the theme depending on what theme they chose.
+                  //! Showing the customise themes dialog when they click on the button. Which presents the text in the font type and then
+                  //! the theme in the theme depending on what theme they chose.
                   onTap: () {
                     showDialog(
                       context: context,
@@ -174,32 +181,39 @@ class _SettingsPageState extends State<SettingsPage> {
                   bottom: 20.0,
                 ),
                 decoration: BoxDecoration(
-                  color: backgroundColor, // Set background color
+                  //! Set background colour
+                  color: backgroundColor,
                   borderRadius:
-                      BorderRadius.circular(15.0), // Setting the border radius
+                      //! Setting the border radius
+                      BorderRadius.circular(15.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(
-                          0.5), // Setting the box shadow color with opacity
+                          //! Setting the box shadow color with opacity
+                          0.5),
                       spreadRadius: 1,
                       blurRadius: 6,
-                      offset: const Offset(0, 3), // Set shadow offset
+                      //! Set shadow offset
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: ListTile(
                   title: Center(
                     child: Text(
-                      'Logout', // Set menu logout text
+                      //! Set menu logout text
+                      'Logout',
                       style: TextStyle(
-                        fontFamily: selectedFontFamily, // Set font family
-                        fontSize: 16.0, // Set font size
-                        color: textColor, // Set font size
+                        //! Set font family, font size and colour.
+                        fontFamily: selectedFontFamily,
+                        fontSize: 16.0,
+                        color: textColor,
                       ),
                     ),
                   ),
                   // Show logout dialog
                   onTap: () {
+                    //! Determining background,text colours, icon colours based on theme
                     Color backgroundColor =
                         currentTheme == ThemeNotifier.darkTheme
                             ? Colors.grey[800]!
@@ -214,6 +228,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ],
           ),
+          //! Presenting the floating bottom app bar at the bottom of the page and setting the navigation for the home page.
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
           bottomNavigationBar: CustomBottomAppBar(
             onHomePressed: () {
