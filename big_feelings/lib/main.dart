@@ -5,6 +5,7 @@ import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Breathing%20Page/breathing_page.dart';
 import 'package:big_feelings/Pages/Login/login_page.dart';
+import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
 import 'package:big_feelings/Pages/Login/welcome_page.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
@@ -127,6 +128,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       break;
     case '/settings-page':
       page = const SettingsPage();
+      break;
+    case '/password_reset':
+      page = const PasswordResetPage();
       break;
     default:
       page = const WelcomePage();
