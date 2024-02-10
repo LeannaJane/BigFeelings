@@ -26,6 +26,7 @@ class WelcomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 50.0,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'SingleDay',
                     ),
@@ -42,6 +43,7 @@ class WelcomePage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22.0,
+                    color: Colors.black,
                     fontFamily: 'SingleDay',
                   ),
                 ),
