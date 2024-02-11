@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 fontWeight: FontWeight.bold,
                 fontFamily: selectedFontFamily,
                 fontSize: 30.0,
-                color: themeNotifier.currentTheme.textTheme.headline6?.color,
+                color: themeNotifier.currentTheme.textTheme.titleLarge?.color,
               ),
             ),
             //! added a automatcallyimplylead to remove the return icon in the top left corner.
