@@ -4,7 +4,7 @@ import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Breathing%20Page/breathing_page.dart';
-import 'package:big_feelings/Pages/Login/login_page.dart';
+import 'package:big_feelings/Pages/Login/login_ui.dart';
 import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
 import 'package:big_feelings/Pages/Login/welcome_page.dart';

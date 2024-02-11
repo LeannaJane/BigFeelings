@@ -1,6 +1,3 @@
-//! Inputting neccasary packages for firebase autentication and logging functionality.
-// ignore_for_file: library_private_types_in_public_api, use_super_parameters
-
 /*
 ! This Flutter code implements a login page with 
 ! Firebase authentication functionality. 
@@ -14,18 +11,15 @@
 ! And a new password can be made depending if their email is correct.
 */
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+import 'login_logic.dart';
 
-//! Logging instance
-final logger = Logger();
-
-//! Login page widget class that is used to handle the login screen UI.
 class LoginPage extends StatefulWidget {
+  // ignore: use_super_parameters
   const LoginPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -33,75 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   String? _loginError;
-
-  //! This is a function that handles the login authentication using firebase authentication.
-  Future<void> _login(BuildContext context) async {
-    String email = emailController.text.trim();
-    String password = passwordController.text.trim();
-    //! Attempting to sign in with email and password saved on firebase.
-
-    try {
-      // ignore: unused_local_variable
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      //! If authentication is successful
-      logger.i('Logged in successfully');
-
-      if (!mounted) return; //! Check if the widget is still mounted
-
-      //! A snackbar (for now to tell the user that they have logged in successfully or failed.)
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login successful'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ),
-      );
-
-      //! Navigate to the home page
-      Navigator.pushReplacementNamed(context, '/home');
-    } on FirebaseAuthException catch (e) {
-      logger.e('Error logging in: $e');
-
-      //! Check if the widget is still mounted
-      if (!mounted) return;
-
-      //! Login error codes, checks if the errror contains any of this text, and
-      //! if it does a shorter login error will be outputted to the user,
-      //! as the errors from firebase are login and not as easy and simple to understand from a user perspective.
-      if (e.code == 'auth/wrong-password') {
-        setState(() {
-          //! Wrong password.
-          _loginError = 'Incorrect password. Please try again.';
-        });
-      } else if (e.message!.contains('too-many-requests')) {
-        setState(() {
-          _loginError = //! If a user tried to login too many times, they will have to reset their password to access their account.
-              'Access to this account has been temporarily disabled due to many failed login attempts. Please try again later or reset your password.';
-        });
-      } else if (e.message!.contains('badly formatted')) {
-        setState(() {
-          _loginError = //! If there's no @ or if the input does not look like an email this will be outputted.
-              'Invalid email format. Please check your email address.';
-        });
-      } else if (e.message!.contains('invalid-credential')) {
-        setState(() {
-          _loginError = //! Invalid email and password.
-              'Invalid credentials. Please check your email and password.';
-        });
-      } else {
-        setState(() {
-          //! Then a unknown error, this will print out the full firebase error.
-          //! Once this error has been found, ill handle it by adding it to this if statement.
-          _loginError = 'An unknown error occurred: ${e.message}';
-        });
-      }
-    }
-  }
-
   //! If the user has forgot their password they can click the forget password text and they will be forwarded to the correct page.
   void _forgotPassword(BuildContext context) {
     Navigator.pushNamed(context, '/password_reset');
@@ -109,9 +34,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    //! These variables are used to calculate the image inside of the login page, as on mobile the image was too big, so
-    //! I set that if the width of the screen is a certain size, the image will also be a certain size.
-    //! Get the screen width
+    //! These variables are used to calculate the image inside of the login page, as on mobile the image was too big so
+    //! I set tgat uf tge wudth of the screen is a certain size, the image will also be a certain size.
     double screenWidth = MediaQuery.of(context).size.width;
     double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
     double imageWidth = (screenWidth * imageScaleFactor).clamp(150.0, 300.0);
@@ -302,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              //! A space betweeeb the container and the text.
+              //! A space between the container and the text.
               const SizedBox(height: 16),
               TextButton(
                 //! If the user selects the forgot password they will be forwarded to the forgot password page.
@@ -345,7 +269,35 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     //! When the user selects the login button the application will try to log them in using the login function.
-                    onPressed: () => _login(context),
+                    //* Changed the On pressed to call the LoginLogic login method.
+                    onPressed: () => LoginLogic.login(
+                      //! Adding parameters.
+                      context,
+                      emailController,
+                      passwordController,
+                      (error) {
+                        //! Adding set state here for the error, which error outputs from the login function will be set here.
+                        setState(() {
+                          _loginError = error;
+                        });
+                      },
+                      //! Snackbar to show login sucessful.
+                      () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Login successful'),
+                            backgroundColor: Colors.green,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                      () {
+                        //! Once sucessfully signed in they will go to the homepage.
+                        Navigator.pushReplacementNamed(context, '/home');
+                      },
+                      //! This will send them to the forgot password page based on whether they forgot their password.
+                      _forgotPassword,
+                    ),
                     child: const Text('Login'),
                   ),
                 ),
