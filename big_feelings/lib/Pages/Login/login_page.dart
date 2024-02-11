@@ -1,6 +1,19 @@
 //! Inputting neccasary packages for firebase autentication and logging functionality.
 // ignore_for_file: library_private_types_in_public_api, use_super_parameters
 
+/*
+! This Flutter code implements a login page with 
+! Firebase authentication functionality. 
+! It allows users to input their email and password for authentication, 
+! with error handling for various authentication scenarios such as 
+! wrong password, invalid email format, and too many login attempts. 
+! The page includes UI elements for email and password input fields, 
+! a login button, and a "Forgot Password?" option. 
+! When the user successfully signs in they will be forwarded to the login page,
+! If the user selects the forgot password method, they will be asked to type their email,
+! And a new password can be made depending if their email is correct.
+*/
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -21,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   String? _loginError;
 
-  //! Updated _login method to handle Firebase authentication
   //! This is a function that handles the login authentication using firebase authentication.
   Future<void> _login(BuildContext context) async {
     String email = emailController.text.trim();
@@ -90,9 +102,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  //! Reference:
-  // * somniosoftware.com. (n.d.). Email Authentication with Flutter - Firebase. [online] Available at: https://www.somniosoftware.com/blog/email-authentication-with-flutter-firebase [Accessed 11 Feb. 2024].
-  // * This website guided me on how to create a email login and a create an account page.
   //! If the user has forgot their password they can click the forget password text and they will be forwarded to the correct page.
   void _forgotPassword(BuildContext context) {
     Navigator.pushNamed(context, '/password_reset');
@@ -104,10 +113,7 @@ class _LoginPageState extends State<LoginPage> {
     //! I set that if the width of the screen is a certain size, the image will also be a certain size.
     //! Get the screen width
     double screenWidth = MediaQuery.of(context).size.width;
-
-    //! This calculates the scale factor based on the screen width with a minimum of 30% and a maximum of 50%
     double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
-    //! This calculate the width of the image based on the screen width and the scale factor
     double imageWidth = (screenWidth * imageScaleFactor).clamp(150.0, 300.0);
 
     return Scaffold(
