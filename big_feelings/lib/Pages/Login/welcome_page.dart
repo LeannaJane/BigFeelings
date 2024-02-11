@@ -32,7 +32,7 @@ class WelcomePage extends StatelessWidget {
                         'BIG FEELINGS',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 50.0,
+                          fontSize: 40.0,
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontFamily: selectedFontFamily,
@@ -68,7 +68,7 @@ class WelcomePage extends StatelessWidget {
                       //! A container that has the login and sign up button placed inside
                       Container(
                         //! Width of the container set to 500 with 20 symetric padding and the colour set to white with a shadow.
-                        width: 500,
+                        width: 400,
                         padding: const EdgeInsets.symmetric(
                           vertical: 20,
                         ),
