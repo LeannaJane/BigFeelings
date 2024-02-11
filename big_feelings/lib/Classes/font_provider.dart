@@ -8,9 +8,9 @@ class FontProvider with ChangeNotifier {
   //! List of supported font families
   final List<String> _supportedFontFamilies = [
     'Arial',
-    'Roboto',
     'Open Sans',
-    'SingleDay'
+    'SingleDay',
+    'Roboto Mono',
   ];
 
   //! A getter method to retrieve the currently selected font family.
