@@ -310,6 +310,12 @@ class _LoginPageState extends State<LoginPage> {
                     _loginError!,
                     style: const TextStyle(
                       color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'SingleDay',
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.red,
+                      decorationThickness: 4.0,
+                      decorationStyle: TextDecorationStyle.solid,
                     ),
                   ),
                 ),
