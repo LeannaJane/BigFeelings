@@ -5,22 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-/* 
-! Reference
-* docs.flutter.dev. (n.d.). Display a snackbar. [online] Available at: https://docs.flutter.dev/cookbook/design/snackbars [Accessed 3 Feb. 2024].
-* The fluter website assisted me in creating a snack bar.
-* stack Overflow. (n.d.). Do not use BuildContexts across async gaps. [online] Available at: https://stackoverflow.com/questions/68871880/do-not-use-buildcontexts-across-async-gaps [Accessed 5 Feb. 2024].
-* This website was used to help guide me on how to handle the 'BuildContext' across async.
-* It told me to use the mounted property to check if the widgets are still mounted before perferming actions asynchronously.
- */
-
-//! This login page was origionally a template guided by the flutter webpage, and was eventually updated to be my own login page.
-//* Kumar, Y. (2022). Login Page UI in Flutter. [online] Medium. Available at: https://levelup.gitconnected.com/login-page-ui-in-flutter-65210e7a6c90.
-//* This login page was used for inspiration that guided me to create a basic login, then I improved it making it my own.
-
-//!Reference on how to add a icon..
-// * Stack Overflow. (n.d.). Flutter Text Field: How to add Icon inside the border. [online] Available at: https://stackoverflow.com/questions/55929495/flutter-text-field-how-to-add-icon-inside-the-border [Accessed 3 Feb. 2024].
-
 //! Logging instance
 final logger = Logger();
 
@@ -33,8 +17,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   String? _loginError;
 
   //! Updated _login method to handle Firebase authentication
@@ -73,9 +57,6 @@ class _LoginPageState extends State<LoginPage> {
       //! Check if the widget is still mounted
       if (!mounted) return;
 
-      //! Reference
-      // * This was used to help me understand how to use a if statement for the error codes:
-      // * Firebase. (n.d.). Error Handling | Firebase Documentation. [online] Available at: https://firebase.google.com/docs/auth/flutter/errors.
       //! Login error codes, checks if the errror contains any of this text, and
       //! if it does a shorter login error will be outputted to the user,
       //! as the errors from firebase are login and not as easy and simple to understand from a user perspective.
