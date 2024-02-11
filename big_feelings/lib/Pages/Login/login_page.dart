@@ -9,7 +9,7 @@ import 'package:logger/logger.dart';
 ! Reference
 * docs.flutter.dev. (n.d.). Display a snackbar. [online] Available at: https://docs.flutter.dev/cookbook/design/snackbars [Accessed 3 Feb. 2024].
 * The fluter website assisted me in creating a snack bar.
-* tack Overflow. (n.d.). Do not use BuildContexts across async gaps. [online] Available at: https://stackoverflow.com/questions/68871880/do-not-use-buildcontexts-across-async-gaps [Accessed 5 Feb. 2024].
+* stack Overflow. (n.d.). Do not use BuildContexts across async gaps. [online] Available at: https://stackoverflow.com/questions/68871880/do-not-use-buildcontexts-across-async-gaps [Accessed 5 Feb. 2024].
 * This website was used to help guide me on how to handle the 'BuildContext' across async.
 * It told me to use the mounted property to check if the widgets are still mounted before perferming actions asynchronously.
  */
