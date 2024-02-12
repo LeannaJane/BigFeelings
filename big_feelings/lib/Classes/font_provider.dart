@@ -120,6 +120,33 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  //! Adding another textstyle for a diff size font for the login and signup buttons.
+  TextStyle welcomepagetext({double fontSize = 16.0}) {
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: 20,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+            fontSize: fontSize, fontWeight: FontWeight.bold);
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 20,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: fontSize,
+        );
+    }
+  }
+
   TextStyle getSubTitleStyle({
     double fontSize = 20.0,
     Color textcolour = Colors.black, // Specify the default color here
