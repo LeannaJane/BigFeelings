@@ -148,7 +148,7 @@ class FontProvider with ChangeNotifier {
   }
 
   TextStyle getSubTitleStyle({
-    double fontSize = 12.0,
+    double fontSize = 14.0,
     Color textcolour = Colors.black, // Specify the default color here
   }) {
     switch (_selectedFontFamily) {
@@ -173,7 +173,7 @@ class FontProvider with ChangeNotifier {
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: fontSize,
+          fontSize: 18,
           fontWeight: FontWeight.bold,
           color: textcolour,
         );
