@@ -58,11 +58,15 @@ void main() async {
   //! Create a ThemeNotifier instance with the selected theme
   ThemeNotifier themeNotifier = ThemeNotifier(selectedTheme);
 
+  //! Load the selected font family
+  FontProvider fontProvider = FontProvider();
+  await fontProvider.loadSelectedFontFamily();
+
   runApp(
     MultiProvider(
       providers: [
         //! Font size provider to manage the fonts, and sizes and the theme changes.
-        ChangeNotifierProvider(create: (_) => FontProvider()),
+        ChangeNotifierProvider(create: (_) => fontProvider),
         ChangeNotifierProvider(create: (_) => FontSizeProvider()),
         ChangeNotifierProvider<ThemeNotifier>(
           create: (_) => themeNotifier,
