@@ -10,9 +10,42 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //! Determine the width of the screen
+    double screenWidth = MediaQuery.of(context).size.width;
+    //! Determine the scaling factor for the image based on screen width
+    double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
+    //! Calculating the width of the image
+    double imageWidth = (screenWidth * imageScaleFactor).clamp(400.0, 500.0);
+    //! Declaring variables for container width and height
+    double containerWidth;
+    double containerHeight;
+    //! Setting the container size based on the image width.
+    if (imageWidth == 400) {
+      containerWidth = 420;
+      containerHeight = 115;
+    } else {
+      containerWidth = 500;
+      containerHeight = 145;
+    }
+    //! Determine button width based on image width
+    double buttonWidth = imageWidth == 400 ? 150 : 200;
+    //! Fixed height for buttons
+    double buttonHeight = 40;
+
+    //! Adding a button style, so that the padding and size is equal for each button
+    //! I had issues where the buttons were not the same length.
+    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      fixedSize: Size(buttonWidth, buttonHeight),
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.white,
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+    );
+
     return Consumer<FontProvider>(
       builder: (context, fontProvider, _) {
-        final selectedFontFamily = fontProvider.selectedFontFamily;
         return Scaffold(
           //! Setting background colour
           backgroundColor: const Color.fromARGB(255, 209, 236, 238),
@@ -22,26 +55,23 @@ class WelcomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      //! Padding set to 5 for now.
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        //! Title of the application in the top center. Default font family, font weight set to bold and 50 size font.
-                        'BIG FEELINGS',
-                        textAlign: TextAlign.center,
-                        //! Editing the style as a whole instead of individually.
-                        style: fontProvider.getTitleFontStyle(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 50),
                   Padding(
                     //! Padding set to 5 for now.
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
-                      //! Welcome message centered, with the default font and message size set to 22.
+                      //! Title of the application in the top center. With the assigned style from the font provider page.
+                      'BIG FEELINGS',
+                      textAlign: TextAlign.center,
+                      //! Editing the style as a whole instead of individually.
+                      style: fontProvider.getTitleFontStyle(),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    //! Padding set to 5 for now.
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      //! Welcome message centered with assigned font provider and text style.
                       'Welcome to the Big Feelings application where your child can manage and understand their feelings',
                       textAlign: TextAlign.center,
                       style: fontProvider.smalltextfontstyle(),
@@ -51,91 +81,71 @@ class WelcomePage extends StatelessWidget {
                     //! Image aligned in the bottom center, with a box fit cover.
                     alignment: Alignment.bottomCenter,
                     children: [
-                      Center(
-                        child: Image.asset(
-                          'assets/images/penguin_emotion.png',
-                          fit: BoxFit.cover,
+                      Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          width: imageWidth,
+                          height: imageWidth,
+                          child: Image.asset(
+                            'assets/images/penguin_emotion.png',
+                            fit: BoxFit
+                                .contain, //! Changed it to a contain because the image kept cutting out.
+                          ),
                         ),
                       ),
-                      //! A container that has the login and sign up button placed inside
-                      Container(
-                        //! Width of the container set to 500 with 20 symetric padding and the colour set to white with a shadow.
-                        width: 400,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 8,
-                              offset: const Offset(0, -3),
-                            ),
-                          ],
-                          //! The corners of the box set to a 30 radius.
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        //! The login and sign up are placed in a column and centered.
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              //! Width and height of the sized boxes equal the same.
-                              width: 150,
-                              height: 40,
-                              child: ElevatedButton(
+                      Positioned(
+                        bottom: 0,
+                        //! A container that has the login and sign up button placed inside
+                        child: Container(
+                          //! Assigning width and container height variable to the container so that the container can change the size based on the screen size.
+                          width: containerWidth,
+                          height: containerHeight,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 8,
+                                offset: const Offset(0, -3),
+                              ),
+                            ],
+                            //! The corners of the box set to a 30 radius.
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          //! The login and sign up are placed in a column and centered.
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ElevatedButton(
+                                //! Removing the elevated buttons from the sized box as this caused issues.
+
                                 onPressed: () {
-                                  //! Navigation to the login page.
                                   Navigator.pushNamed(context, '/login');
                                 },
-                                //! The background of the button set to black and text set to white.
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
-                                  foregroundColor: Colors.white,
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                ),
+                                style: buttonStyle,
                                 child: Text(
-                                  //! The login text in the center of the sized box with a 20 font sized and the font family has been set.
                                   'Login',
-                                  style: fontProvider.smalltextfontstyle(),
+                                  style: fontProvider.welcomepagetext(),
                                 ),
                               ),
-                            ),
-                            //! A sized box to create space between the login and signup button.
-                            const SizedBox(height: 20),
-                            SizedBox(
-                              //! Width and height set
-                              width: 150,
-                              height: 40,
-                              child: ElevatedButton(
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                //! Removing the elevated buttons from the sized box as this caused issues.
+
                                 onPressed: () {
-                                  //! Once selected the user will be forwarded to the signup route page.
                                   Navigator.pushNamed(context, '/sign-up');
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  //! Colours set to match both buttons.
-                                  backgroundColor: Colors.black,
-                                  foregroundColor: Colors.white,
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                ),
-                                //! Sign up text centered in the size box with the same font and size.
+                                style: buttonStyle,
                                 child: Text(
                                   'Sign Up',
-                                  style: fontProvider.smalltextfontstyle(),
+                                  style: fontProvider.welcomepagetext(),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -149,9 +159,10 @@ class WelcomePage extends StatelessWidget {
             onPressed: () {
               // Show font selection dialog or bottom sheet
               showDialog(
-                  context: context,
-                  barrierColor: Colors.black.withOpacity(0.85),
-                  builder: (context) => const FontDropdownDialog());
+                context: context,
+                barrierColor: Colors.black.withOpacity(0.85),
+                builder: (context) => const FontDropdownDialog(),
+              );
             },
             //! Set background color to white of the button.
             backgroundColor: Colors.black,
