@@ -148,7 +148,7 @@ class FontProvider with ChangeNotifier {
   }
 
   TextStyle getSubTitleStyle({
-    double fontSize = 20.0,
+    double fontSize = 12.0,
     Color textcolour = Colors.black, // Specify the default color here
   }) {
     switch (_selectedFontFamily) {
