@@ -3,7 +3,6 @@ import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-//! Removing const values, and applying the fontprovider selected family for all the text and creating a font changing button.
 class WelcomePage extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const WelcomePage({Key? key});
@@ -12,26 +11,45 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //! Determine the width of the screen
     double screenWidth = MediaQuery.of(context).size.width;
-    //! Determine the scaling factor for the image based on screen width
-    double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
-    //! Calculating the width of the image
-    double imageWidth = (screenWidth * imageScaleFactor).clamp(400.0, 500.0);
-    //! Declaring variables for container width and height
+    //! Declaring variables for if statement to change the height.
+    double imageWidth;
     double containerWidth;
     double containerHeight;
+    double buttonWidth;
+    double buttonHeight;
+    if (screenWidth < 400) {
+      imageWidth = 350;
+    } else if (screenWidth < 700) {
+      imageWidth = 400;
+    } else if (screenWidth < 900) {
+      imageWidth = 450;
+    } else if (screenWidth < 1500) {
+      imageWidth = 450;
+    } else {
+      imageWidth = 500;
+    }
     //! Setting the container size based on the image width.
-    if (imageWidth == 400) {
-      containerWidth = 420;
-      containerHeight = 115;
+    if (imageWidth == 350) {
+      containerWidth = 300;
+      containerHeight = 120;
+      buttonWidth = 140;
+      buttonHeight = 20;
+    } else if (imageWidth == 400) {
+      containerWidth = 400;
+      containerHeight = 130;
+      buttonWidth = 160;
+      buttonHeight = 25;
+    } else if (imageWidth == 450) {
+      containerWidth = 450;
+      containerHeight = 140;
+      buttonWidth = 180;
+      buttonHeight = 30;
     } else {
       containerWidth = 500;
-      containerHeight = 145;
+      containerHeight = 150;
+      buttonWidth = 140;
+      buttonHeight = 35;
     }
-    //! Determine button width based on image width
-    double buttonWidth = imageWidth == 400 ? 150 : 200;
-    //! Fixed height for buttons
-    double buttonHeight = 40;
-
     //! Adding a button style, so that the padding and size is equal for each button
     //! I had issues where the buttons were not the same length.
     ButtonStyle buttonStyle = ElevatedButton.styleFrom(
@@ -60,6 +78,7 @@ class WelcomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
                       //! Title of the application in the top center. With the assigned style from the font provider page.
+
                       'BIG FEELINGS',
                       textAlign: TextAlign.center,
                       //! Editing the style as a whole instead of individually.
@@ -79,17 +98,22 @@ class WelcomePage extends StatelessWidget {
                   ),
                   Stack(
                     //! Image aligned in the bottom center, with a box fit cover.
-                    alignment: Alignment.bottomCenter,
+                    alignment: Alignment.center,
                     children: [
                       Align(
                         alignment: Alignment.center,
                         child: SizedBox(
                           width: imageWidth,
                           height: imageWidth,
-                          child: Image.asset(
-                            'assets/images/penguin_emotion.png',
-                            fit: BoxFit
-                                .contain, //! Changed it to a contain because the image kept cutting out.
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                //! Added padding only to the bottom
+                                bottom: 40.0),
+                            child: Image.asset(
+                              'assets/images/penguin_emotion.png',
+                              fit: BoxFit.contain, // Use
+                              //! Changed it to a contain because the image kept cutting out.
+                            ),
                           ),
                         ),
                       ),
@@ -121,7 +145,6 @@ class WelcomePage extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 //! Removing the elevated buttons from the sized box as this caused issues.
-
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/login');
                                 },
@@ -134,7 +157,6 @@ class WelcomePage extends StatelessWidget {
                               const SizedBox(height: 20),
                               ElevatedButton(
                                 //! Removing the elevated buttons from the sized box as this caused issues.
-
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/sign-up');
                                 },
