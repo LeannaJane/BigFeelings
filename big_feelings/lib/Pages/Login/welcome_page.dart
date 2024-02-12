@@ -31,12 +31,8 @@ class WelcomePage extends StatelessWidget {
                         //! Title of the application in the top center. Default font family, font weight set to bold and 50 size font.
                         'BIG FEELINGS',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 40.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: selectedFontFamily,
-                        ),
+                        //! Editing the style as a whole instead of individually.
+                        style: fontProvider.getTitleFontStyle(),
                       ),
                     ),
                   ),
@@ -48,11 +44,7 @@ class WelcomePage extends StatelessWidget {
                       //! Welcome message centered, with the default font and message size set to 22.
                       'Welcome to the Big Feelings application where your child can manage and understand their feelings',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.black,
-                        fontFamily: selectedFontFamily,
-                      ),
+                      style: fontProvider.smalltextfontstyle(),
                     ),
                   ),
                   Stack(
@@ -112,10 +104,7 @@ class WelcomePage extends StatelessWidget {
                                 child: Text(
                                   //! The login text in the center of the sized box with a 20 font sized and the font family has been set.
                                   'Login',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: selectedFontFamily,
-                                  ),
+                                  style: fontProvider.smalltextfontstyle(),
                                 ),
                               ),
                             ),
@@ -142,10 +131,7 @@ class WelcomePage extends StatelessWidget {
                                 //! Sign up text centered in the size box with the same font and size.
                                 child: Text(
                                   'Sign Up',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: selectedFontFamily,
-                                  ),
+                                  style: fontProvider.smalltextfontstyle(),
                                 ),
                               ),
                             ),
@@ -168,17 +154,12 @@ class WelcomePage extends StatelessWidget {
                   builder: (context) => const FontDropdownDialog());
             },
             //! Set background color to white of the button.
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.black,
             child: Center(
               child: Text(
                 //! Setting the letters as Tt, making it bald, black and the selected font family to keep consistency across the application.
                 'Tt',
-                style: TextStyle(
-                  fontFamily: selectedFontFamily,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: fontProvider.smalltextfontstyle(fontSize: 24),
                 textAlign: TextAlign.center,
               ),
             ),
