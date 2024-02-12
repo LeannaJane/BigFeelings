@@ -1,5 +1,4 @@
 import 'package:big_feelings/Classes/font_provider.dart';
-import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,102 +27,89 @@ import 'package:provider/provider.dart';
 * backgroundColor: Colors.white.withOpacity(0.85),
 * Stack Overflow. (n.d.). How to make a full screen dialog in flutter? [online] Available at: https://stackoverflow.com/questions/51908187/how-to-make-a-full-screen-dialog-in-flutter [Accessed 6 Feb. 2024].
 */
-
-//! Changed the font dialog into own class.
 class FontDropdownDialog extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const FontDropdownDialog({Key? key});
+  // ignore: use_super_parameters
+  const FontDropdownDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      final currentTheme = themeNotifier.currentTheme;
+    return Consumer<FontProvider>(
+      builder: (context, fontProvider, child) {
+        final selectedFontFamily = fontProvider.selectedFontFamily;
 
-      //! Accessing the fontprovider to get the selected font family.
-      final fontProvider = Provider.of<FontProvider>(context);
-      final selectedFontFamily = fontProvider.selectedFontFamily;
-
-      //! Variables based on the theme.
-
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
-      Color textColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      //! Dialog title with the selected font family applied.
-      return AlertDialog(
-        backgroundColor: backgroundColor,
-        title: Text(
-          'Select a font:',
-          style: TextStyle(
-            //! Setting the font size of the button for now.
-            fontFamily: selectedFontFamily,
-            //! Setting the font size of the button for now.
-            fontSize: 20.0,
-            //! Fontweight set to bald to let the user know what they are doing.
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        ),
-        //! Once the user selects a font all the text will change to that font
-        content: DropdownButton<String>(
-          //! The value of the font chosen is selected to the origional selected font.
-          value: selectedFontFamily,
-          dropdownColor:
-              //! Set the background color of the dropdown menu
-              backgroundColor,
-          icon: Icon(Icons.arrow_drop_down,
-              //! Set the color of the dropdown icon
-              color: iconColor),
-          items: fontProvider.supportedFontFamilies.map((String fontFamily) {
-            return DropdownMenuItem<String>(
-              value: fontFamily,
-              child: Text(
-                fontFamily,
-                style: TextStyle(
-                  //! The font family text is set to their font family type
-                  fontFamily: fontFamily,
-                  //! Setting the font size.
-                  fontSize: 15.0,
-                  color:
-                      //! Setting the text colour to textcolor which is changed based on the theme.
-                      textColor,
+        return Center(
+          // Wrap AlertDialog with Center
+          child: SizedBox(
+            width: 350.0, // Fixed width for AlertDialog
+            height: 400.0, // Fixed height for AlertDialog
+            child: SingleChildScrollView(
+              physics:
+                  const NeverScrollableScrollPhysics(), // Disable scrolling
+              // Wrap with SingleChildScrollView
+              child: AlertDialog(
+                title: Text(
+                  'Select a font:',
+                  style: fontProvider.getSubTitleStyle(),
                 ),
-              ),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            //! IF the new value isnt null then the new state will be updated with the selected font.
-            if (newValue != null) {
-              //! Update selectedFont immediately when the user selects a different font
-              fontProvider.setFontFamily(newValue);
-              //! If not it stays the same until the user selects apply.
-            }
-          },
-        ),
-        actions: <Widget>[
-          //! A button that cancels the choices made.
-          TextButton(
-            onPressed: () {
-              fontProvider.setFontFamily(selectedFontFamily);
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              //! Adding the Ok text
-              'Ok',
-              style: TextStyle(
-                //! Setting the font family, font size and font colour.
-                fontFamily: selectedFontFamily,
-                fontSize: 16.0,
-                color: Colors.red,
+                content: DropdownButton<String>(
+                  //! The value of the font chosen is selected to the origional selected font.
+                  value: selectedFontFamily,
+                  padding: EdgeInsets.zero,
+                  //! Stack Overflow. (n.d.). flutter DropDownButton remove arrow icon? [online] Available at: https://stackoverflow.com/questions/67997560/flutter-dropdownbutton-remove-arrow-icon [Accessed 12 Feb. 2024].
+                  //! Hiding the default icon.
+                  iconSize: 0.0,
+                  items: fontProvider.supportedFontFamilies
+                      .map((String fontFamily) {
+                    final bool isSelected = fontFamily == selectedFontFamily;
+                    return DropdownMenuItem<String>(
+                      value: fontFamily,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          //! The font family text is set to their font family type
+                          Text(
+                            fontFamily,
+                            style: fontProvider.getRegularFontStyle(
+                              fontFamily: fontFamily,
+                            ),
+                          ),
+                          //! Adds a dropdown icon to the selected font.
+                          if (isSelected)
+                            const Icon(Icons.arrow_drop_down, size: 24.0),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    //! IF the new value isnt null then the new state will be updated with the selected font.
+                    if (newValue != null) {
+                      //! Update selectedFont immediately when the user selects a different font
+                      fontProvider.setFontFamily(newValue);
+                      //! If not it stays the same until the user selects apply.
+                    }
+                  },
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      //! Adding the Ok text
+                      'Ok',
+                      style: fontProvider
+                          .smalltextfontstyle()
+                          .copyWith(color: Colors.red), // Use red color
+                    ),
+                  ),
+                ],
+                // Align actions to the right
+                actionsAlignment: MainAxisAlignment.end,
               ),
             ),
           ),
-        ],
-      );
-    });
+        );
+      },
+    );
   }
 }
