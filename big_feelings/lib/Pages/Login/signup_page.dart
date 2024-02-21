@@ -1,4 +1,5 @@
 //! Importing Firebase Authentication package and flutter matrial.
+import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -91,14 +92,14 @@ class _SignUpPageState extends State<SignUpPage> {
           if (email.isNotEmpty && password.isNotEmpty) {
             try {
               UserCredential? userCredential =
+                  //! This calls the signup method
+                  //! This checks if the user sign up is sucessful
                   await _authService.signUp(email, password);
-              //! This calls the signup method
-              //! This checks  if user sign-up is successful
+              //! Then if it is successful a success message is prinited if not a failed message is printed.
               if (userCredential != null) {
-                //! Then if it is successful a success message is prinited if not a failed message is printed.
-                print('User signed up: ${userCredential.user?.email}');
+                logger.d('User signed up: ${userCredential.user?.email}');
               } else {
-                print('Sign-up failed');
+                logger.d('Sign-up failed');
               }
               //! This catches the FirebaseAuthException
             } on FirebaseAuthException catch (e) {
@@ -110,6 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 });
 
                 //! This shows a snackbar with the error message in red.
+                // ignore: use_build_context_synchronously
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(_errorText),
@@ -123,9 +125,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 });
               }
             } catch (e) {
-              print('Error during sign up: $e');
+              logger.e('Error during sign up: $e');
               setState(() {
-                //! This prints a unexpected error message
                 _errorText = 'An unexpected error occurred.';
               });
             }
@@ -155,7 +156,7 @@ class AuthService {
         password: password,
       );
     } catch (e) {
-      print('Error during sign up: $e');
+      logger.e('Error during sign up: $e');
       return null;
     }
   }

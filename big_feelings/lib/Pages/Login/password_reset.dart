@@ -31,6 +31,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
       //! If password reset email sent successfully
       logger.i('Password reset email sent successfully');
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           //! A snackbar message to tell user that a email has been sent.
@@ -47,6 +48,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
     } catch (e) {
       logger.e('Error sending password reset email: $e');
 
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Error sending password reset email'),
