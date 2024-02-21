@@ -14,7 +14,8 @@ class ThemeNotifier with ChangeNotifier {
     ),
     scaffoldBackgroundColor: Colors.white,
     textTheme: const TextTheme(
-      bodyText1: TextStyle(color: Colors.black),
+      bodyLarge:
+          TextStyle(color: Colors.black), // Updated from bodyText1 to bodyLarge
     ),
   );
   //! The second theme is for a dark theme.
@@ -29,7 +30,8 @@ class ThemeNotifier with ChangeNotifier {
     ),
     scaffoldBackgroundColor: Colors.black,
     textTheme: const TextTheme(
-      bodyText1: TextStyle(color: Colors.white),
+      bodyLarge:
+          TextStyle(color: Colors.white), // Updated from bodyText1 to bodyLarge
     ),
   );
   late ThemeData _currentTheme;

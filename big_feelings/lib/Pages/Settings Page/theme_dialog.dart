@@ -7,6 +7,7 @@ class ThemeDropdownDialog extends StatelessWidget {
   final FontProvider fontProvider;
   final ThemeNotifier themeNotifier; // Add ThemeNotifier
 
+  // ignore: use_super_parameters
   const ThemeDropdownDialog(
       {Key? key, required this.fontProvider, required this.themeNotifier})
       : super(key: key);

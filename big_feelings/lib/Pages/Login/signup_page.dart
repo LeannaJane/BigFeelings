@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               //! Allows the user to type their email address.
               keyboardType: TextInputType.emailAddress,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
             //! This is a controller to handle the password input.
             const SizedBox(height: 16.0),
@@ -63,13 +63,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 labelStyle: TextStyle(color: Colors.black),
               ),
               obscureText: true,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
             //! This displays a error message if it fails.
             const SizedBox(height: 16.0),
             Text(
               _errorText,
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ), // Display error message
           ],
         ),

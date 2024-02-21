@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
       title: 'Big Feelings',
       //! Retriving the current theme.
       theme: Provider.of<ThemeNotifier>(context).currentTheme,
-      //! Settubg the home for the reset based on the whether there is a user logged in or not.
+      //! Setting the home for the reset based on the whether there is a user logged in or not.
       //! If a user is logged in they will return to the home page when they refresh the page.
       //! If a user is not logged in they will return to the welcome page.
       home: const AuthenticationWrapper(),
