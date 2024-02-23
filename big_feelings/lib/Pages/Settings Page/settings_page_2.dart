@@ -8,6 +8,7 @@ import 'package:big_feelings/Pages/Settings%20Page/logout_dialog.dart';
 import 'package:big_feelings/Pages/Settings%20Page/theme_dialog.dart';
 
 class SettingsPage extends StatefulWidget {
+  // ignore: use_super_parameters
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
