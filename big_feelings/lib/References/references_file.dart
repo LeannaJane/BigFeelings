@@ -40,7 +40,9 @@
 *   // Do something :D
 * }
 * 
-
+9
+? Freepik. (n.d.). Emoji icons created by Freepik. [online] Flaticon. Available at: https://www.flaticon.com/free-icons/emoji [Accessed <access date>].
+* - This website provided Emoji icons created by Freepik, which were used in the project for Mood Tracker page.
 */
 
 
