@@ -8,12 +8,13 @@ import 'package:big_feelings/Pages/Login/login_ui.dart';
 import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
 import 'package:big_feelings/Pages/Login/welcome_page.dart';
+import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/library_page.dart';
 import 'package:big_feelings/Pages/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/minigames_page.dart';
-import 'package:big_feelings/Pages/mood_tracker_page.dart';
+
 import 'package:big_feelings/Pages/quizzes_page.dart';
 import 'package:big_feelings/Pages/yourjournal_page.dart';
 import 'package:firebase_core/firebase_core.dart';
