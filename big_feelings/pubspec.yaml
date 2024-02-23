@@ -28,6 +28,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/images_mood/
   fonts:
     - family: SingleDay
       fonts:
