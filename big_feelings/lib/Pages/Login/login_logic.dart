@@ -13,22 +13,27 @@ class LoginLogic {
     TextEditingController passwordController,
     Function(String) setLoginError,
     Function() showSnackBar,
-    Function() navigateToHome,
+    //! Changed it to string as the UID is a string.
+    Function(String) navigateToHome,
     Function(BuildContext) forgotPassword,
   ) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
     try {
-      // ignore: unused_local_variable
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      //! If authentication is successful
-      logger.i('Logged in successfully');
-      //! A snackbar (for now to tell the user that they have logged in successfully or failed.)
-      showSnackBar();
-      //! Navigate to the home page
-      navigateToHome();
+
+      //! If the user authentication is successful
+      User? user = userCredential.user;
+      if (user != null) {
+        //! This gets the user id.
+        String userId = user.uid;
+        //! This prints user logged in and userID to the terminal.
+        logger.i('User logged in successfully. UserID: $userId');
+        //! Navigate to the home page
+        navigateToHome(userId);
+      }
       //? Ref 8
     } on FirebaseAuthException catch (e) {
       logger.e('Error logging in: $e');
