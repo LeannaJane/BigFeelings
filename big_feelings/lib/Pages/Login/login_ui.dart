@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   String? _loginError;
   //! If the user has forgot their password they can click the forget password text and they will be forwarded to the correct page.
+
   void _forgotPassword(BuildContext context) {
     Navigator.pushNamed(context, '/password_reset');
   }
@@ -77,7 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                   width: 400,
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
-                  ), // Added padding
+                  ),
+                  //! Added padding
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.white,
@@ -247,7 +249,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         padding: const EdgeInsets.symmetric(
-                          vertical: 10, // Reduced vertical padding
+                          vertical: 10,
                         ),
                         textStyle: const TextStyle(
                           color: Colors.black,
@@ -256,7 +258,6 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       //! When the user selects the login button the application will try to log them in using the login function.
                       //* Changed the On pressed to call the LoginLogic login method.
                       onPressed: () => LoginLogic.login(
@@ -270,7 +271,6 @@ class _LoginPageState extends State<LoginPage> {
                             _loginError = error;
                           });
                         },
-                        //! Snackbar to show login sucessful.
                         () {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -280,7 +280,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           );
                         },
-                        () {
+                        //! Placing the user id.
+                        (userId) {
                           //! Once sucessfully signed in they will go to the homepage.
                           Navigator.pushReplacementNamed(context, '/home');
                         },
@@ -294,7 +295,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                //const SizedBox(height: 8),
                 //! This will display a login message based on the error.
                 if (_loginError != null)
                   Padding(
