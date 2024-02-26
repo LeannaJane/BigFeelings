@@ -43,6 +43,23 @@
 9
 ? Freepik. (n.d.). Emoji icons created by Freepik. [online] Flaticon. Available at: https://www.flaticon.com/free-icons/emoji [Accessed <access date>].
 * - This website provided Emoji icons created by Freepik, which were used in the project for Mood Tracker page.
+
+10
+? Firebase. (n.d.). Read and Write Data | Firebase Realtime Database. [online] Available at: https://firebase.google.com/docs/database/flutter/read-and-write.
+* This website assisted me in saving my data from the mood tracker to the firebase using UserID.
+
+*DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
+*await ref.set({
+* "name": "John",
+*  "age": 18,
+*  "address": {
+*  "line1": "100 Mountain View"
+* }
+* This code allowed me to save the date, the user ID and the chosen emotion.
+
+11
+? Githubusercontent.com. (2022). Available at: https://user-images.githubusercontent.com/56982087/192634126-b0bab8fb-3544-481c-8267-f29f6469d66d.jpg [Accessed 26 Feb. 2024].
+* This github code Ui for the emotion layout was inspired by this github respos. 
 */
 
 
