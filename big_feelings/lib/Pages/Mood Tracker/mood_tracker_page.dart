@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:logger/logger.dart';
+
+//! Added a logger
+final logger = Logger();
 
 class MoodTrackerPage extends StatefulWidget {
   // ignore: use_super_parameters
@@ -20,11 +25,28 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     selectedEmotionIndex = -1;
   }
 
+  //! This method sets the current time, the mood selected and the userid, and saves it to firebase database.
+  void _saveMoodToFirestore(String mood, String userId) async {
+    Timestamp currentTime = Timestamp.now();
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      await firestore.collection('Moods Collection').add({
+        //! The three items in the collection saved to firebase.
+        'mood': mood,
+        'time': currentTime,
+        'userId': userId,
+      });
+      //! Shows that the mood is saved in the terminal.
+      logger.i('Mood saved to Firestore');
+    } catch (e) {
+      //! Throws an exception if it fails.
+      logger.e('Error saving mood: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    //! Added a logger
-    var logger = Logger();
-
     /*
      ! Below shows a page, that asks the user how they feel and presents the
      ! users with 12 different emotional images. 
@@ -114,6 +136,15 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                   //! Only one emotion can be selected at a time.
                   selectedEmotionIndex = index;
                   logger.i('Emotion ${index + 1} selected');
+
+                  //! This accesses the current user ID
+                  User? user = FirebaseAuth.instance.currentUser;
+                  if (user != null) {
+                    _saveMoodToFirestore(emotionName, user.uid);
+                  } else {
+                    logger.e('User is not logged in.');
+                    //! This handles when user not logged in
+                  }
                 }
               });
             },
