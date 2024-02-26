@@ -8,6 +8,8 @@ import 'package:big_feelings/Pages/Login/login_ui.dart';
 import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
 import 'package:big_feelings/Pages/Login/welcome_page.dart';
+import 'package:big_feelings/Pages/Mood%20Tracker/mood_entires_page.dart';
+import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
@@ -137,6 +139,10 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/password_reset':
       page = const PasswordResetPage();
       break;
+    case '/mood-options':
+      page = const MoodOptionPage();
+    case '/mood-entries':
+      page = const MoodEntriesPage();
     default:
       page = const WelcomePage();
   }
