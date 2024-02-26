@@ -18,6 +18,7 @@ dependencies:
   shared_preferences: ^2.2.2
   logging: ^1.2.0
   google_fonts: ^6.1.0
+  cupertino_icons: ^1.0.6
   cloud_firestore: ^4.15.5
   intl: ^0.19.0
 
@@ -31,7 +32,10 @@ flutter:
   assets:
     - assets/images/
     - assets/images/images_mood/
+    - fonts/
+
   fonts:
     - family: SingleDay
       fonts:
         - asset: fonts/SingleDay-Regular.ttf
+    
