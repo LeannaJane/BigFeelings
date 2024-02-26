@@ -204,7 +204,7 @@ class HomePage extends StatelessWidget {
     {
       'title': 'Mood Tracker',
       'icon': Icons.mood,
-      'route': '/mood-tracker',
+      'route': '/mood-options',
     },
   ];
   //! Widget for displaying each menu item this contains the parameters, context, title, icon data, font family, spacing and background colour
