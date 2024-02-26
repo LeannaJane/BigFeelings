@@ -141,6 +141,8 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       break;
     case '/mood-options':
       page = const MoodOptionPage();
+      //! Added the back route as the animations was having the same animation so i fixed it.
+      return RouteAnimations.backAnimation(page);
     case '/mood-entries':
       page = const MoodEntriesPage();
     default:
