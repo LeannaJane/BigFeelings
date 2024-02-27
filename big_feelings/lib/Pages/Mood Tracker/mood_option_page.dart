@@ -64,10 +64,10 @@ class MoodOptionPage extends StatelessWidget {
               onTap: () {
                 //! This navigates to the mood entry page.
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MoodEntriesPage()),
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MoodEntriesPage(),
+                    ));
               },
               //! This is anotuher container that allows the user to view their mood entries.
               child: Center(

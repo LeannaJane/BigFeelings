@@ -60,7 +60,15 @@
 11
 ? Githubusercontent.com. (2022). Available at: https://user-images.githubusercontent.com/56982087/192634126-b0bab8fb-3544-481c-8267-f29f6469d66d.jpg [Accessed 26 Feb. 2024].
 * This github code Ui for the emotion layout was inspired by this github respos. 
+
+12
+? www.youtube.com. (n.d.). Retrieve Firebase Data & ListView | Part 5. [online] Available at: https://www.youtube.com/watch?v=RGIogk7MFG4 [Accessed 22 Jan. 2024].
+* This video guided me on how to create a list that outputs the firebase data from the collection of the user id.
+‌
+
 */
+
+
 
 
 
