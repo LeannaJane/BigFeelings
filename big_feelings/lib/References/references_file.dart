@@ -65,7 +65,14 @@
 ? www.youtube.com. (n.d.). Retrieve Firebase Data & ListView | Part 5. [online] Available at: https://www.youtube.com/watch?v=RGIogk7MFG4 [Accessed 22 Jan. 2024].
 * This video guided me on how to create a list that outputs the firebase data from the collection of the user id.
 ‌
+13 
+? www.youtube.com. (n.d.). Delete a document of a Cloud Firestore collection from a Flutter app. [online] Available at: https://www.youtube.com/watch?v=KLDVXaTPa5E [Accessed 2 Mar. 2024].
+* This youtube video assisted me on adding a delete option to delete firebase documents. 
 
+14
+? groups.google.com. (n.d.). How to create a pop up menu on a ListTile?? Why is my code for it not working?? [online] Available at: https://groups.google.com/g/flutter-dev/c/KbEsBmVecpo?pli=1 [Accessed 2 Mar. 2024].
+* Then this reminded me how to add a popup menu item for the containers that have the document information in.
+‌
 */
 
 
