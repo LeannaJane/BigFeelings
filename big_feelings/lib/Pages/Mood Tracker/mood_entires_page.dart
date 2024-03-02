@@ -127,18 +127,29 @@ class MoodEntriesPage extends StatelessWidget {
                   //! This allows the user to select delete and if they want to delete the value will = delete and then using async will
                   //! delete the document from firebase.
                   trailing: PopupMenuButton<String>(
+                    //! Added a colour to the popupm menu and round edges.
+                    color: const Color.fromARGB(255, 192, 189, 189),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    //! I added a offset to control where the popup should appear and i made it appear in the right side of the document output in the center vertically.
+                    offset: const Offset(0, -12.5),
                     itemBuilder: (BuildContext context) {
                       return <PopupMenuEntry<String>>[
                         const PopupMenuItem<String>(
                           value: 'delete',
-                          child: Text('Delete'),
+                          child: ListTile(
+                            //! Adding a delete bin Icon.
+                            title: Text('Delete'),
+                            leading: Icon(Icons.delete),
+                          ),
                         ),
                       ];
                     },
                     //? Ref 13
                     onSelected: (String value) async {
                       if (value == 'delete') {
-                        // Perform deletion from Firestore
+                        //! Performs the deletion from Firestore.
                         await moodEntry.reference.delete();
                       }
                     },
@@ -146,7 +157,6 @@ class MoodEntriesPage extends StatelessWidget {
                 ),
               );
             }).toList();
-
             //! This returns the mood entry containers with 20 spacing between them.
             return Wrap(
               spacing: 20,
