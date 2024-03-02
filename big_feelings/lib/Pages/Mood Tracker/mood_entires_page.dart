@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +11,30 @@ class MoodEntriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    //! If the user isnt logged in it will throw this into the page.
+    if (user == null) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Your Mood Entries',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          centerTitle: true,
+        ),
+        body: const Center(
+          child: Text('User is not logged in.'),
+        ),
+      );
+    }
+    //! getting the userId
+    final String userId = user.uid;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -27,7 +52,9 @@ class MoodEntriesPage extends StatelessWidget {
         //! StreamBuilder is used to listen changes in Firestore data
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('Moods Collection')
+              //! Changed the collection name without a space as that could also cause issues.
+              .collection('MoodsCollection')
+              .where('user', isEqualTo: userId)
               //! This orders the time in descending order
               .orderBy('time', descending: true)
               .snapshots(),
@@ -39,7 +66,12 @@ class MoodEntriesPage extends StatelessWidget {
               );
             }
             if (snapshot.hasError) {
+              //! I struggled to understand the error why my code was not actually retrieivng the data, and it was because of
+              //! an indexing problem.
+              print('Error fetching data: ${snapshot.error}');
+              //! If there is an error while fetching the data it will present a error text.
               return const Center(
+                //! If there is an error while fetching the data it will present a error text.
                 //! If there is an error while fetching the data it will present a error text.
                 child: Text('An error occurred while fetching data.'),
               );
