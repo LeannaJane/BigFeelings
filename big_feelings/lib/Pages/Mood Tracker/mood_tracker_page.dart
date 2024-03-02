@@ -47,14 +47,16 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
-      await firestore.collection('Moods Collection').add({
+      //! Changing it to MoodsCollection without a space.
+      await firestore.collection('MoodsCollection').add({
         //! The three items in the collection saved to firebase.
         'mood': mood,
         'time': currentTime,
-        'userId': userId,
+        //! Changed it from userId to user as it couldve been the issue.
+        'user': userId,
       });
       //! Shows that the mood is saved in the terminal.
-      logger.i('Mood saved to Firestore');
+      logger.i('Mood saved to Firestore with userId: $userId');
     } catch (e) {
       //! Throws an exception if it fails.
       logger.e('Error saving mood: $e');
