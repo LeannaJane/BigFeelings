@@ -119,9 +119,30 @@ class MoodEntriesPage extends StatelessWidget {
                     height: 60,
                     fit: BoxFit.contain,
                   ),
+                  //? Ref 14
                   //! This will show the date and time next to the image.
                   title: Text('$date - $time'),
                   subtitle: Text(mood),
+                  //! A trailing is added that allows the item for a delete icon to be added to the container,
+                  //! This allows the user to select delete and if they want to delete the value will = delete and then using async will
+                  //! delete the document from firebase.
+                  trailing: PopupMenuButton<String>(
+                    itemBuilder: (BuildContext context) {
+                      return <PopupMenuEntry<String>>[
+                        const PopupMenuItem<String>(
+                          value: 'delete',
+                          child: Text('Delete'),
+                        ),
+                      ];
+                    },
+                    //? Ref 13
+                    onSelected: (String value) async {
+                      if (value == 'delete') {
+                        // Perform deletion from Firestore
+                        await moodEntry.reference.delete();
+                      }
+                    },
+                  ),
                 ),
               );
             }).toList();
