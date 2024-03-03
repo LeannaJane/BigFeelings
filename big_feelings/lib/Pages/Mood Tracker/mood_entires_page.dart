@@ -1,7 +1,10 @@
+import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class MoodEntriesPage extends StatelessWidget {
   // ignore: use_super_parameters
@@ -12,160 +15,208 @@ class MoodEntriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
+    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
+      //! Using the Provider package to manage theme and font data
+      //! Extracting theme and font information from providers
+      final currentTheme = themeNotifier.currentTheme;
+      final fontProvider = Provider.of<FontProvider>(context);
+      final selectedFontFamily = fontProvider.selectedFontFamily;
+      //! Determining background,text colors and icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
+      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
+          ? Colors.grey[800]!
+          : Colors.white;
+      Color textColor =
+          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+      Color iconColor =
+          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
 
-    //! If the user isnt logged in it will throw this into the page.
-    if (user == null) {
+      //! If the user isnt logged in it will throw this into the page.
+      if (user == null) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Your Mood Entries',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontFamily: selectedFontFamily,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            centerTitle: true,
+          ),
+          body: const Center(
+            child: Text('User is not logged in.'),
+          ),
+        );
+      }
+      //! getting the userId
+      final String userId = user.uid;
+
       return Scaffold(
+        //! Setting the current theme as the background colour.
+        backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
         appBar: AppBar(
-          title: const Text(
+          //! Setting the current theme as the background colour.
+          backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
+          title: Text(
+            //! Your entries title for this page, which is centered, the style will eventually be changed
             'Your Mood Entries',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontFamily: selectedFontFamily,
+              fontSize: 30.0,
+              color: textColor,
             ),
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30.0,
+              color: iconColor,
+            ),
+            onPressed: () {
+              //! If selected it will return to the previous page.
+              Navigator.pop(context);
+            },
+          ),
         ),
-        body: const Center(
-          child: Text('User is not logged in.'),
+        body: SingleChildScrollView(
+          //! StreamBuilder is used to listen changes in Firestore data
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                //! Changed the collection name without a space as that could also cause issues.
+                .collection('MoodsCollection')
+                .where('user', isEqualTo: userId)
+                //! This orders the time in descending order
+                .orderBy('time', descending: true)
+                .snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              //! This shows a loading  while data is being fetched
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (snapshot.hasError) {
+                //! I struggled to understand the error why my code was not actually retrieivng the data, and it was because of
+                //! an indexing problem.
+                print('Error fetching data: ${snapshot.error}');
+                //! If there is an error while fetching the data it will present a error text.
+                return const Center(
+                  //! If there is an error while fetching the data it will present a error text.
+                  //! If there is an error while fetching the data it will present a error text.
+                  child: Text('An error occurred while fetching data.'),
+                );
+              }
+              if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
+                return const Center(
+                  //! This shows a message if no mood entries are found
+                  child: Text('No mood entries found.'),
+                );
+              }
+              //! This creates a list of mood entry containers
+              List<Widget> moodEntryContainers =
+                  snapshot.data!.docs.map((moodEntry) {
+                //! This extracts mood data from Firestore collection document for moods
+                String mood = moodEntry['mood'];
+                Timestamp timestamp = moodEntry['time'];
+                DateTime dateTime = timestamp.toDate();
+                //! These variables format the date and the time.
+                String date = DateFormat('dd MMMM yyyy').format(dateTime);
+                String time = DateFormat('hh:mm a').format(dateTime);
+
+                //! This returns a container for each mood entry
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                    color: backgroundColor,
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    leading: Image.asset(
+                      //! It will display a mood image based on the mood type, next to the mood information.
+                      'assets/images/images_mood/${mood.toLowerCase()}.png',
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.contain,
+                    ),
+                    //? Ref 14
+                    //! This will show the date and time next to the image.
+                    title: Text(
+                      '$date - $time',
+                      style: TextStyle(
+                        fontFamily:
+                            selectedFontFamily, // Assigning the font family.
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    subtitle: Text(
+                      mood,
+                      style: TextStyle(
+                        fontFamily:
+                            selectedFontFamily, // Assigning the font family.
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    //! A trailing is added that allows the item for a delete icon to be added to the container,
+                    //! This allows the user to select delete and if they want to delete the value will = delete and then using async will
+                    //! delete the document from firebase.
+                    trailing: PopupMenuButton<String>(
+                      //! Added a colour to the popupm menu and round edges.
+
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      //! I added a offset to control where the popup should appear and i made it appear in the right side of the document output in the center vertically.
+                      offset: const Offset(0, -12.5),
+                      itemBuilder: (BuildContext context) {
+                        return <PopupMenuEntry<String>>[
+                          const PopupMenuItem<String>(
+                            value: 'delete',
+                            child: ListTile(
+                              //! Adding a delete bin Icon.
+                              title: Text('Delete'),
+                              leading: Icon(Icons.delete),
+                            ),
+                          ),
+                        ];
+                      },
+                      //? Ref 13
+                      onSelected: (String value) async {
+                        if (value == 'delete') {
+                          //! Performs the deletion from Firestore.
+                          await moodEntry.reference.delete();
+                        }
+                      },
+                    ),
+                  ),
+                );
+              }).toList();
+              //! This returns the mood entry containers with 20 spacing between them.
+              return Wrap(
+                spacing: 20,
+                runSpacing: 20,
+                children: moodEntryContainers,
+              );
+            },
+          ),
         ),
       );
-    }
-    //! getting the userId
-    final String userId = user.uid;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          //! Your entries title for this page, which is centered, the style will eventually be changed
-          'Your Mood Entries',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        //! StreamBuilder is used to listen changes in Firestore data
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              //! Changed the collection name without a space as that could also cause issues.
-              .collection('MoodsCollection')
-              .where('user', isEqualTo: userId)
-              //! This orders the time in descending order
-              .orderBy('time', descending: true)
-              .snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            //! This shows a loading  while data is being fetched
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasError) {
-              //! I struggled to understand the error why my code was not actually retrieivng the data, and it was because of
-              //! an indexing problem.
-              print('Error fetching data: ${snapshot.error}');
-              //! If there is an error while fetching the data it will present a error text.
-              return const Center(
-                //! If there is an error while fetching the data it will present a error text.
-                //! If there is an error while fetching the data it will present a error text.
-                child: Text('An error occurred while fetching data.'),
-              );
-            }
-            if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-              return const Center(
-                //! This shows a message if no mood entries are found
-                child: Text('No mood entries found.'),
-              );
-            }
-            //! This creates a list of mood entry containers
-            List<Widget> moodEntryContainers =
-                snapshot.data!.docs.map((moodEntry) {
-              //! This extracts mood data from Firestore collection document for moods
-              String mood = moodEntry['mood'];
-              Timestamp timestamp = moodEntry['time'];
-              DateTime dateTime = timestamp.toDate();
-              //! These variables format the date and the time.
-              String date = DateFormat('dd MMMM yyyy').format(dateTime);
-              String time = DateFormat('hh:mm a').format(dateTime);
-
-              //! This returns a container for each mood entry
-              return Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 6,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                  color: Colors.white,
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  leading: Image.asset(
-                    //! It will display a mood image based on the mood type, next to the mood information.
-                    'assets/images/images_mood/${mood.toLowerCase()}.png',
-                    width: 60,
-                    height: 60,
-                    fit: BoxFit.contain,
-                  ),
-                  //? Ref 14
-                  //! This will show the date and time next to the image.
-                  title: Text('$date - $time'),
-                  subtitle: Text(mood),
-                  //! A trailing is added that allows the item for a delete icon to be added to the container,
-                  //! This allows the user to select delete and if they want to delete the value will = delete and then using async will
-                  //! delete the document from firebase.
-                  trailing: PopupMenuButton<String>(
-                    //! Added a colour to the popupm menu and round edges.
-                    color: const Color.fromARGB(255, 192, 189, 189),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    //! I added a offset to control where the popup should appear and i made it appear in the right side of the document output in the center vertically.
-                    offset: const Offset(0, -12.5),
-                    itemBuilder: (BuildContext context) {
-                      return <PopupMenuEntry<String>>[
-                        const PopupMenuItem<String>(
-                          value: 'delete',
-                          child: ListTile(
-                            //! Adding a delete bin Icon.
-                            title: Text('Delete'),
-                            leading: Icon(Icons.delete),
-                          ),
-                        ),
-                      ];
-                    },
-                    //? Ref 13
-                    onSelected: (String value) async {
-                      if (value == 'delete') {
-                        //! Performs the deletion from Firestore.
-                        await moodEntry.reference.delete();
-                      }
-                    },
-                  ),
-                ),
-              );
-            }).toList();
-            //! This returns the mood entry containers with 20 spacing between them.
-            return Wrap(
-              spacing: 20,
-              runSpacing: 20,
-              children: moodEntryContainers,
-            );
-          },
-        ),
-      ),
-    );
+    });
   }
 }
