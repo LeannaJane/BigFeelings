@@ -186,12 +186,19 @@ class MoodEntriesPage extends StatelessWidget {
                       offset: const Offset(0, -12.5),
                       itemBuilder: (BuildContext context) {
                         return <PopupMenuEntry<String>>[
-                          const PopupMenuItem<String>(
+                          PopupMenuItem<String>(
                             value: 'delete',
                             child: ListTile(
                               //! Adding a delete bin Icon.
-                              title: Text('Delete'),
-                              leading: Icon(Icons.delete),
+                              title: Text(
+                                'Delete',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: textColor,
+                                  fontFamily: selectedFontFamily,
+                                ),
+                              ),
+                              leading: const Icon(Icons.delete),
                             ),
                           ),
                         ];
