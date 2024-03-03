@@ -4,6 +4,7 @@ import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Breathing%20Page/breathing_page.dart';
+import 'package:big_feelings/Pages/Journal%20Page/journal_options.dart';
 import 'package:big_feelings/Pages/Login/login_ui.dart';
 import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
@@ -16,9 +17,8 @@ import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/library_page.dart';
 import 'package:big_feelings/Pages/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/minigames_page.dart';
-
 import 'package:big_feelings/Pages/quizzes_page.dart';
-import 'package:big_feelings/Pages/yourjournal_page.dart';
+import 'package:big_feelings/Pages/Journal%20Page/journal_entry.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,10 +102,12 @@ class MyApp extends StatelessWidget {
 Route<dynamic> _createRoute(RouteSettings settings) {
   Widget page;
   switch (settings.name) {
+    case '/journal-entries':
+      page = const JournalEntriesPage();
     case '/home':
       page = HomePage();
       // !This uses the back animation while the rest use the forward animation
-      return RouteAnimations.backAnimation(page);
+      return RouteAnimations.forwardAnimation(page);
     case '/breathing':
       page = const BreathingPage();
       break;
@@ -124,9 +126,6 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/quizzes':
       page = const QuizzesPage();
       break;
-    case '/your-journal':
-      page = const YourJournalPage();
-      break;
     case '/login':
       page = const LoginPage();
       break;
@@ -141,12 +140,18 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       break;
     case '/mood-options':
       page = const MoodOptionPage();
-      //! Added the back route as the animations was having the same animation so i fixed it.
       return RouteAnimations.backAnimation(page);
+    //! Added the back route as the animations was having the same animation so i fixed it.
+    case '/journal-options':
+      page = const JournalOptionPage();
+      return RouteAnimations.backAnimation(page);
+    //! Added the back route as the animations was having the same animation so i fixed it.
     case '/mood-entries':
       page = const MoodEntriesPage();
+      return RouteAnimations.forwardAnimation(page);
     case '/mood-checker':
       page = const MoodTrackerPage();
+      break;
     default:
       page = const WelcomePage();
   }
