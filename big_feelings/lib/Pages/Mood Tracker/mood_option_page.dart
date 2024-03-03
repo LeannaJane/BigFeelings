@@ -46,12 +46,8 @@ class MoodOptionPage extends StatelessWidget {
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  //! This navigates to the mood tracker page.
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MoodTrackerPage()),
-                  );
+                  //! This navigates to the mood checker page. I changed this so the page animations worked.
+                  Navigator.pushNamed(context, '/mood-checker');
                 },
                 child: Center(
                   child: Container(
@@ -93,12 +89,9 @@ class MoodOptionPage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   //! This navigates to the mood entry page.
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MoodEntriesPage(),
-                      ));
+                  Navigator.pushNamed(context, '/mood-entries');
                 },
+
                 //! This is anotuher container that allows the user to view their mood entries.
                 child: Center(
                   child: Container(

@@ -145,6 +145,8 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.backAnimation(page);
     case '/mood-entries':
       page = const MoodEntriesPage();
+    case '/mood-checker':
+      page = const MoodTrackerPage();
     default:
       page = const WelcomePage();
   }
