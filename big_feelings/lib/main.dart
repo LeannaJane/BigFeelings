@@ -3,7 +3,10 @@ import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
-import 'package:big_feelings/Pages/Breathing%20Page/breathing_page.dart';
+import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
+import 'package:big_feelings/Pages/Mental%20Health%20Page/mental_healthactivitiespage.dart';
+import 'package:big_feelings/Pages/Mental%20health%20page/Breathing%20Page/breathing_page.dart';
+import 'package:big_feelings/Pages/Journal%20Page/journal_options.dart';
 import 'package:big_feelings/Pages/Login/login_ui.dart';
 import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
@@ -14,7 +17,6 @@ import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/library_page.dart';
-import 'package:big_feelings/Pages/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/minigames_page.dart';
 import 'package:big_feelings/Pages/quizzes_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -102,17 +104,13 @@ Route<dynamic> _createRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/home':
       page = HomePage();
-      // !This uses the back animation while the rest use the forward animation
-      return RouteAnimations.forwardAnimation(page);
-    case '/breathing':
-      page = const BreathingPage();
-      break;
+      return RouteAnimations.backAnimation(page);
     case '/library':
       page = const LibraryPage();
       break;
     case '/mental-health-activities':
       page = const MentalHealthActivitiesPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/mini-games':
       page = const MiniGamesPage();
       break;
@@ -134,20 +132,26 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/password_reset':
       page = const PasswordResetPage();
       break;
+    case '/journal-options':
+      page = const JournalOptionPage();
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-options':
       page = const MoodOptionPage();
-      return RouteAnimations.backAnimation(page);
-    //! Added the back route as the animations was having the same animation so i fixed it.
-    //! Added the back route as the animations was having the same animation so i fixed it.
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/journal-entries':
+      page = const JournalEntriesPage();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/breathing-page':
+      page = const BreathingPage();
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-entries':
       page = const MoodEntriesPage();
-      return RouteAnimations.forwardAnimation(page);
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-checker':
       page = const MoodTrackerPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     default:
       page = const WelcomePage();
   }
-  //! This uses the forward animation to go back to home page.
   return RouteAnimations.forwardAnimation(page);
 }

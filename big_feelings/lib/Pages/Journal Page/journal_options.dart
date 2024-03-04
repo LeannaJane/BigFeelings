@@ -3,31 +3,28 @@ import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MoodOptionPage extends StatelessWidget {
+//! Reused the code again to make the journal option page for the adding a journal and viewing them. Just editing the names but using the same ui to keep conistency.
+class JournalOptionPage extends StatelessWidget {
   // ignore: use_super_parameters
-  const MoodOptionPage({Key? key}) : super(key: key);
+  const JournalOptionPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      //! Using the Provider package to manage theme and font data
-      //! Extracting theme and font information from providers
       final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
       final selectedFontFamily = fontProvider.selectedFontFamily;
-      //! Determining background,text colors and icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
       Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
           ? Colors.grey[800]!
           : Colors.white;
       Color textColor =
           currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+      //Color iconColor =
+      //currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
       return Scaffold(
         appBar: AppBar(
-          //! The mood tracker option page presenting two containers that allows the user to track their moods and view their moods.
           title: Text(
-            'Welcome to the Mood Options page.',
+            'Welcome to the Journal Option Page',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -40,21 +37,18 @@ class MoodOptionPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              //! Added space between the title and the track your mood container.
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  //! This navigates to the mood checker page. I changed this so the page animations worked.
-                  Navigator.pushNamed(context, '/mood-checker');
+                  Navigator.pushNamed(context, '/journal-entries');
                 },
                 child: Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    //! Setting the width and height of the containers so they are the same.
                     width: 300,
                     height: 300,
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 30),
+                        vertical: 15.0, horizontal: 30.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15.0),
                       boxShadow: [
@@ -69,8 +63,7 @@ class MoodOptionPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        //! Mood checkin page.
-                        'Mood Check In',
+                        'Write a Journal',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: selectedFontFamily,
@@ -82,24 +75,16 @@ class MoodOptionPage extends StatelessWidget {
                   ),
                 ),
               ),
-              //! Adding space between the two container buttons.
               const SizedBox(height: 40),
               GestureDetector(
-                onTap: () {
-                  //! This navigates to the mood entry page.
-                  Navigator.pushNamed(context, '/mood-entries');
-                },
-
-                //! This is anotuher container that allows the user to view their mood entries.
+                onTap: () {},
                 child: Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    //! Applying the same width and height for consistency.
                     width: 300,
                     height: 300,
-                    //! Adding padding and shadow.
                     padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 30),
+                        vertical: 15.0, horizontal: 30.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15.0),
                       boxShadow: [
@@ -114,8 +99,7 @@ class MoodOptionPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        //! View your mood entries option. forwards them to the mood entry page.
-                        'View Your Mood Entries',
+                        'Read past Journals.',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontFamily: selectedFontFamily,
@@ -126,7 +110,7 @@ class MoodOptionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

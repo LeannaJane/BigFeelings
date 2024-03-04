@@ -172,11 +172,6 @@ class HomePage extends StatelessWidget {
   //! Shows the routes, the icons, and the title of each menu item.
   final List<Map<String, dynamic>> menuItems = [
     {
-      'title': 'Breathing',
-      'icon': Icons.adjust,
-      'route': '/breathing',
-    },
-    {
       'title': 'Mini-Games',
       'icon': Icons.gamepad,
       'route': '/mini-games',
@@ -189,7 +184,7 @@ class HomePage extends StatelessWidget {
     {
       'title': 'Your Journal',
       'icon': Icons.book,
-      'route': '/your-journal',
+      'route': '/journal-options',
     },
     {
       'title': 'Library',
