@@ -21,8 +21,8 @@ class MoodOptionPage extends StatelessWidget {
           : Colors.white;
       Color textColor =
           currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+      //Color iconColor =
+          //currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
       return Scaffold(
         appBar: AppBar(
           //! The mood tracker option page presenting two containers that allows the user to track their moods and view their moods.

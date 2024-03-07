@@ -6,9 +6,10 @@ import 'package:logger/logger.dart';
 final logger = Logger();
 
 class JournalEntriesPage extends StatefulWidget {
-  const JournalEntriesPage({Key? key}) : super(key: key);
+  const JournalEntriesPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _JournalEntriesPageState createState() => _JournalEntriesPageState();
 }
 
@@ -55,12 +56,12 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            const SizedBox(height: 20),
             Container(
               width: 300,
               height: 300,
               decoration: BoxDecoration(
                 color: Colors.white,
-                //border: Border.all(color: Colors.black),
                 borderRadius: BorderRadius.circular(30.0),
                 boxShadow: [
                   BoxShadow(
@@ -71,26 +72,20 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                   ),
                 ],
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30.0),
-                child: SizedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      controller: _textController,
-                      maxLines: 10,
-                      decoration: const InputDecoration(
-                        hintText: 'Write your feelings here...',
-                        filled: true,
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                      cursorColor: Colors.black,
-                    ),
-                  ),
+              child: TextField(
+                controller: _textController,
+                maxLines: 10,
+                decoration: const InputDecoration(
+                  hintText: 'Write your feelings here...',
+                  filled: true,
+                  hoverColor: Colors.transparent,
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(12.0),
                 ),
+                cursorColor: Colors.black,
               ),
             ),
+            const SizedBox(height: 20),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

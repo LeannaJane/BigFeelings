@@ -89,7 +89,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
+    //final User? user = FirebaseAuth.instance.currentUser;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       //! Using the Provider package to manage theme and font data
       //! Extracting theme and font information from providers
