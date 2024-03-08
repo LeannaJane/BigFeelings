@@ -59,7 +59,41 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  TextStyle getTitleFontStyle({double fontSize = 12.0}) {
+  TextStyle getOtherTitleStyle() {
+    const Color textColor = Colors.black;
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+            fontSize: 30, fontWeight: FontWeight.bold);
+      case 'SingleDay':
+        return const TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 40,
+          color: textColor,
+        );
+    }
+  }
+
+  TextStyle getTitleFontStyle() {
     const Color textColor = Colors.black; // Assuming default color
     switch (_selectedFontFamily) {
       case 'Pacifico':
@@ -175,6 +209,41 @@ class FontProvider with ChangeNotifier {
           fontFamily: 'SingleDay',
           fontSize: 18,
           fontWeight: FontWeight.bold,
+          color: textcolour,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: fontSize,
+          color: textcolour,
+        );
+    }
+  }
+
+  TextStyle fontstylenotbald({
+    double fontSize = 14.0,
+    Color textcolour = Colors.black, // Specify the default color here
+  }) {
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textcolour,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textcolour,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textcolour,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: fontSize,
           color: textcolour,
         );
       default:
