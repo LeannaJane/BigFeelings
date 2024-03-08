@@ -25,7 +25,6 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   //! selected day in the calender.
   late List<DocumentSnapshot> _entries = [];
   late DateTime _focusedDay;
-  late DateTime _selectedDay;
 
   //! Below shows a initstate method being overwritten, and it initalises a text controller for handing
   //! text input, and sets the focused day to this day, and the selected day to the date now. Then it using the method
@@ -35,7 +34,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
     super.initState();
     _textController = TextEditingController();
     _focusedDay = DateTime.now();
-    _selectedDay = DateTime.now();
+
     retrieveEntries();
   }
 
@@ -160,11 +159,12 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                 },
                 onDaySelected: (selectedDay, focusedDay) {
                   setState(() {
-                    _selectedDay = selectedDay;
                     _focusedDay = focusedDay;
                   });
                 },
                 calendarFormat: CalendarFormat.month,
+                //! Removing the preformatted weeks from the calender.
+                availableCalendarFormats: const {CalendarFormat.month: ''},
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 calendarBuilders: CalendarBuilders(
                   markerBuilder: (context, date, events) {
@@ -213,6 +213,48 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                     }
                   },
                 ),
+              ),
+              //! Adding space.
+              const SizedBox(height: 20),
+              //! Added a row that shows the colour and a piece of text to desribe the circle colour meaning on the calender underneath it.
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Journal entries saved',
+                    style: TextStyle(color: Colors.blue, fontSize: 14),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'No journal saved today',
+                    style: TextStyle(color: Colors.red, fontSize: 14),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ],
           ),
