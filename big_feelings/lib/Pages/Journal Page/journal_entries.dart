@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,7 +36,6 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
     super.initState();
     _textController = TextEditingController();
     _focusedDay = DateTime.now();
-
     retrieveEntries();
   }
 
@@ -75,7 +76,6 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Journal page'),
@@ -129,24 +129,55 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
               //! When the save buttons pressed, it checks if the user is not null and if there is an authenticated user,
               //! The journal will be saved to firebase with the text and the user Id.
               //! If they're not logged in the console will output the logger exception.
-              ElevatedButton(
-                onPressed: () {
-                  if (_textController.text.isNotEmpty) {
-                    if (user != null) {
-                      _saveJournalEntry(_textController.text, user.uid);
-                      _textController.clear();
-                    } else {
-                      logger.e('User is not logged in.');
-                    }
-                  }
-                },
-                child: const Text(
-                  'Save Entry',
-                  style: TextStyle(color: Colors.black),
+
+              //! Changing to a container to allow shadow around the box.
+              Center(
+                //! Wrapping the GestureDetector with a Center widget to center the button, as I had an issue with the width not changing because of this.
+                child: Material(
+                  borderRadius: BorderRadius.circular(25.0),
+                  child: InkWell(
+                    onTap: () {
+                      if (_textController.text.isNotEmpty) {
+                        if (user != null) {
+                          _saveJournalEntry(
+                              _textController.text, user.uid, context);
+                          _textController.clear();
+                        } else {
+                          logger.e('User is not logged in.');
+                        }
+                      }
+                    },
+                    //! Changing the elevated button to a container to allow to customise and add shadows around the corntainer for consistency.
+                    splashColor: Colors.blue,
+                    borderRadius: BorderRadius.circular(40.0),
+                    child: Container(
+                      width: 100,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Save Entry',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
+
               //! Adding space between the save button and calender.
-              const SizedBox(height: 60),
+              const SizedBox(height: 10),
               //! This displays a calender with a entry status, so if the user has entried, the selected days will be in a certain
               //! The first date is set to the first date of 2024, as the application does not allow users to submit a date,
               //! and the app has only just been created, so it serves no point adding past years. unless a select date and time is added to the submission of the entries.
@@ -264,21 +295,57 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   }
 
   //! This method saves the journal entry to firebase, by saving the entry (the text) and userId to firestore database.
-  void _saveJournalEntry(String entry, String userId) async {
+  void _saveJournalEntry(
+      String entry, String userId, BuildContext context) async {
     //! This gets the current time.
     Timestamp currentTime = Timestamp.now();
     //! This saves the user id, current time and the text entry into the firestore collection for the journal entries.
+
     try {
       await _firestore.collection('JournalEntries').add({
         'entry': entry,
         'time': currentTime,
         'user': userId,
       });
+      //! Displaying a green snackbar if the save is Sucessful.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Journal entry saved!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+
       //! Then if it sucessful it outputs in the console, that it is with the user id.
+
       logger.i('Journal entry saved to Firestore with userId: $userId');
+      //! Reteieving the entries.
       retrieveEntries();
-      //! Displays error if unsucessful.
+      //! Displays error if unsucessful with a snackbar to the user in red and black.
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Error saving journal entry. Please try again.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
+
+      //! Log and show an error snackbar if there's an issue
       logger.e('Error saving journal entry: $e');
     }
   }
