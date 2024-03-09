@@ -1,19 +1,15 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Pages/Login/login_logic.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:logger/logger.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-final logger = Logger();
-
 class JournalEntriesPage extends StatefulWidget {
   // ignore: use_super_parameters
-  const JournalEntriesPage({super.key});
+  const JournalEntriesPage({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -74,6 +70,54 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
       final entryDate = (entry['time'] as Timestamp).toDate();
       return formatter.format(entryDate) == dateString;
     });
+  }
+
+  void _saveJournalEntry(
+      String entry, String userId, BuildContext context) async {
+    try {
+      await FirebaseFirestore.instance.collection('JournalEntries').add({
+        'entry': entry,
+        'time': Timestamp.now(),
+        'user': userId,
+      });
+      logger.i('Journal entry saved successfully! User ID: $userId');
+      retrieveEntries();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Journal entry saved successfully!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      logger.e('Error saving journal entry: $e. User ID: $userId');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Error saving journal entry. Please try again.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  TextStyle getRegularFontStyle(FontProvider fontProvider,
+      {double fontSize = 16.0}) {
+    return fontProvider.fontstylenotbald(fontSize: fontSize);
   }
 
   @override
@@ -156,6 +200,21 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                           } else {
                             logger.e('User is not logged in.');
                           }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Please type something before saving.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
                         }
                       },
                       //! Changing the elevated button to a container to allow to customise and add shadows around the corntainer for consistency.
@@ -186,79 +245,95 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                     ),
                   ),
                 ),
-
                 //! Adding space between the save button and calender.
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 //! This displays a calender with a entry status, so if the user has entried, the selected days will be in a certain
                 //! The first date is set to the first date of 2024, as the application does not allow users to submit a date,
                 //! and the app has only just been created, so it serves no point adding past years. unless a select date and time is added to the submission of the entries.
                 TableCalendar(
+                  //! First date of the calender.
                   firstDay: DateTime.utc(2024, 01, 01),
+                  //! Last date of the calender.
                   lastDay: DateTime.utc(2030, 3, 14),
+                  //! This is the current focused day on the calendar
                   focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) {
-                    return _hasEntryForDate(day);
+
+                  //! If the user has entered a journal it will go dark blue.
+                  selectedDayPredicate: (DateTime date) {
+                    return _hasEntryForDate(date);
                   },
+
+                  //! This sets the currently focused day to the selected day
                   onDaySelected: (selectedDay, focusedDay) {
                     setState(() {
                       _focusedDay = focusedDay;
                     });
                   },
+                  //! This line of code specifies the format for the calender, and it shows the month in the center.
                   calendarFormat: CalendarFormat.month,
-                  //! Removing the preformatted weeks from the calender.
+                  //! Then this defines the styles for the calender cells. So each of these different styles can be found by
+                  //! Selected the calenderStyle class and inputting the ones needed and applying the font style.
+                  calendarStyle: CalendarStyle(
+                    //! I set this to false, this checks whether to show days outside of the current month
+                    outsideDaysVisible: false,
+                    //! Default text style for calendar cells
+                    defaultTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for today's date
+                    todayTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for selected date
+                    selectedTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for weekend days
+                    weekendTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for holiday days
+                    holidayTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for the start of a date range
+                    rangeStartTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for the end of a date range
+                    rangeEndTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for disabled dates
+                    disabledTextStyle: fontProvider.fontstylenotbald(),
+                    //! Text style for week numbers
+                    weekNumberTextStyle: fontProvider.fontstylenotbald(),
+                    selectedDecoration: const BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    todayDecoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  //! This code block defines the style for the calender header.
+                  headerStyle: HeaderStyle(
+                    //! I set this to false, this checks whether to show the format button
+                    formatButtonVisible: false,
+                    //! Text style for the title
+                    titleTextStyle: fontProvider.fontstylenotbald(),
+                    //! Icon for navigating to the previous and next month
+                    leftChevronIcon: const Icon(Icons.chevron_left,
+                        color: Colors.black, size: 20),
+                    rightChevronIcon: const Icon(Icons.chevron_right,
+                        color: Colors.black, size: 20),
+                    //! Margin for the  chevron icon
+                    leftChevronMargin: EdgeInsets.zero,
+                    rightChevronMargin: EdgeInsets.zero,
+                    titleCentered: true,
+                    //! This is a formatter for the title text
+                    titleTextFormatter: (date, locale) =>
+                        DateFormat.yMMM(locale).format(date),
+                  ),
+                  //! This code defines the style for the days of the week
+                  daysOfWeekStyle: DaysOfWeekStyle(
+                    weekdayStyle: fontProvider.fontstylenotbald(),
+                    weekendStyle: fontProvider.fontstylenotbald(),
+                  ),
                   availableCalendarFormats: const {CalendarFormat.month: ''},
                   startingDayOfWeek: StartingDayOfWeek.monday,
-                  calendarBuilders: CalendarBuilders(
-                    markerBuilder: (context, date, events) {
-                      final isCurrentDay = isSameDay(date, DateTime.now());
-                      final hasEntry = _hasEntryForDate(date);
-                      if (isCurrentDay) {
-                        //! If it is the current day, based off datetime now, if the user has saved an entry today, it'll show blue,
-                        //! and if it shows red, it suggests they have not saved a journal today.
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: hasEntry ? Colors.blue : Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text(
-                              //! Changes the text to white to blend better with the change of colour, this will eventually be changed.
-                              date.day.toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Container(
-                          //! If it's not the current day, the colour of the marker will be blue if there's an entry, meaning that there is a journal entry on that day,
-                          //! and white it will show that there is no entry for that day.
-                          decoration: hasEntry
-                              ? const BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
-                                )
-                              : const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                          //! Displays the day number within the marker. The text color is white if there's an entry for that day and will show black text if there is no journal entry.
-                          child: Center(
-                            child: Text(
-                              date.day.toString(),
-                              style: TextStyle(
-                                color: hasEntry ? Colors.white : Colors.black,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  ),
                 ),
                 //! Adding space.
                 const SizedBox(height: 20),
                 //! Added a row that shows the colour and a piece of text to desribe the circle colour meaning on the calender underneath it.
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -266,7 +341,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                       width: 20,
                       height: 20,
                       decoration: const BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.green,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -304,61 +379,5 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
         ),
       );
     });
-  }
-
-  //! This method saves the journal entry to firebase, by saving the entry (the text) and userId to firestore database.
-  void _saveJournalEntry(
-      String entry, String userId, BuildContext context) async {
-    //! This gets the current time.
-    Timestamp currentTime = Timestamp.now();
-    //! This saves the user id, current time and the text entry into the firestore collection for the journal entries.
-
-    try {
-      await _firestore.collection('JournalEntries').add({
-        'entry': entry,
-        'time': currentTime,
-        'user': userId,
-      });
-      //! Displaying a green snackbar if the save is Sucessful.
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Journal entry saved!',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      //! Then if it sucessful it outputs in the console, that it is with the user id.
-
-      logger.i('Journal entry saved to Firestore with userId: $userId');
-      //! Reteieving the entries.
-      retrieveEntries();
-      //! Displays error if unsucessful with a snackbar to the user in red and black.
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Error saving journal entry. Please try again.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          duration: Duration(seconds: 2),
-          backgroundColor: Colors.red,
-        ),
-      );
-
-      //! Log and show an error snackbar if there's an issue
-      logger.e('Error saving journal entry: $e');
-    }
   }
 }
