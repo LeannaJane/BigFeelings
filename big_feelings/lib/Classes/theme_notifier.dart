@@ -69,4 +69,26 @@ class ThemeNotifier with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isDarkTheme', isDarkMode);
   }
+
+  Color getIconColor() {
+    return _currentTheme == darkTheme ? Colors.white : Colors.black;
+  }
+
+  Color getContainerColor() {
+    return _currentTheme == darkTheme ? Colors.grey[800]! : Colors.white;
+  }
+
+  Color hoverColour() {
+    return _currentTheme == darkTheme
+        ? const Color.fromARGB(255, 119, 118, 118)
+        : Colors.white;
+  }
+
+  Color getOutlineColor() {
+    return _currentTheme == darkTheme ? Colors.transparent : Colors.black;
+  }
+
+  Color cursorColor() {
+    return _currentTheme == darkTheme ? Colors.white : Colors.black;
+  }
 }
