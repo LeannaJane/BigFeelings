@@ -116,286 +116,333 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
     }
   }
 
-  TextStyle getRegularFontStyle(FontProvider fontProvider,
-      {double fontSize = 16.0}) {
-    return fontProvider.fontstylenotbald(fontSize: fontSize);
-  }
-
+  //! Below shows the UI of the Journal page, with some adaptions from the last code, to customise the journal page based on theme.
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-    return Consumer<FontProvider>(builder: (context, fontProvider, _) {
-      final themeNotifier = Provider.of<ThemeNotifier>(context);
-      Color iconColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
-          ? Colors.white
-          : Colors.black;
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Journal Page',
-            style: fontProvider.getOtherTitleStyle(),
-            textAlign: TextAlign.center,
-          ),
-          centerTitle: true,
-          automaticallyImplyLeading:
-              false, //! Creating a return icon button with the selected iconcolour and size.
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              size: 30.0,
-              color: iconColor,
+    return Consumer<FontProvider>(
+      builder: (context, fontProvider, _) {
+        final themeNotifier = Provider.of<ThemeNotifier>(context);
+        Color iconColor = themeNotifier.getIconColor();
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Journal Page',
+              style: fontProvider.getOtherTitleStyle(themeNotifier),
+              textAlign: TextAlign.center,
             ),
-            onPressed: () {
-              //! If selected it will return to the previous page.
-              Navigator.pop(context);
-            },
+            centerTitle: true,
+            automaticallyImplyLeading:
+                false, //! Creating a return icon button with the selected iconcolour and size.
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 30.0,
+                color: iconColor,
+              ),
+              onPressed: () {
+                //! If selected it will return to the previous page.
+                Navigator.pop(context);
+              },
+            ),
           ),
-        ),
-        //! Adding a single scroll view to allow the user to scroll if their device is too small, and to reduce exceptions.
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  width: 300,
-                  height: 300,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
+          //! Adding a single scroll view to allow the user to scroll if their device is too small, and to reduce exceptions.
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //! This is the text input for the journal entry journal entry
+                      //! I made one whole container for the calender and the text input.
+                      Container(
+                        decoration: BoxDecoration(
+                          color: themeNotifier.getContainerColor(),
+                          borderRadius: BorderRadius.circular(30.0),
+                          //! Adding a outline colour for the whole container.
+                          border: Border.all(
+                            color: themeNotifier.getOutlineColor(),
+                            width: 1.0,
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.zero,
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(30.0),
+                                  topRight: Radius.circular(30.0),
+                                ),
+                                child: TextField(
+                                  controller: _textController,
+                                  maxLines: 13,
+                                  style: fontProvider.smalltextfontstyle(),
+                                  decoration: InputDecoration(
+                                    //! Removed the input border and the hover colour.
+                                    border: InputBorder.none,
+                                    hintText: 'Write your feelings here...',
+                                    fillColor:
+                                        themeNotifier.getContainerColor(),
+                                    hoverColor: themeNotifier.hoverColour(),
+                                    contentPadding: const EdgeInsets.all(14.0),
+                                    hintStyle:
+                                        fontProvider.smalltextfontstyle(),
+                                  ),
+                                  cursorColor: themeNotifier.cursorColor(),
+                                ),
+                              ),
+                            ),
+                            //! Added a divider between calendar and text field
+                            const Divider(
+                              color: Colors.black,
+                              height: 1,
+                              thickness: 2,
+                            ),
+                            //! This displays a calender with a entry status, so if the user has entried, the selected days will be in a certain
+                            //! The first date is set to the first date of 2024, as the application does not allow users to submit a date,
+                            //! and the app has only just been created, so it serves no point adding past years. unless a select date and time is added to the submission of the entries.
+                            TableCalendar(
+                              //! The first date of the calender.
+                              firstDay: DateTime.utc(2024, 01, 01),
+                              //! The last date of the calender
+                              lastDay: DateTime.utc(2030, 3, 14),
+                              //! This is the current focused day on the calender
+                              focusedDay: _focusedDay,
+                              //! If the user entered a journal it will show green if they have not it will go red.
+                              selectedDayPredicate: (DateTime date) {
+                                return _hasEntryForDate(date);
+                              },
+                              //! This sets the currently focused day to the selected day
+                              onDaySelected: (selectedDay, focusedDay) {
+                                setState(() {
+                                  _focusedDay = focusedDay;
+                                });
+                              },
+                              //! This line of code specifies the format for the calender, and it shows the month in the center.
+                              calendarFormat: CalendarFormat.month,
+                              calendarStyle: CalendarStyle(
+                                //! I set this to false, this checks whether to show days outside of the current month
+                                outsideDaysVisible: false,
+                                //! Default text style for calendar cells
+                                defaultTextStyle: fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for today's date
+                                todayTextStyle: fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for selected date
+                                selectedTextStyle:
+                                    fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for weekend days
+                                weekendTextStyle: fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for holiday days
+                                holidayTextStyle: fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for the start of a date range
+                                rangeStartTextStyle:
+                                    fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for the end of a date range
+                                rangeEndTextStyle:
+                                    fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for disabled dates
+                                disabledTextStyle:
+                                    fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Text style for week numbers
+                                weekNumberTextStyle:
+                                    fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                selectedDecoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                ),
+                                todayDecoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              //! This code block defines the style for the calender header.
+                              headerStyle: HeaderStyle(
+                                formatButtonVisible: false,
+                                //! Text style for the title
+                                titleTextStyle: fontProvider.calenderText(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                //! Icon for navigating to the previous and next month
+                                leftChevronIcon: Icon(
+                                  Icons.chevron_left,
+                                  color: iconColor,
+                                  size: 20,
+                                ),
+                                rightChevronIcon: Icon(
+                                  Icons.chevron_right,
+                                  color: iconColor,
+                                  size: 20,
+                                ),
+                                //! Margin for the  chevron icon
+                                leftChevronMargin: EdgeInsets.zero,
+                                rightChevronMargin: EdgeInsets.zero,
+                                titleCentered: true,
+                                //! This is a formatter for the title text
+                                titleTextFormatter: (date, locale) =>
+                                    DateFormat.yMMM(locale).format(date),
+                              ),
+                              //! This code defines the style for the days of the week
+                              daysOfWeekStyle: DaysOfWeekStyle(
+                                weekdayStyle: fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                                weekendStyle: fontProvider.fontstylenotbald(
+                                  themeNotifier: themeNotifier,
+                                ),
+                              ),
+                              availableCalendarFormats: const {
+                                CalendarFormat.month: ''
+                              },
+                              startingDayOfWeek: StartingDayOfWeek.monday,
+                            ),
+                            const SizedBox(height: 20),
+                            //! Journal entries status
+                            //! Added a row that shows the colour and a piece of text to desribe the circle colour meaning on the calender underneath it.
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.green,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Journal entries saved',
+                                  style: fontProvider.calenderText(
+                                    themeNotifier: themeNotifier,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            //! A status shower to show users what things mean in the calender.
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'No journal saved today',
+                                  style: fontProvider.calenderText(
+                                    themeNotifier: themeNotifier,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                  //! Added a clipRRect to make sure that the corners for all the corners of the container does not get cut of or disapear.
-                  //! When I didn't use a clip RRect the corners either at the top corners or the bottom would vanish due to the text field content being overflown.
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(30.0),
-                      bottomLeft: Radius.circular(30.0),
-                      bottomRight: Radius.circular(30.0),
-                    ),
-                    child: TextField(
-                      controller: _textController,
-                      maxLines: 10,
-                      style: fontProvider.smalltextfontstyle(),
-                      decoration: InputDecoration(
-                        hintText: 'Write your feelings here...',
-                        filled: true,
-                        hoverColor: Colors.transparent,
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.all(12.0),
-                        hintStyle: fontProvider.smalltextfontstyle(),
-                      ),
-                      cursorColor: Colors.black,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                //! When the save buttons pressed, it checks if the user is not null and if there is an authenticated user,
-                //! The journal will be saved to firebase with the text and the user Id.
-                //! If they're not logged in the console will output the logger exception.
-
-                //! Changing to a container to allow shadow around the box.
-                Center(
-                  //! Wrapping the GestureDetector with a Center widget to center the button, as I had an issue with the width not changing because of this.
-                  child: Material(
-                    borderRadius: BorderRadius.circular(25.0),
-                    child: InkWell(
-                      onTap: () {
-                        if (_textController.text.isNotEmpty) {
-                          if (user != null) {
-                            _saveJournalEntry(
-                                _textController.text, user.uid, context);
-                            _textController.clear();
+                  const SizedBox(height: 20),
+                  //! Snack bar to tell user to type something if they click save button and to tell them if it submitted.
+                  Center(
+                    child: Material(
+                      borderRadius: BorderRadius.circular(25.0),
+                      child: InkWell(
+                        onTap: () {
+                          if (_textController.text.isNotEmpty) {
+                            if (user != null) {
+                              _saveJournalEntry(
+                                  _textController.text, user.uid, context);
+                              _textController.clear();
+                            } else {
+                              logger.e('User is not logged in.');
+                            }
                           } else {
-                            logger.e('User is not logged in.');
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                'Please type something before saving.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Please type something before saving.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
                               ),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.red,
+                            );
+                          }
+                        },
+                        //! Save Entry button.
+                        //! When the save buttons pressed, it checks if the user is not null and if there is an authenticated user,
+                        //! The journal will be saved to firebase with the text and the user Id.
+                        //! If they're not logged in the console will output the logger exception.
+                        //! Changing to a container to allow shadow around the box.
+                        splashColor: Colors.blue,
+                        borderRadius: BorderRadius.circular(40.0),
+                        child: Container(
+                          width: 150,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            color: themeNotifier.getContainerColor(),
+                            borderRadius: BorderRadius.circular(30.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Save Entry',
+                              style: fontProvider.calenderText(
+                                themeNotifier: themeNotifier,
+                              ),
                             ),
-                          );
-                        }
-                      },
-                      //! Changing the elevated button to a container to allow to customise and add shadows around the corntainer for consistency.
-                      splashColor: Colors.blue,
-                      borderRadius: BorderRadius.circular(40.0),
-                      child: Container(
-                        width: 100,
-                        height: 35,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(30.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Save Entry',
-                            style: fontProvider.getSubTitleStyle(),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                //! Adding space between the save button and calender.
-                const SizedBox(height: 20),
-                //! This displays a calender with a entry status, so if the user has entried, the selected days will be in a certain
-                //! The first date is set to the first date of 2024, as the application does not allow users to submit a date,
-                //! and the app has only just been created, so it serves no point adding past years. unless a select date and time is added to the submission of the entries.
-                TableCalendar(
-                  //! First date of the calender.
-                  firstDay: DateTime.utc(2024, 01, 01),
-                  //! Last date of the calender.
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  //! This is the current focused day on the calendar
-                  focusedDay: _focusedDay,
-
-                  //! If the user has entered a journal it will go dark blue.
-                  selectedDayPredicate: (DateTime date) {
-                    return _hasEntryForDate(date);
-                  },
-
-                  //! This sets the currently focused day to the selected day
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                  //! This line of code specifies the format for the calender, and it shows the month in the center.
-                  calendarFormat: CalendarFormat.month,
-                  //! Then this defines the styles for the calender cells. So each of these different styles can be found by
-                  //! Selected the calenderStyle class and inputting the ones needed and applying the font style.
-                  calendarStyle: CalendarStyle(
-                    //! I set this to false, this checks whether to show days outside of the current month
-                    outsideDaysVisible: false,
-                    //! Default text style for calendar cells
-                    defaultTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for today's date
-                    todayTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for selected date
-                    selectedTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for weekend days
-                    weekendTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for holiday days
-                    holidayTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for the start of a date range
-                    rangeStartTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for the end of a date range
-                    rangeEndTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for disabled dates
-                    disabledTextStyle: fontProvider.fontstylenotbald(),
-                    //! Text style for week numbers
-                    weekNumberTextStyle: fontProvider.fontstylenotbald(),
-                    selectedDecoration: const BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.circle,
-                    ),
-                    todayDecoration: const BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  //! This code block defines the style for the calender header.
-                  headerStyle: HeaderStyle(
-                    //! I set this to false, this checks whether to show the format button
-                    formatButtonVisible: false,
-                    //! Text style for the title
-                    titleTextStyle: fontProvider.fontstylenotbald(),
-                    //! Icon for navigating to the previous and next month
-                    leftChevronIcon: const Icon(Icons.chevron_left,
-                        color: Colors.black, size: 20),
-                    rightChevronIcon: const Icon(Icons.chevron_right,
-                        color: Colors.black, size: 20),
-                    //! Margin for the  chevron icon
-                    leftChevronMargin: EdgeInsets.zero,
-                    rightChevronMargin: EdgeInsets.zero,
-                    titleCentered: true,
-                    //! This is a formatter for the title text
-                    titleTextFormatter: (date, locale) =>
-                        DateFormat.yMMM(locale).format(date),
-                  ),
-                  //! This code defines the style for the days of the week
-                  daysOfWeekStyle: DaysOfWeekStyle(
-                    weekdayStyle: fontProvider.fontstylenotbald(),
-                    weekendStyle: fontProvider.fontstylenotbald(),
-                  ),
-                  availableCalendarFormats: const {CalendarFormat.month: ''},
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                ),
-                //! Adding space.
-                const SizedBox(height: 20),
-                //! Added a row that shows the colour and a piece of text to desribe the circle colour meaning on the calender underneath it.
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Journal entries saved',
-                      style: fontProvider.getSubTitleStyle(),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 20,
-                      height: 20,
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'No journal saved today',
-                      style: fontProvider.getSubTitleStyle(),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
