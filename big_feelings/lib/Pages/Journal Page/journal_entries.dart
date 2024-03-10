@@ -416,14 +416,10 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                           decoration: BoxDecoration(
                             color: themeNotifier.getContainerColor(),
                             borderRadius: BorderRadius.circular(30.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 6,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1.0,
+                            ),
                           ),
                           child: Center(
                             child: Text(
