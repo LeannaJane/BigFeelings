@@ -1,3 +1,4 @@
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,8 +60,10 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  TextStyle getOtherTitleStyle() {
-    const Color textColor = Colors.black;
+  TextStyle getOtherTitleStyle(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
@@ -78,7 +81,7 @@ class FontProvider with ChangeNotifier {
         return GoogleFonts.shortStack(
             fontSize: 30, fontWeight: FontWeight.bold);
       case 'SingleDay':
-        return const TextStyle(
+        return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: 30,
           fontWeight: FontWeight.bold,
@@ -128,7 +131,7 @@ class FontProvider with ChangeNotifier {
   }
 
   //!  Small text for the alert dialog.
-  TextStyle smalltextfontstyle({double fontSize = 20.0}) {
+  TextStyle smalltextfontstyle({double fontSize = 18.0}) {
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
@@ -223,7 +226,12 @@ class FontProvider with ChangeNotifier {
   TextStyle fontstylenotbald({
     double fontSize = 14.0,
     Color textcolour = Colors.black, // Specify the default color here
+    required ThemeNotifier themeNotifier,
   }) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
@@ -244,13 +252,53 @@ class FontProvider with ChangeNotifier {
         return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor, // Using textColor instead of textcolour
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
           fontSize: fontSize,
+          color: textColor, // Using textColor instead of textcolour
+        );
+    }
+  }
+
+  TextStyle calenderText({
+    double fontSize = 18.0,
+    Color textcolour = Colors.black, // Specify the default color here
+    required ThemeNotifier themeNotifier,
+  }) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
           color: textcolour,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textcolour,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textcolour,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: fontSize,
+          color: textColor, // Using textColor instead of textcolour
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: fontSize,
+          color: textColor, // Using textColor instead of textcolour
         );
     }
   }
