@@ -1,4 +1,5 @@
 import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Login/login_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -124,6 +125,10 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
     return Consumer<FontProvider>(builder: (context, fontProvider, _) {
+      final themeNotifier = Provider.of<ThemeNotifier>(context);
+      Color iconColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+          ? Colors.white
+          : Colors.black;
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -132,6 +137,19 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
+          automaticallyImplyLeading:
+              false, //! Creating a return icon button with the selected iconcolour and size.
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30.0,
+              color: iconColor,
+            ),
+            onPressed: () {
+              //! If selected it will return to the previous page.
+              Navigator.pop(context);
+            },
+          ),
         ),
         //! Adding a single scroll view to allow the user to scroll if their device is too small, and to reduce exceptions.
         body: SingleChildScrollView(
