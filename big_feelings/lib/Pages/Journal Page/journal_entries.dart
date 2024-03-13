@@ -46,13 +46,13 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   }
 
   //! This method retrieves the current user from firebase. then if the user is not null (is found) it
-  //! queries the firestore collection JournalEntries and where the user is equal to the user id saved during the login.
+  //! queries the firestore collection JournalCollection and where the user is equal to the user id saved during the login.
   //! Thne it sets the state and updates the entries.
   void retrieveEntries() async {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final querySnapshot = await _firestore
-          .collection('JournalEntries')
+          .collection('JournalCollection')
           .where('user', isEqualTo: user.uid)
           .get();
       setState(() {
@@ -76,7 +76,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   void _saveJournalEntry(String entry, String userId, FontProvider fontProvider,
       BuildContext context) async {
     try {
-      await FirebaseFirestore.instance.collection('JournalEntries').add({
+      await FirebaseFirestore.instance.collection('JournalCollection').add({
         'entry': entry,
         'time': Timestamp.now(),
         'user': userId,
