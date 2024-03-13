@@ -13,6 +13,7 @@ class JournalOptionPage extends StatelessWidget {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
+      Color iconColor = themeNotifier.getIconColor();
       Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
           ? Colors.grey[800]!
           : Colors.white;
@@ -26,6 +27,17 @@ class JournalOptionPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30.0,
+              color: iconColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -89,7 +101,7 @@ class JournalOptionPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Read past Journals.',
+                        'Read past Journals',
                         style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
