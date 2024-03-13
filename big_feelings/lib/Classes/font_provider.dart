@@ -79,7 +79,10 @@ class FontProvider with ChangeNotifier {
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
-            fontSize: 25, fontWeight: FontWeight.bold);
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
@@ -141,7 +144,9 @@ class FontProvider with ChangeNotifier {
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
-            fontSize: fontSize, fontWeight: FontWeight.bold);
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+        );
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
@@ -163,23 +168,22 @@ class FontProvider with ChangeNotifier {
       case 'Pacifico':
         return GoogleFonts.pacifico(
           fontSize: 18,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: 18,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
-            fontSize: 25, fontWeight: FontWeight.bold);
+          fontSize: 25,
+          color: textColor,
+        );
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: 18,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       default:
