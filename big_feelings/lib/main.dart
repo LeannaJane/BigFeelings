@@ -16,11 +16,11 @@ import 'package:big_feelings/Pages/Mood%20Tracker/mood_entires_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
 import 'package:big_feelings/Pages/Quizzes/quiz_option.dart';
+import 'package:big_feelings/Pages/Quizzes/quiz_page.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/library_page.dart';
 import 'package:big_feelings/Pages/minigames_page.dart';
-import 'package:big_feelings/Pages/quizzes_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -122,6 +122,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/quizzes':
       page = const QuizOption();
       break;
+    case '/quiz-choices':
+      page = const Quizzes();
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/login':
       page = const LoginPage();
       break;
