@@ -42,7 +42,9 @@ class QuizOption extends StatelessWidget {
             children: <Widget>[
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/quiz-choices');
+                },
                 child: Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
