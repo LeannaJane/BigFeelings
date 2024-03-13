@@ -31,6 +31,16 @@ class RouteAnimations {
     );
   }
 
+  static PageRouteBuilder instantAnimation(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionDuration: Duration(milliseconds: 1),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return child;
+      },
+    );
+  }
+
   //!  Changed to a static method
   //! Page route transition animation for backward navigation
   static PageRouteBuilder backAnimation(Widget page) {
