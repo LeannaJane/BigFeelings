@@ -100,7 +100,7 @@ class FontProvider with ChangeNotifier {
   }
 
   TextStyle getTitleFontStyle() {
-    const Color textColor = Colors.black; // Assuming default color
+    const Color textColor = Colors.black;
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
@@ -167,29 +167,29 @@ class FontProvider with ChangeNotifier {
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
-          fontSize: 18,
+          fontSize: 14,
           color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
-          fontSize: 18,
+          fontSize: 14,
           color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
-          fontSize: 25,
+          fontSize: 14,
           color: textColor,
         );
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: 18,
+          fontSize: 16,
           color: textColor,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
-          fontSize: 18,
+          fontSize: 14,
           color: textColor,
         );
     }
@@ -224,7 +224,7 @@ class FontProvider with ChangeNotifier {
 
   TextStyle getSubTitleStyle({
     double fontSize = 16.0,
-    Color textcolour = Colors.black, // Specify the default color here
+    Color textcolour = Colors.black,
   }) {
     switch (_selectedFontFamily) {
       case 'Pacifico':
