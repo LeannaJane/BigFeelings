@@ -1,47 +1,49 @@
-// ignore_for_file: library_private_types_in_public_api, use_super_parameters
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart'; // Add this import
+import 'package:big_feelings/Classes/font_provider.dart'; // Add this import
 
-class QuizPage1 extends StatefulWidget {
-  const QuizPage1({Key? key}) : super(key: key);
+class StartQuiz1 extends StatefulWidget {
+  const StartQuiz1({Key? key}) : super(key: key);
 
   @override
-  _QuizPage1State createState() => _QuizPage1State();
+  _StartQuiz1State createState() => _StartQuiz1State();
 }
 
-class _QuizPage1State extends State<QuizPage1> {
-  bool showQuiz = false;
-
-  void _startQuiz() {
-    setState(() {
-      showQuiz = true;
-    });
-  }
-
+class _StartQuiz1State extends State<StartQuiz1> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz 1'),
-      ),
-      body: Center(
-        child: showQuiz
-            ? _buildQuiz()
-            : ElevatedButton(
-                onPressed: _startQuiz,
-                child: const Text(
-                  'Start Quiz',
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                )),
-      ),
-    );
-  }
+    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
+      final currentTheme = themeNotifier.currentTheme;
+      final fontProvider = Provider.of<FontProvider>(context);
+      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
+          ? Colors.grey[800]!
+          : Colors.white;
+      final User? user = FirebaseAuth.instance.currentUser;
+      Color iconColor = themeNotifier.getIconColor();
 
-  Widget _buildQuiz() {
-    return const SizedBox(
-      child: Text('Quiz Page 1'),
-    );
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Welcome to Quiz 1',
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
+            textAlign: TextAlign.center,
+          ),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30.0,
+              color: iconColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      );
+    });
   }
 }
