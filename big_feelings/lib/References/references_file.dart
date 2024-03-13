@@ -73,6 +73,18 @@
 ? groups.google.com. (n.d.). How to create a pop up menu on a ListTile?? Why is my code for it not working?? [online] Available at: https://groups.google.com/g/flutter-dev/c/KbEsBmVecpo?pli=1 [Accessed 2 Mar. 2024].
 * Then this reminded me how to add a popup menu item for the containers that have the document information in.
 ‌
+
+15
+? www.youtube.com. (n.d.). Flutter To-Do List App Tutorial with Firebase: Part 3 - Firestore. [online] Available at: https://www.youtube.com/watch?v=tWCZCP_qtFA
+* This youtube playlist guided me into how to connect to firestore using firebase, and how to make a working journal and mood tracker page.
+‌
+16
+? www.youtube.com. (n.d.). 📱 Popup Menu • Flutter Tutorial. [online] Available at: https://www.youtube.com/watch?v=FYFqUMHxu3Q 
+* I have used this video a few times to help me learn how to create a pop up button for a delete option.
+
+17
+? https://stackoverflow.com/questions/54997629/how-to-delete-item-list-using-pop-up-menu-flutter
+* This was used to help create a trailing option for the popup button to place the icon at the end of the container.
 */
 
 
