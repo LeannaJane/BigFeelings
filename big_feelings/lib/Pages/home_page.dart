@@ -213,10 +213,7 @@ class HomePage extends StatelessWidget {
       Color iconColor) {
     //! Container to hold each menu item with spacing and styling
     return Container(
-      margin: EdgeInsets.symmetric(
-          // Adding spacing between the menu items.
-          vertical: spacing,
-          horizontal: 16.0),
+      margin: EdgeInsets.symmetric(vertical: spacing, horizontal: 16.0),
       //! Styling the container with background color, border radius, and shadow
       decoration: BoxDecoration(
         color: backgroundColor,
