@@ -4,6 +4,7 @@ import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
+import 'package:big_feelings/Pages/Journal%20Page/view_journals.dart';
 import 'package:big_feelings/Pages/Mental%20Health%20Page/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/Mental%20health%20page/Breathing%20Page/breathing_page.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_options.dart';
@@ -143,6 +144,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/breathing-page':
       page = const BreathingPage();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/journal-viewer':
+      page = const JournalViewer();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-entries':
       page = const MoodEntriesPage();

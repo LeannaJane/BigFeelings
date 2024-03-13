@@ -77,7 +77,9 @@ class JournalOptionPage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/journal-viewer');
+                },
                 child: Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
