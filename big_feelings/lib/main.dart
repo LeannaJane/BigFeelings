@@ -17,6 +17,7 @@ import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
 import 'package:big_feelings/Pages/Quizzes/quiz_option.dart';
 import 'package:big_feelings/Pages/Quizzes/quiz_page.dart';
+import 'package:big_feelings/Pages/Quizzes/quizzes.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/library_page.dart';
@@ -124,6 +125,12 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/quiz-choices':
       page = const Quizzes();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/quiz-one':
+      page = const QuizPage1();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/quiz-two':
+      page = const QuizPage2();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/login':
       page = const LoginPage();
