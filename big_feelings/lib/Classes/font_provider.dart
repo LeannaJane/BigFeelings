@@ -290,20 +290,20 @@ class FontProvider with ChangeNotifier {
         return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: fontSize,
-          color: textColor, // Using textColor instead of textcolour
+          color: textColor,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
           fontSize: fontSize,
-          color: textColor, // Using textColor instead of textcolour
+          color: textColor,
         );
     }
   }
 
   TextStyle calenderText({
     double fontSize = 18.0,
-    Color textcolour = Colors.black, // Specify the default color here
+    Color textcolour = Colors.black,
     required ThemeNotifier themeNotifier,
   }) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
@@ -330,13 +330,13 @@ class FontProvider with ChangeNotifier {
         return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: fontSize,
-          color: textColor, // Using textColor instead of textcolour
+          color: textColor,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
           fontSize: fontSize,
-          color: textColor, // Using textColor instead of textcolour
+          color: textColor,
         );
     }
   }
