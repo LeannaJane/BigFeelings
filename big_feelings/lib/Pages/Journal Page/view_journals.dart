@@ -73,6 +73,7 @@ class JournalViewer extends StatelessWidget {
             },
           ),
         ),
+
         //! Retieving data from firebase Journal Collection and presenting error messages if there is an error.
         body: SingleChildScrollView(
           child: StreamBuilder(
@@ -89,13 +90,21 @@ class JournalViewer extends StatelessWidget {
               }
               if (snapshot.hasError) {
                 logger.e('Error fetching data: ${snapshot.error}');
-                return const Center(
-                  child: Text('An error occurred while fetching data.'),
+                return Center(
+                  child: Text(
+                    'An error occurred while fetching data.',
+                    style: fontProvider.smalltextfontstyle(),
+                    textAlign: TextAlign.center,
+                  ),
                 );
               }
               if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-                return const Center(
-                  child: Text('No journals saved.'),
+                return Center(
+                  child: Text(
+                    'No journals saved.',
+                    style: fontProvider.smalltextfontstyle(),
+                    textAlign: TextAlign.center,
+                  ),
                 );
               }
               //! Presenting the journal containers. Showing each journal, their data
