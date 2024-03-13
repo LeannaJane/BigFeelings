@@ -163,6 +163,13 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                   decoration: BoxDecoration(
                     //! The boarder radius styled.
                     borderRadius: BorderRadius.circular(30.0),
+                    border: Border.all(
+                      color: currentTheme == ThemeNotifier.darkTheme
+                          ? Colors.grey
+                          : Colors.transparent,
+                      width:
+                          currentTheme == ThemeNotifier.darkTheme ? 2.0 : 0.0,
+                    ),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
