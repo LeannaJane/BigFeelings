@@ -17,8 +17,6 @@ class JournalOptionPage extends StatelessWidget {
       Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
           ? Colors.grey[800]!
           : Colors.white;
-      Color textColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
       return Scaffold(
         appBar: AppBar(
           title: Text(
