@@ -236,8 +236,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 child: Text(
                   'Save Mood',
                   style: TextStyle(
-                    fontFamily:
-                        selectedFontFamily, // Assigning the font family.
+                    fontFamily: selectedFontFamily,
                     fontSize: 18.0,
                     color: textColor,
                   ),
