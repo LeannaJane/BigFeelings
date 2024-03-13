@@ -121,7 +121,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       break;
     case '/quizzes':
       page = const QuizOption();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/quiz-choices':
       page = const Quizzes();
       return RouteAnimations.piggyBackingAnimation(page);
