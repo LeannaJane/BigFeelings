@@ -43,7 +43,9 @@ class Quizzes extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(height: 20),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/quiz-one');
+                  },
                   title: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
@@ -67,7 +69,9 @@ class Quizzes extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, '/quiz-two');
+                  },
                   title: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
