@@ -90,7 +90,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
             textAlign: TextAlign.center,
             style: fontProvider.getSubTitleStyle(),
           ),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           backgroundColor: Colors.green,
         ),
       );
@@ -352,7 +352,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                     ],
                                   ),
                                   //! A status shower to show users what things mean in the calender.
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -406,7 +406,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                     textAlign: TextAlign.center,
                                     style: fontProvider.getSubTitleStyle(),
                                   ),
-                                  duration: Duration(seconds: 2),
+                                  duration: const Duration(seconds: 2),
                                   backgroundColor: Colors.red,
                                 ),
                               );
