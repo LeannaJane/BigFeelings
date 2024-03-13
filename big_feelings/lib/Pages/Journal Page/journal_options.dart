@@ -13,23 +13,16 @@ class JournalOptionPage extends StatelessWidget {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      final selectedFontFamily = fontProvider.selectedFontFamily;
       Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
           ? Colors.grey[800]!
           : Colors.white;
       Color textColor =
           currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      //Color iconColor =
-      //currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
       return Scaffold(
         appBar: AppBar(
           title: Text(
             'Welcome to the Journal Option Page',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              fontFamily: selectedFontFamily,
-            ),
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
@@ -64,12 +57,7 @@ class JournalOptionPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Write a Journal',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: selectedFontFamily,
-                          fontSize: 16.0,
-                          color: textColor,
-                        ),
+                        style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
                   ),
@@ -102,12 +90,7 @@ class JournalOptionPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Read past Journals.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: selectedFontFamily,
-                          fontSize: 16.0,
-                          color: textColor,
-                        ),
+                        style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
                   ),

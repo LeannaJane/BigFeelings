@@ -15,9 +15,13 @@ class JournalViewer extends StatelessWidget {
   //? Reference 15
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
-    return Consumer<FontProvider>(builder: (context, fontProvider, _) {
-      final themeNotifier = Provider.of<ThemeNotifier>(context);
+    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
+      final currentTheme = themeNotifier.currentTheme;
+      final fontProvider = Provider.of<FontProvider>(context);
+      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
+          ? Colors.grey[800]!
+          : Colors.white;
+      final User? user = FirebaseAuth.instance.currentUser;
       Color iconColor = themeNotifier.getIconColor();
       //! If statement to check if the user is logged in.
       if (user == null) {
@@ -133,7 +137,7 @@ class JournalViewer extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: Colors.white,
+                      color: backgroundColor,
                     ),
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(
