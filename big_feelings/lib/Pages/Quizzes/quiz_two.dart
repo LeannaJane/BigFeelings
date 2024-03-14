@@ -14,11 +14,9 @@ class _StartQuiz2State extends State<StartQuiz2> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
       Color iconColor = themeNotifier.getIconColor();
 
       return Scaffold(
