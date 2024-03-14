@@ -12,6 +12,7 @@
 */
 
 import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'login_logic.dart';
@@ -43,7 +44,9 @@ class _LoginPageState extends State<LoginPage> {
     double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
     double imageWidth = (screenWidth * imageScaleFactor).clamp(150.0, 300.0);
 
-    return Consumer<FontProvider>(builder: (context, fontProvider, _) {
+    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
+      final fontProvider = Provider.of<FontProvider>(context);
+      Provider.of<ThemeNotifier>(context).getContainerColor();
       return Scaffold(
         //! Setting the background colour, and adding and customising the page title.
         backgroundColor: const Color.fromARGB(255, 209, 236, 238),
@@ -62,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                         //! Centering the title like every title, to keep consistency.
                         'BIG FEELINGS LOGIN',
                         textAlign: TextAlign.center,
-                        style: fontProvider.getTitleFontStyle(),
+                        style: fontProvider.getTitleFontStyle(themeNotifier),
                       ),
                       Image.asset(
                         //! Waving penguin image.
