@@ -10,17 +10,14 @@ class QuizOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color iconColor = themeNotifier.getIconColor();
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Welcome To the Quiz option page',
+            'Quiz options',
             style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),
@@ -49,7 +46,7 @@ class QuizOption extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     width: 300,
-                    height: 300,
+                    height: 180,
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 30),
                     decoration: BoxDecoration(
@@ -62,7 +59,7 @@ class QuizOption extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Center(
                       child: Text(
@@ -73,14 +70,14 @@ class QuizOption extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {},
                 child: Center(
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     width: 300,
-                    height: 300,
+                    height: 180,
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 30),
                     decoration: BoxDecoration(
@@ -93,7 +90,7 @@ class QuizOption extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Center(
                       child: Text(
