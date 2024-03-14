@@ -10,32 +10,31 @@ class MoodOptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      //! Using the Provider package to manage theme and font data
-      //! Extracting theme and font information from providers
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      final selectedFontFamily = fontProvider.selectedFontFamily;
-      //! Determining background,text colors and icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
-      Color textColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      //Color iconColor =
-          //currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color iconColor = themeNotifier.getIconColor();
+
       return Scaffold(
         appBar: AppBar(
           //! The mood tracker option page presenting two containers that allows the user to track their moods and view their moods.
           title: Text(
-            'Welcome to the Mood Options page.',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              fontFamily: selectedFontFamily,
-            ),
+            'Mood Options',
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30.0,
+              color: iconColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -52,7 +51,7 @@ class MoodOptionPage extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     //! Setting the width and height of the containers so they are the same.
                     width: 300,
-                    height: 300,
+                    height: 180,
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 30),
                     decoration: BoxDecoration(
@@ -65,25 +64,20 @@ class MoodOptionPage extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Center(
                       child: Text(
                         //! Mood checkin page.
                         'Mood Check In',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: selectedFontFamily,
-                          fontSize: 16.0,
-                          color: textColor,
-                        ),
+                        style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
                   ),
                 ),
               ),
               //! Adding space between the two container buttons.
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
                   //! This navigates to the mood entry page.
@@ -96,7 +90,7 @@ class MoodOptionPage extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     //! Applying the same width and height for consistency.
                     width: 300,
-                    height: 300,
+                    height: 180,
                     //! Adding padding and shadow.
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 30),
@@ -110,18 +104,13 @@ class MoodOptionPage extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Center(
                       child: Text(
                         //! View your mood entries option. forwards them to the mood entry page.
                         'View Your Mood Entries',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: selectedFontFamily,
-                          fontSize: 16.0,
-                          color: textColor,
-                        ),
+                        style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
                   ),
