@@ -26,26 +26,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        //! Using the Provider package to manage theme and font data
-        //! Extracting theme and font information from providers
-        final currentTheme = themeNotifier.currentTheme;
         final fontProvider = Provider.of<FontProvider>(context);
-        final selectedFontFamily = fontProvider.selectedFontFamily;
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
+        Color iconColor = themeNotifier.getIconColor();
         //! Setting up spacing variables based on screen width
         final screenWidth = MediaQuery.of(context).size.width;
         double menuItemSpacing = screenWidth * 0.008;
         double minSpacing = 5.0;
         menuItemSpacing = menuItemSpacing.clamp(minSpacing, double.infinity);
-        //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-        Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]!
-            : Colors.white;
-        Color textColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.white
-            : Colors.black;
-        Color iconColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.white
-            : Colors.black;
+
         //! Building the Scaffold widget
         return Scaffold(
           //! Setting the current theme as the background colour.
@@ -57,12 +47,7 @@ class HomePage extends StatelessWidget {
             title: Text(
               //! Application title on home page, centered with a trasnparent appbar. This has been assigned with the textcolour and the selectedFontFamily.
               'Big Feelings!',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: selectedFontFamily,
-                fontSize: 30.0,
-                color: textColor,
-              ),
+              style: fontProvider.getTitleFontStyle(themeNotifier),
             ),
             //! This removes the return arrow from the page.
             automaticallyImplyLeading: false,
@@ -120,13 +105,14 @@ class HomePage extends StatelessWidget {
                         },
                         //! The menu item will contain the title, an icon, the selected font family, the menu item spacing and the background colour.
                         child: menuItem(
-                            context,
-                            menuItems[index]['title'],
-                            menuItems[index]['icon'],
-                            selectedFontFamily,
-                            menuItemSpacing,
-                            backgroundColor,
-                            iconColor), //! Adding iconcolour as an argument.
+                          context,
+                          menuItems[index]['title'],
+                          menuItems[index]['icon'],
+                          fontProvider.selectedFontFamily,
+                          menuItemSpacing,
+                          getContainerColor,
+                          iconColor,
+                        ),
                       );
                     },
                   ),
@@ -211,6 +197,8 @@ class HomePage extends StatelessWidget {
       double spacing,
       Color backgroundColor,
       Color iconColor) {
+    final fontProvider = Provider.of<FontProvider>(context);
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
     //! Container to hold each menu item with spacing and styling
     return Container(
       margin: EdgeInsets.symmetric(vertical: spacing, horizontal: 16.0),
@@ -232,10 +220,7 @@ class HomePage extends StatelessWidget {
         title: Center(
           child: Text(
             title,
-            style: TextStyle(
-              fontFamily: selectedFontFamily, // Assigning the font family.
-              fontSize: 16.0,
-            ),
+            style: fontProvider.subheading(themeNotifier),
           ),
         ),
         //! Adding the icon colour based on theme changer.
