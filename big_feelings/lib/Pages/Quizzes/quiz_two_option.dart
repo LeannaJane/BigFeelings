@@ -1,24 +1,19 @@
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage2 extends StatefulWidget {
+  // ignore: use_super_parameters
   const QuizPage2({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _QuizPage2State createState() => _QuizPage2State();
 }
 
 class _QuizPage2State extends State<QuizPage2> {
   bool showQuiz = false;
-
-  void _startQuiz() {
-    setState(() {
-      showQuiz = true;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +24,6 @@ class _QuizPage2State extends State<QuizPage2> {
         Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
             ? Colors.grey[800]!
             : Colors.white;
-        final User? user = FirebaseAuth.instance.currentUser;
         Color iconColor = themeNotifier.getIconColor();
 
         return Scaffold(
