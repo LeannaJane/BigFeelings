@@ -11,16 +11,14 @@ class JournalOptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
       Color iconColor = themeNotifier.getIconColor();
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Welcome to the Journal Option Page',
+            'Journal Options',
             style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),
@@ -49,7 +47,7 @@ class JournalOptionPage extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     width: 300,
-                    height: 300,
+                    height: 180,
                     padding: const EdgeInsets.symmetric(
                         vertical: 15.0, horizontal: 30.0),
                     decoration: BoxDecoration(
@@ -62,7 +60,7 @@ class JournalOptionPage extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Center(
                       child: Text(
@@ -73,7 +71,7 @@ class JournalOptionPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/journal-viewer');
@@ -82,7 +80,7 @@ class JournalOptionPage extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16.0),
                     width: 300,
-                    height: 300,
+                    height: 180,
                     padding: const EdgeInsets.symmetric(
                         vertical: 15.0, horizontal: 30.0),
                     decoration: BoxDecoration(
@@ -95,7 +93,7 @@ class JournalOptionPage extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Center(
                       child: Text(
