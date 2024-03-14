@@ -99,35 +99,37 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  TextStyle getTitleFontStyle() {
-    const Color textColor = Colors.black;
+  TextStyle getTitleFontStyle(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
-          fontSize: 40,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
-          fontSize: 40,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
-            fontSize: 40, fontWeight: FontWeight.bold);
+            fontSize: 30, fontWeight: FontWeight.bold);
       case 'SingleDay':
-        return const TextStyle(
+        return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: 40,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
-          fontSize: 40,
+          fontSize: 30,
           color: textColor,
         );
     }
