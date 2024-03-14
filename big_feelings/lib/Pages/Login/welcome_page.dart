@@ -1,4 +1,5 @@
 import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,8 +63,10 @@ class WelcomePage extends StatelessWidget {
       ),
     );
 
-    return Consumer<FontProvider>(
-      builder: (context, fontProvider, _) {
+    return Consumer<ThemeNotifier>(
+      builder: (context, themeNotifier, child) {
+        final fontProvider = Provider.of<FontProvider>(context);
+        Provider.of<ThemeNotifier>(context).getContainerColor();
         return Scaffold(
           //! Setting background colour
           backgroundColor: const Color.fromARGB(255, 209, 236, 238),
@@ -82,7 +85,7 @@ class WelcomePage extends StatelessWidget {
                       'BIG FEELINGS',
                       textAlign: TextAlign.center,
                       //! Editing the style as a whole instead of individually.
-                      style: fontProvider.getTitleFontStyle(),
+                      style: fontProvider.getTitleFontStyle(themeNotifier),
                     ),
                   ),
                   const SizedBox(height: 10),
