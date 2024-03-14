@@ -19,11 +19,9 @@ class _QuizPage2State extends State<QuizPage2> {
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        final currentTheme = themeNotifier.currentTheme;
         final fontProvider = Provider.of<FontProvider>(context);
-        Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]!
-            : Colors.white;
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
         Color iconColor = themeNotifier.getIconColor();
 
         return Scaffold(
@@ -59,7 +57,7 @@ class _QuizPage2State extends State<QuizPage2> {
                         height: 200,
                         margin: const EdgeInsets.only(bottom: 20.0),
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: getContainerColor,
                           borderRadius: BorderRadius.circular(15.0),
                           boxShadow: [
                             BoxShadow(
@@ -90,7 +88,7 @@ class _QuizPage2State extends State<QuizPage2> {
                           width: 150,
                           height: 40,
                           decoration: BoxDecoration(
-                            color: backgroundColor,
+                            color: getContainerColor,
                             borderRadius: BorderRadius.circular(15.0),
                             boxShadow: [
                               BoxShadow(
