@@ -106,30 +106,30 @@ class FontProvider with ChangeNotifier {
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico(
-          fontSize: 30,
+          fontSize: 25,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
-          fontSize: 30,
+          fontSize: 25,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
-            fontSize: 30, fontWeight: FontWeight.bold);
+            fontSize: 25, fontWeight: FontWeight.bold);
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: 30,
+          fontSize: 25,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
-          fontSize: 30,
+          fontSize: 25,
           color: textColor,
         );
     }
