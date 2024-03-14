@@ -91,19 +91,10 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
   Widget build(BuildContext context) {
     //final User? user = FirebaseAuth.instance.currentUser;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      //! Using the Provider package to manage theme and font data
-      //! Extracting theme and font information from providers
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      final selectedFontFamily = fontProvider.selectedFontFamily;
-      //! Determining background,text colors and icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
-      Color textColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color iconColor = themeNotifier.getIconColor();
 
       /*
      ! Below shows a page, that asks the user how they feel and presents the
@@ -117,12 +108,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
           title: Text(
             //! I made the title How do you feel.
             'How do you feel?',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30.0,
-              fontFamily: selectedFontFamily,
-              color: textColor,
-            ),
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
             //! I aligned the title to the center. And then set the fontweight to bald for now until I add the font style.
             textAlign: TextAlign.center,
           ),
@@ -163,19 +149,12 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                   decoration: BoxDecoration(
                     //! The boarder radius styled.
                     borderRadius: BorderRadius.circular(30.0),
-                    border: Border.all(
-                      color: currentTheme == ThemeNotifier.darkTheme
-                          ? Colors.grey
-                          : Colors.transparent,
-                      width:
-                          currentTheme == ThemeNotifier.darkTheme ? 2.0 : 0.0,
-                    ),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
                         spreadRadius: 1,
                         blurRadius: 6,
-                        offset: const Offset(0, 3),
+                        offset: const Offset(0, 0),
                       ),
                     ],
                   ),
@@ -186,7 +165,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                       padding: const EdgeInsets.all(30),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: backgroundColor,
+                        color: getContainerColor,
                       ),
                       child: Image.asset(
                         'assets/images/images_mood/${moods[selectedEmotionIndex].toLowerCase()}.png',
@@ -206,41 +185,45 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
               ],
             ),
             const SizedBox(height: 20),
-            Text(
-              moods[selectedEmotionIndex],
-              //! This will eventually be changed.
-              style: TextStyle(
-                fontFamily: selectedFontFamily,
-                fontSize: 18.0,
-              ),
-            ),
+            Text(moods[selectedEmotionIndex],
+                //! This will eventually be changed.
+                style: fontProvider.subheading(themeNotifier)),
             //! Adding space between the mood label and the save mood button.
             const SizedBox(height: 20.0),
             //! I added a elevated button that allows the user to save their emotion by selecting the button. This saves to firebase.
-            ElevatedButton(
-                onPressed: () {
-                  //! This accesses the current user ID
-                  User? user = FirebaseAuth.instance.currentUser;
-                  if (user != null) {
-                    _saveMoodToFirestore(moods[selectedEmotionIndex], user.uid);
-                  } else {
-                    logger.e('User is not logged in.');
-                    //! This handles when user not logged in
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  elevation: 10,
-                  backgroundColor: backgroundColor,
+            GestureDetector(
+              onTap: () {
+                //! This accesses the current user ID
+                User? user = FirebaseAuth.instance.currentUser;
+                if (user != null) {
+                  _saveMoodToFirestore(moods[selectedEmotionIndex], user.uid);
+                } else {
+                  logger.e('User is not logged in.');
+                  //! This handles when user not logged in
+                }
+              },
+              child: Container(
+                height: 40,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: getContainerColor,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 6,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
                 ),
-                //! This textstyle will eventually be changed to the font changer.
+                alignment: Alignment.center,
                 child: Text(
                   'Save Mood',
-                  style: TextStyle(
-                    fontFamily: selectedFontFamily,
-                    fontSize: 18.0,
-                    color: textColor,
-                  ),
-                )),
+                  style: fontProvider.subheading(themeNotifier),
+                ),
+              ),
+            )
           ],
         ),
       );

@@ -16,34 +16,31 @@ class MoodEntriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      //! Using the Provider package to manage theme and font data
-      //! Extracting theme and font information from providers
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      final selectedFontFamily = fontProvider.selectedFontFamily;
-      //! Determining background,text colors and icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
-      Color textColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color iconColor = themeNotifier.getIconColor();
       //! If the user isnt logged in it will throw this into the page.
       if (user == null) {
         return Scaffold(
           appBar: AppBar(
             title: Text(
               'Your Mood Entries',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                fontFamily: selectedFontFamily,
-              ),
+              style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),
             centerTitle: true,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 30.0,
+                color: iconColor,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
           body: const Center(
             child: Text('User is not logged in.'),
@@ -62,12 +59,7 @@ class MoodEntriesPage extends StatelessWidget {
           title: Text(
             //! Your entries title for this page, which is centered, the style will eventually be changed
             'Your Mood Entries',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: selectedFontFamily,
-              fontSize: 30.0,
-              color: textColor,
-            ),
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
@@ -143,7 +135,7 @@ class MoodEntriesPage extends StatelessWidget {
                         offset: const Offset(0, 3),
                       ),
                     ],
-                    color: backgroundColor,
+                    color: getContainerColor,
                   ),
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -159,19 +151,11 @@ class MoodEntriesPage extends StatelessWidget {
                     //! This will show the date and time next to the image.
                     title: Text(
                       '$date - $time',
-                      style: TextStyle(
-                        fontFamily:
-                            selectedFontFamily, // Assigning the font family.
-                        fontSize: 16.0,
-                      ),
+                      style: fontProvider.subheading(themeNotifier),
                     ),
                     subtitle: Text(
                       mood,
-                      style: TextStyle(
-                        fontFamily:
-                            selectedFontFamily, // Assigning the font family.
-                        fontSize: 16.0,
-                      ),
+                      style: fontProvider.subheading(themeNotifier),
                     ),
                     //! A trailing is added that allows the item for a delete icon to be added to the container,
                     //! This allows the user to select delete and if they want to delete the value will = delete and then using async will
@@ -194,11 +178,7 @@ class MoodEntriesPage extends StatelessWidget {
                               //! Adding a delete bin Icon.
                               title: Text(
                                 'Delete',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: textColor,
-                                  fontFamily: selectedFontFamily,
-                                ),
+                                style: fontProvider.subheading(themeNotifier),
                               ),
                               leading: const Icon(Icons.delete),
                             ),
