@@ -1,35 +1,27 @@
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class QuizPage1 extends StatefulWidget {
-  const QuizPage1({Key? key}) : super(key: key);
+  const QuizPage1({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _QuizPage1State createState() => _QuizPage1State();
 }
 
 class _QuizPage1State extends State<QuizPage1> {
   bool showQuiz = false;
 
-  void _startQuiz() {
-    setState(() {
-      showQuiz = true;
-    });
-  }
-
+  //! Below shows a piece of code that presents the quiz 1 page and presents a start quiz button to the user and a welcome message.
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        final currentTheme = themeNotifier.currentTheme;
         final fontProvider = Provider.of<FontProvider>(context);
-        Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]!
-            : Colors.white;
-        final User? user = FirebaseAuth.instance.currentUser;
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
         Color iconColor = themeNotifier.getIconColor();
 
         return Scaffold(
@@ -65,7 +57,7 @@ class _QuizPage1State extends State<QuizPage1> {
                         height: 200,
                         margin: const EdgeInsets.only(bottom: 20.0),
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: getContainerColor,
                           borderRadius: BorderRadius.circular(15.0),
                           boxShadow: [
                             BoxShadow(
@@ -96,7 +88,7 @@ class _QuizPage1State extends State<QuizPage1> {
                           width: 150,
                           height: 40,
                           decoration: BoxDecoration(
-                            color: backgroundColor,
+                            color: getContainerColor,
                             borderRadius: BorderRadius.circular(15.0),
                             boxShadow: [
                               BoxShadow(
