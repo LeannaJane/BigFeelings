@@ -1,14 +1,16 @@
+import 'package:big_feelings/Pages/Login/password_reset.dart';
+import 'package:big_feelings/Pages/Quizzes/quiz_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
 
 class StartQuiz1 extends StatefulWidget {
+  // ignore: use_super_parameters
   const StartQuiz1({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _StartQuiz1State createState() => _StartQuiz1State();
 }
 
@@ -25,33 +27,12 @@ class _StartQuiz1State extends State<StartQuiz1> {
 
   Future<void> fetchQuizData() async {
     try {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      DocumentSnapshot quizSnapshot =
-          await firestore.collection('QuizCollection').doc('Quiz 1').get();
-
-      Map<String, dynamic> data = quizSnapshot.data() as Map<String, dynamic>;
-
-      for (int i = 1; i <= 3; i++) {
-        String questionKey = 'Q${i}_question';
-        String optionsKey = 'Q${i}_options';
-
-        String question = data[questionKey].toString().replaceAll('"', '');
-        List<String> options = List<String>.from(data[optionsKey])
-            .map((option) => option.toString().replaceAll('"', ''))
-            .toList();
-
-        quizData.add({
-          'question': question,
-          'options': options,
-        });
-      }
-
+      quizData = await QuizFetcher.fetchQuizData('Quiz 1');
+      //! Moved the fetchQuiz data to own class to reuse code.
       userAnswers = List<String?>.filled(quizData.length, null);
-
       setState(() {});
     } catch (error) {
-      print('Error fetching quiz data: $error');
+      logger.e('Error submitting quiz', error: error);
     }
   }
 
@@ -60,18 +41,53 @@ class _StartQuiz1State extends State<StartQuiz1> {
     setState(() {});
   }
 
-  void submitQuiz() {}
+  void submitQuiz() async {
+    final List<String?> initialUserAnswers = List<String?>.from(userAnswers);
+    final int initialQuestionIndex = currentQuestionIndex;
 
+    bool submissionSuccessful = await QuizSubmitter.submitQuiz(
+      'Quiz 1',
+      userAnswers,
+      showMessage,
+      quizData,
+    );
+
+    if (submissionSuccessful) {
+      setState(() {
+        userAnswers = List<String?>.filled(quizData.length, null);
+        currentQuestionIndex = 0;
+      });
+    } else {
+      setState(() {
+        userAnswers = initialUserAnswers;
+        currentQuestionIndex = initialQuestionIndex;
+      });
+    }
+  }
+
+  void showMessage(String message, Color color) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: color,
+        ),
+      );
+    }
+  }
+
+  //! This code below is reused and edited from the previous code throughout the program, to be consistent throughout the program.
+  //! This code consists of a quiz page for quiz 1. This code presents a button that allows the user to start the quiz,
+  //! Then the user can scroll through questions and answer them and finally save them. These questions are retrieved from firebase,
+  //! Then the answers are also retrieved to check against the user answers, then a score is collected and saved to firebase.
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        final currentTheme = themeNotifier.currentTheme;
+        Color cursorColor = Provider.of<ThemeNotifier>(context).cursorColor();
         final fontProvider = Provider.of<FontProvider>(context);
-        Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]!
-            : Colors.white;
-        final User? user = FirebaseAuth.instance.currentUser;
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
         Color iconColor = themeNotifier.getIconColor();
 
         return Scaffold(
@@ -102,7 +118,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                       Container(
                         height: 300,
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: getContainerColor,
                           borderRadius: BorderRadius.circular(15.0),
                           boxShadow: [
                             BoxShadow(
@@ -142,9 +158,9 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                     value: option,
                                     groupValue:
                                         userAnswers[currentQuestionIndex],
-                                    activeColor: Colors.black,
+                                    activeColor: cursorColor,
                                     onChanged: (value) {
-                                      submitAnswer(value as String?);
+                                      submitAnswer(value);
                                     },
                                     contentPadding:
                                         const EdgeInsets.only(left: 0),
@@ -158,6 +174,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      //! Back button container, to go back to the previous question.
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -175,7 +192,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 20),
                               decoration: BoxDecoration(
-                                color: backgroundColor,
+                                color: getContainerColor,
                                 borderRadius: BorderRadius.circular(15.0),
                                 boxShadow: [
                                   BoxShadow(
@@ -194,6 +211,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                               ),
                             ),
                           ),
+                          //! Next button to view the next question.
                           if (currentQuestionIndex < quizData.length - 1)
                             GestureDetector(
                               onTap: () {
@@ -207,7 +225,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),
                                 decoration: BoxDecoration(
-                                  color: backgroundColor,
+                                  color: getContainerColor,
                                   borderRadius: BorderRadius.circular(15.0),
                                   boxShadow: [
                                     BoxShadow(
@@ -225,6 +243,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                 )),
                               ),
                             )
+                          //! Save button to save results to firebase.
                           else
                             GestureDetector(
                               onTap: submitQuiz,
@@ -234,7 +253,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 20),
                                 decoration: BoxDecoration(
-                                  color: backgroundColor,
+                                  color: getContainerColor,
                                   borderRadius: BorderRadius.circular(15.0),
                                   boxShadow: [
                                     BoxShadow(
