@@ -114,7 +114,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.backAnimation(page);
     case '/library':
       page = const LibraryPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/mental-health-activities':
       page = const MentalHealthActivitiesPage();
       return RouteAnimations.piggyBackingAnimation(page);
