@@ -83,8 +83,54 @@
 * I have used this video a few times to help me learn how to create a pop up button for a delete option.
 
 17
-? https://stackoverflow.com/questions/54997629/how-to-delete-item-list-using-pop-up-menu-flutter
+? Stack Overflow. (n.d.). how to delete item list using pop up menu - flutter. [online] Available at: https://stackoverflow.com/questions/54997629/how-to-delete-item-list-using-pop-up-menu-flutter.
 * This was used to help create a trailing option for the popup button to place the icon at the end of the container.
+*/
+
+// ! References for the libary page
+/*
+18
+? Dart packages. (n.d.). url_launcher example | Flutter package. [online] Available at: https://pub.dev/packages/url_launcher/example [Accessed 15 Mar. 2024].
+* This website helped me understand how to launch a url within the application for my video section. This is the code that assisted me:
+* Future<void> _launchInBrowser(Uri url) async {
+*  if (!await launchUrl(
+*      url,
+*      mode: LaunchMode.externalApplication,
+*    )) {
+*      throw Exception('Could not launch $url');
+*  }
+* }
+* I eddited the code and made it fit for my program. 
+‌
+19
+? https://www.facebook.com/flaticon (2019). Feedback Icon - 2282387. [online] Flaticon. Available at: https://www.flaticon.com/free-icon/feedback_2282387?term=emotion&page=1&position=23&origin=search&related_id=2282387 [Accessed 15 Mar. 2024].
+? Attribute:  <a href="https://www.flaticon.com/free-icons/emotion" title="emotion icons">Emotion icons created by Freepik - Flaticon</a>
+* Used emotion icon for the libary page.
+
+20
+? https://www.facebook.com/flaticon (2020). Bubbles Icon - 2652726. [online] Flaticon. Available at: https://www.flaticon.com/free-icon/bubbles_2652726?term=bubble&page=1&position=7&origin=search&related_id=2652726 [Accessed 15 Mar. 2024].
+? Attribute: <a href="https://www.flaticon.com/free-icons/bubbles" title="bubbles icons">Bubbles icons created by kerismaker - Flaticon</a>
+* Used bubble icon for the libary video page.
+
+21 
+? https://www.facebook.com/flaticon (2021). Stack of books Icon - 5833290. [online] Flaticon. Available at: https://www.flaticon.com/free-icon/stack-of-books_5833290?term=book&page=1&position=32&origin=search&related_id=5833290icons [Accessed 15 Mar. 2024].
+? <a href="https://www.flaticon.com/free-icons/books" title="books icons">Books icons created by popo2021 - Flaticon</a>
+* Used book icon for the libary video page.
+
+22
+? www.youtube.com. (n.d.). Quiet Classroom Music For Children - Calming Sensory Bubbles - Morning music for class. [online] Available at: https://www.youtube.com/watch?v=9ekY8EvrZmM.
+* This youtube video is used as a url link to forward the user to a youtube video. 
+
+23
+? Smile and Learn - English (2020). Emotions for Kids - Happiness, Sadness, Fear, Anger, Disgust and Surprise. YouTube. Available at: https://www.youtube.com/watch?v=jetoWelJJJk.
+* This youtube video is used as a url link to forward the user to a youtube video. 
+
+24
+? www.youtube.com. (n.d.). The Emotions Book. [online] Available at: https://www.youtube.com/watch?v=jl8G2jiSNA0.
+* This youtube video is used as a url link to forward the user to a youtube video. 
+‌
+
+
 */
 
 
