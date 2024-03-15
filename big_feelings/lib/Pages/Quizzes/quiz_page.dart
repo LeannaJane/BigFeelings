@@ -10,14 +10,10 @@ class Quizzes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        final currentTheme = themeNotifier.currentTheme;
         final fontProvider = Provider.of<FontProvider>(context);
-        Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]!
-            : Colors.white;
-        Color iconColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.white
-            : Colors.black;
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
+        Color iconColor = themeNotifier.getIconColor();
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -59,7 +55,7 @@ class Quizzes extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Text(
                       'Quiz 1',
@@ -85,7 +81,7 @@ class Quizzes extends StatelessWidget {
                           offset: const Offset(0, 3),
                         ),
                       ],
-                      color: backgroundColor,
+                      color: getContainerColor,
                     ),
                     child: Text(
                       'Quiz 2',
