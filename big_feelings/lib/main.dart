@@ -5,6 +5,7 @@ import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
 import 'package:big_feelings/Pages/Journal%20Page/view_journals.dart';
+import 'package:big_feelings/Pages/Library%20Page/Educational%20Videos/video_option_page.dart';
 import 'package:big_feelings/Pages/Library%20Page/library_page.dart';
 import 'package:big_feelings/Pages/Mental%20Health%20Page/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/Mental%20health%20page/Breathing%20Page/breathing_page.dart';
@@ -173,6 +174,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-checker':
       page = const MoodTrackerPage();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/video-options':
+      page = const VideoOptions();
       return RouteAnimations.piggyBackingAnimation(page);
     default:
       page = const WelcomePage();
