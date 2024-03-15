@@ -17,12 +17,12 @@ import 'package:big_feelings/Pages/Login/welcome_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_entires_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_one.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_one_option.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_option.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_page.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_two.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_two_option.dart';
+import 'package:big_feelings/Pages/Quizzes/Quiz/quiz_one.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_one_option.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_option.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_page.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two_option.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/minigames_page.dart';
@@ -91,6 +91,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       //! Title for the Big feelings application.
       title: 'Big Feelings',
@@ -101,6 +102,9 @@ class MyApp extends StatelessWidget {
       //! If a user is not logged in they will return to the welcome page.
       home: const AuthenticationWrapper(),
       onGenerateRoute: _createRoute,
+      themeMode: themeNotifier.currentTheme.brightness == Brightness.dark
+          ? ThemeMode.dark
+          : ThemeMode.light,
     );
   }
 }

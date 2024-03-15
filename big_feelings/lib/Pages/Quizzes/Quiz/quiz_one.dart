@@ -1,5 +1,5 @@
 import 'package:big_feelings/Pages/Login/password_reset.dart';
-import 'package:big_feelings/Pages/Quizzes/quiz_logic.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
