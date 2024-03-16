@@ -115,109 +115,82 @@ class _StartQuiz1State extends State<StartQuiz1> {
                   child: Column(
                     children: [
                       const SizedBox(height: 20),
-                      Container(
-                        height: 300,
-                        decoration: BoxDecoration(
-                          color: getContainerColor,
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 12,
-                              offset: const Offset(0, 3),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: getContainerColor,
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Question ${currentQuestionIndex + 1}: ${quizData[currentQuestionIndex]['question']}',
-                              style: fontProvider.calenderText(
-                                themeNotifier: themeNotifier,
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: quizData[currentQuestionIndex]
-                                        ['options']
-                                    .length,
-                                itemBuilder: (context, index) {
-                                  String option = quizData[currentQuestionIndex]
-                                      ['options'][index];
-                                  return RadioListTile(
-                                    title: Text(
-                                      option,
-                                      style: fontProvider.calenderText(
-                                        themeNotifier: themeNotifier,
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Question ${currentQuestionIndex + 1}: ${quizData[currentQuestionIndex]['question']}',
+                                  style: fontProvider.calenderText(
+                                    themeNotifier: themeNotifier,
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: quizData[currentQuestionIndex]
+                                          ['options']
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    String option =
+                                        quizData[currentQuestionIndex]
+                                            ['options'][index];
+                                    return RadioListTile(
+                                      title: Text(
+                                        option,
+                                        style: fontProvider.calenderText(
+                                          themeNotifier: themeNotifier,
+                                        ),
                                       ),
-                                    ),
-                                    value: option,
-                                    groupValue:
-                                        userAnswers[currentQuestionIndex],
-                                    activeColor: cursorColor,
-                                    onChanged: (value) {
-                                      submitAnswer(value);
-                                    },
-                                    contentPadding:
-                                        const EdgeInsets.only(left: 0),
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                  );
-                                },
-                              ),
+                                      value: option,
+                                      groupValue:
+                                          userAnswers[currentQuestionIndex],
+                                      activeColor: cursorColor,
+                                      onChanged: (value) {
+                                        submitAnswer(value);
+                                      },
+                                      contentPadding:
+                                          const EdgeInsets.only(left: 0),
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                    );
+                                  },
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
                       //! Back button container, to go back to the previous question.
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              if (currentQuestionIndex > 0) {
-                                setState(() {
-                                  currentQuestionIndex--;
-                                });
-                              }
-                            },
-                            child: Container(
-                              width: 150,
-                              height: 40,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 20),
-                              decoration: BoxDecoration(
-                                color: getContainerColor,
-                                borderRadius: BorderRadius.circular(15.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 6,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Back',
-                                  style: fontProvider.subheading(themeNotifier),
-                                ),
-                              ),
-                            ),
-                          ),
-                          //! Next button to view the next question.
-                          if (currentQuestionIndex < quizData.length - 1)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 450.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  currentQuestionIndex++;
-                                });
+                                if (currentQuestionIndex > 0) {
+                                  setState(() {
+                                    currentQuestionIndex--;
+                                  });
+                                }
                               },
                               child: Container(
                                 width: 150,
@@ -237,41 +210,80 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                   ],
                                 ),
                                 child: Center(
-                                    child: Text(
-                                  'Next',
-                                  style: fontProvider.subheading(themeNotifier),
-                                )),
-                              ),
-                            )
-                          //! Save button to save results to firebase.
-                          else
-                            GestureDetector(
-                              onTap: submitQuiz,
-                              child: Container(
-                                width: 150,
-                                height: 40,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                decoration: BoxDecoration(
-                                  color: getContainerColor,
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 3),
-                                    ),
-                                  ],
+                                  child: Text(
+                                    'Back',
+                                    style:
+                                        fontProvider.subheading(themeNotifier),
+                                  ),
                                 ),
-                                child: Center(
-                                    child: Text(
-                                  'Save',
-                                  style: fontProvider.subheading(themeNotifier),
-                                )),
                               ),
                             ),
-                        ],
+                            //! Next button to view the next question.
+                            if (currentQuestionIndex < quizData.length - 1)
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    currentQuestionIndex++;
+                                  });
+                                },
+                                child: Container(
+                                  width: 150,
+                                  height: 40,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  decoration: BoxDecoration(
+                                    color: getContainerColor,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Next',
+                                      style: fontProvider
+                                          .subheading(themeNotifier),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            //! Save button to save results to firebase.
+                            else
+                              GestureDetector(
+                                onTap: submitQuiz,
+                                child: Container(
+                                  width: 150,
+                                  height: 40,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  decoration: BoxDecoration(
+                                    color: getContainerColor,
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Save',
+                                      style: fontProvider
+                                          .subheading(themeNotifier),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
