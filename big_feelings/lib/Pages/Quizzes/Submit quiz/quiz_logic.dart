@@ -14,23 +14,31 @@ class QuizFetcher {
       DocumentSnapshot quizSnapshot =
           await firestore.collection('QuizCollection').doc(quizId).get();
 
+      if (!quizSnapshot.exists) {
+        throw Exception('Quiz document does not exist');
+      }
       //! This extracts the data from the quiz document
-      Map<String, dynamic> data = quizSnapshot.data() as Map<String, dynamic>;
+      Map<String, dynamic>? data = quizSnapshot.data() as Map<String, dynamic>?;
 
+      if (data == null) {
+        throw Exception('Quiz data is null');
+      }
       //! This line parses the data and format it into a list of maps containing questions, options, and answers
+
       List<Map<String, dynamic>> quizData = [];
-      //! This loops through each question in the quiz data
-      for (int i = 1; i <= 3; i++) {
+
+      for (int i = 1; i <= 10; i++) {
         String questionKey = 'Q${i}_question';
         String optionsKey = 'Q${i}_options';
         String answerKey = 'Q${i}_answer';
-
         //! This gets the question, options, and answer from data and formats them
-        String question = data[questionKey].toString().replaceAll('"', '');
-        List<String> options = List<String>.from(data[optionsKey])
+
+        String question =
+            data[questionKey]?.toString().replaceAll('"', '') ?? '';
+        List<String> options = List<String>.from(data[optionsKey] ?? [])
             .map((option) => option.toString().replaceAll('"', ''))
             .toList();
-        String answer = data[answerKey].toString().replaceAll('"', '');
+        String answer = data[answerKey]?.toString().replaceAll('"', '') ?? '';
 
         //! Add question, options, and answer to the quiz data list
         quizData.add({
