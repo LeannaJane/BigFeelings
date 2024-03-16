@@ -97,7 +97,7 @@ class JournalViewer extends StatelessWidget {
                 return Center(
                   child: Text(
                     'An error occurred while fetching data.',
-                    style: fontProvider.smalltextfontstyle(),
+                    style: fontProvider.subheading(themeNotifier),
                     textAlign: TextAlign.center,
                   ),
                 );
@@ -106,7 +106,7 @@ class JournalViewer extends StatelessWidget {
                 return Center(
                   child: Text(
                     'No journals saved.',
-                    style: fontProvider.smalltextfontstyle(),
+                    style: fontProvider.subheading(themeNotifier),
                     textAlign: TextAlign.center,
                   ),
                 );
@@ -122,6 +122,8 @@ class JournalViewer extends StatelessWidget {
                   String date = DateFormat('dd MMMM yyyy').format(dateTime);
                   String time = DateFormat('hh:mm a').format(dateTime);
                   String entryText = entry.value['entry'] as String;
+                  String timeText = 'Time submitted: $date - $time ';
+                  String journalText = 'Journal $journalNumber:';
 
                   //! Singular containers for each journal which presents the journal number, the date, the entry and a delete option.
                   return Container(
@@ -142,20 +144,24 @@ class JournalViewer extends StatelessWidget {
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8.0),
-                      title: Column(
+                      title: Text(
+                        journalText,
+                        style: fontProvider.subheading(themeNotifier),
+                      ),
+                      subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Journal $journalNumber:           $date - $time',
-                            style: fontProvider.smalltextfontstyle(),
+                            timeText,
+                            style: fontProvider.subheading(themeNotifier),
                           ),
-                          const SizedBox(height: 8),
+                          Text(
+                            entryText,
+                            style: fontProvider.subheading(themeNotifier),
+                          ),
                         ],
                       ),
-                      subtitle: Text(
-                        entryText,
-                        style: fontProvider.smalltextfontstyle(),
-                      ),
+
                       //? Reference 17
                       trailing: PopupMenuButton<String>(
                         tooltip: '',
@@ -170,7 +176,7 @@ class JournalViewer extends StatelessWidget {
                               child: ListTile(
                                 title: Text(
                                   'Delete',
-                                  style: fontProvider.smalltextfontstyle(),
+                                  style: fontProvider.subheading(themeNotifier),
                                 ),
                                 leading: const Icon(Icons.delete),
                               ),

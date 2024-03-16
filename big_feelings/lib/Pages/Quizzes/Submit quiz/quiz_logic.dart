@@ -87,7 +87,7 @@ class QuizSubmitter {
         }
       }
       //! Saves the user, quizid, score and time to firestore.
-      await firestore.collection('QuizResults').add({
+      await firestore.collection('QuizCollectionResults').add({
         'quizId': quizId,
         'score': score,
         'user': user?.uid,

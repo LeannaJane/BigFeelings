@@ -17,9 +17,10 @@ import 'package:big_feelings/Pages/Login/welcome_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_entires_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
-import 'package:big_feelings/Pages/Quizzes/Quiz/quiz_one.dart';
+import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_one.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_one_option.dart';
-import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_option.dart';
+import 'package:big_feelings/Pages/Quizzes/View%20Quiz%20results/view_quiz_results.dart';
+import 'package:big_feelings/Pages/Quizzes/quiz_option.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_page.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two_option.dart';
@@ -146,6 +147,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/quiz-two-page':
       page = const StartQuiz2();
       return RouteAnimations.instantAnimation(page);
+    case '/quiz-results':
+      page = const QuizResults();
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/login':
       page = const LoginPage();
       break;

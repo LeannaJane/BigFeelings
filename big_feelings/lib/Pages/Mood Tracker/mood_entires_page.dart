@@ -20,6 +20,7 @@ class MoodEntriesPage extends StatelessWidget {
       Color getContainerColor =
           Provider.of<ThemeNotifier>(context).getContainerColor();
       Color iconColor = themeNotifier.getIconColor();
+
       //! If the user isnt logged in it will throw this into the page.
       if (user == null) {
         return Scaffold(
@@ -160,11 +161,11 @@ class MoodEntriesPage extends StatelessWidget {
                     //! A trailing is added that allows the item for a delete icon to be added to the container,
                     //! This allows the user to select delete and if they want to delete the value will = delete and then using async will
                     //! delete the document from firebase.
-                    //? Reference 17
                     trailing: PopupMenuButton<String>(
                       //! Added a colour to the popupm menu and round edges.
                       //! Removing the placeholder of the button.
                       tooltip: '',
+
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
