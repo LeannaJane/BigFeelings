@@ -131,63 +131,69 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
           children: [
             //! Adding a forward and backwards icon to allow the user to scroll through the different emotions.
             //! Ref 11.
+            Container(
+              //! The width and height of the container.
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                //! The boarder radius styled.
+                borderRadius: BorderRadius.circular(30.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 6,
+                    offset: const Offset(0, 0),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Container(
+                  //! Added padding to the image to reduce the image size inside of the container.
+                  padding: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: getContainerColor,
+                  ),
+                  child: Image.asset(
+                    'assets/images/images_mood/${moods[selectedEmotionIndex].toLowerCase()}.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
                   onPressed: _navigateBackward,
                   icon: Icon(
                     Icons.arrow_back,
-                    size: 30,
+                    size: 20,
                     color: iconColor,
                   ),
                 ),
-                Container(
-                  //! The width and height of the container.
-                  width: 300,
-                  height: 300,
-                  decoration: BoxDecoration(
-                    //! The boarder radius styled.
-                    borderRadius: BorderRadius.circular(30.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      //! Added padding to the image to reduce the image size inside of the container.
-                      padding: const EdgeInsets.all(30),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: getContainerColor,
-                      ),
-                      child: Image.asset(
-                        'assets/images/images_mood/${moods[selectedEmotionIndex].toLowerCase()}.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
+                const SizedBox(width: 30),
+                Text(
+                  moods[selectedEmotionIndex],
+                  style: fontProvider.subheading(themeNotifier),
+                  textAlign: TextAlign.center,
                 ),
+                const SizedBox(width: 30),
                 IconButton(
                   onPressed: _navigateForward,
                   icon: Icon(
                     Icons.arrow_forward,
-                    size: 30,
+                    size: 20,
                     color: iconColor,
                   ),
-                )
+                ),
               ],
             ),
-            const SizedBox(height: 20),
-            Text(moods[selectedEmotionIndex],
-                //! This will eventually be changed.
-                style: fontProvider.subheading(themeNotifier)),
+
             //! Adding space between the mood label and the save mood button.
             const SizedBox(height: 20.0),
             //! I added a elevated button that allows the user to save their emotion by selecting the button. This saves to firebase.
