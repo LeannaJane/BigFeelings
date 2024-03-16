@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 //! This class fetches the quiz data from firestore based on the quizId
 class QuizFetcher {
   static final Logger _logger = Logger();
-
   static Future<List<Map<String, dynamic>>> fetchQuizData(String quizId) async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -35,9 +34,14 @@ class QuizFetcher {
 
         String question =
             data[questionKey]?.toString().replaceAll('"', '') ?? '';
-        List<String> options = List<String>.from(data[optionsKey] ?? [])
-            .map((option) => option.toString().replaceAll('"', ''))
-            .toList();
+        List<String> options = [];
+        dynamic optionsData = data[optionsKey];
+
+        if (optionsData != null && optionsData is Iterable) {
+          options = List<String>.from(optionsData)
+              .map((option) => option.toString().replaceAll('"', ''))
+              .toList();
+        }
         String answer = data[answerKey]?.toString().replaceAll('"', '') ?? '';
 
         //! Add question, options, and answer to the quiz data list
