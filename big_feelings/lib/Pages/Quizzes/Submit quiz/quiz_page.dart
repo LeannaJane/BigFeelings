@@ -58,7 +58,7 @@ class Quizzes extends StatelessWidget {
                       color: getContainerColor,
                     ),
                     child: Text(
-                      'Quiz 1',
+                      'Quiz 1: Emotion Management',
                       style: fontProvider.subheading(themeNotifier),
                     ),
                   ),
@@ -84,7 +84,7 @@ class Quizzes extends StatelessWidget {
                       color: getContainerColor,
                     ),
                     child: Text(
-                      'Quiz 2',
+                      'Quiz 2: Healthy Habits',
                       style: fontProvider.subheading(themeNotifier),
                     ),
                   ),
