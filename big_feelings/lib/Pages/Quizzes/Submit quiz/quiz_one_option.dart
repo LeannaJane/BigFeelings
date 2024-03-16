@@ -27,7 +27,7 @@ class _QuizPage1State extends State<QuizPage1> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Welcome to Quiz 1',
+              'Quiz 1: Emotion Management',
               style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),
