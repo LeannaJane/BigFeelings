@@ -102,7 +102,7 @@ class QuizResults extends StatelessWidget {
 
                 int score = quizResult['score'] as int;
                 String quizDisplayText = 'Quiz ${quizId?.split(' ')[1]}';
-                String scoreText = 'Score: $score out of 3';
+                String scoreText = 'Score: $score out of 10';
                 String timeText = 'Time submitted: $date - $time ';
                 return Container(
                   margin:
@@ -125,7 +125,6 @@ class QuizResults extends StatelessWidget {
                     title: Text(
                       quizDisplayText,
                       style: fontProvider.subheading(themeNotifier),
-                      textAlign: TextAlign.center,
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
