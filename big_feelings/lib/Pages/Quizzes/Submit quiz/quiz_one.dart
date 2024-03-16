@@ -180,7 +180,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                       const SizedBox(height: 20),
                       //! Back button container, to go back to the previous question.
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 450.0),
+                        padding: const EdgeInsets.only(bottom: 100.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
