@@ -154,6 +154,12 @@
 * Created my logo for my application using canva, this application provided text and allowed me to customsie my logo.
 */
 
+//! I had an error with the application on the android device not allowing urls to be forwarded.
+/*
+? Stack Overflow. (n.d.). Flutter url_launcher is not launching url in release mode. [online] Available at: https://stackoverflow.com/questions/65883844/flutter-url-launcher-is-not-launching-url-in-release-mode [Accessed 17 Mar. 2024].
+* This website asisted me in how to fixing the issue on the manifest page in the android folder. I made sure to add permissions for the url.
+ */
+
 
 
 
