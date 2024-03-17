@@ -131,6 +131,7 @@
 ‌
 
 */
+
 //! Lottie animation
 /*
 
@@ -139,6 +140,20 @@
 * This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
 ‌
 */
+//! Icon launcher maker.
+/*
+26 - edited in the android src res file.
+? romannurik.github.io. (n.d.). Android Asset Studio - Launcher icon generator. [online] Available at: https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=image&foreground.space.trim=0&foreground.space.pad=0&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(255%2C%20255%2C%20255)&crop=0&backgroundShape=square&effects=none&name=ic_launcher [Accessed 17 Mar. 2024].
+* I used this site to add my image logo into it and it generated the right sizes for my logo for my application for the android version:D.
+*/
+
+//! Logo maker using canva.
+/*
+27 - edited in the web file.
+? Canva (2024). Canva. [online] Canva. Available at: https://www.canva.com/.
+* Created my logo for my application using canva, this application provided text and allowed me to customsie my logo.
+*/
+
 
 
 

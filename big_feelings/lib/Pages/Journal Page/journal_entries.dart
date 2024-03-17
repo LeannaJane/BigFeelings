@@ -183,7 +183,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                   ),
                                   child: TextField(
                                     controller: _textController,
-                                    maxLines: 8,
+                                    maxLines: 7,
                                     style: fontProvider.smalltextfontstyle(),
                                     decoration: InputDecoration(
                                       //! Removed the input border and the hover colour.

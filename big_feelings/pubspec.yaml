@@ -1,5 +1,5 @@
 name: big_feelings
-description: "A new Flutter project."
+description: "A web application to teach children about their emotions, how to manage them and validate them."
 publish_to: 'none'
 version: 0.1.0
 
@@ -33,6 +33,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - web/icons/bigfeelings_logo.png
     - assets/images/
     - assets/icons/
     - assets/images/images_mood/
