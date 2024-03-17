@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Login/login_logic.dart';

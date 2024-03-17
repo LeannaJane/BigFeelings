@@ -112,6 +112,7 @@ class JournalOptionPage extends StatelessWidget {
                 child: OverflowBox(
                   minHeight: 300,
                   maxHeight: 400,
+                  //? Ref 25
                   child: Lottie.asset("assets/animation/book.json"),
                 ),
               ),
