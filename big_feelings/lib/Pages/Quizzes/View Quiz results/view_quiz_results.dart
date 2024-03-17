@@ -101,7 +101,17 @@ class QuizResults extends StatelessWidget {
                 String time = DateFormat('hh:mm a').format(dateTime);
 
                 int score = quizResult['score'] as int;
-                String quizDisplayText = 'Quiz ${quizId?.split(' ')[1]}';
+                //! Quiz number
+                String quizNumber = '';
+                if (quizId != null) {
+                  if (quizId.contains('1')) {
+                    quizNumber = '1';
+                  } else if (quizId.contains('2')) {
+                    quizNumber = '2';
+                  }
+                  //! Quiz numbers will need to be added here if more quizes are made.
+                }
+                String quizDisplayText = 'Quiz $quizNumber';
                 String scoreText = 'Score: $score out of 10';
                 String timeText = 'Time submitted: $date - $time ';
                 return Container(
