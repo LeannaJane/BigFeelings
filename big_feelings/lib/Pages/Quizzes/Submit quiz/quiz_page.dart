@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Quizzes extends StatelessWidget {
+  // ignore: use_super_parameters
   const Quizzes({Key? key}) : super(key: key);
 
   @override

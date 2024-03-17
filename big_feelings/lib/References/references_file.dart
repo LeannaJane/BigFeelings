@@ -130,7 +130,14 @@
 * This youtube video is used as a url link to forward the user to a youtube video. 
 ‌
 
+*/
+//! Lottie animation
+/*
 
+25
+? LottieFiles. (n.d.). Issey. [online] Available at: https://lottiefiles.com/trufffle [Accessed 17 Mar. 2024].
+* This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
+‌
 */
 
 

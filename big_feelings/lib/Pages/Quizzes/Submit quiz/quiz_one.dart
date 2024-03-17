@@ -336,7 +336,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                       child: Center(
                         child: Text(
                           'Your score: $score/10',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ),

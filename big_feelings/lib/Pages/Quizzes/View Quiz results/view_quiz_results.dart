@@ -4,11 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class QuizResults extends StatelessWidget {
-  const QuizResults({Key? key}) : super(key: key);
-
+  // ignore: use_super_parameters
+  QuizResults({Key? key}) : super(key: key);
+  final logger = Logger();
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -81,7 +83,7 @@ class QuizResults extends StatelessWidget {
                 );
               }
               if (snapshot.hasError) {
-                print('Error fetching data: ${snapshot.error}');
+                logger.e('Error fetching data: ${snapshot.error}');
                 return const Center(
                   child: Text('An error occurred while fetching data.'),
                 );

@@ -4,14 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class MoodEntriesPage extends StatelessWidget {
   // ignore: use_super_parameters
-  const MoodEntriesPage({Key? key}) : super(key: key);
+  MoodEntriesPage({Key? key}) : super(key: key);
   //? This code below presents a mood entry page, that shows the different entries taken from firebase.
   //? It shows the time, the mood type and the image of the mood.
 
+  final logger = Logger();
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
@@ -94,10 +96,11 @@ class MoodEntriesPage extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               }
+
               if (snapshot.hasError) {
                 //! I struggled to understand the error why my code was not actually retrieivng the data, and it was because of
                 //! an indexing problem.
-                print('Error fetching data: ${snapshot.error}');
+                logger.e('Error fetching data: ${snapshot.error}');
                 //! If there is an error while fetching the data it will present a error text.
                 return const Center(
                   //! If there is an error while fetching the data it will present a error text.

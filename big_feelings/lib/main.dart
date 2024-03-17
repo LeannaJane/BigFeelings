@@ -148,7 +148,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       page = const StartQuiz2();
       return RouteAnimations.instantAnimation(page);
     case '/quiz-results':
-      page = const QuizResults();
+      page = QuizResults();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/login':
       page = const LoginPage();
@@ -178,7 +178,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       page = const JournalViewer();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-entries':
-      page = const MoodEntriesPage();
+      page = MoodEntriesPage();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/mood-checker':
       page = const MoodTrackerPage();
