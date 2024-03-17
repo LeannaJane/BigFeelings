@@ -1,6 +1,7 @@
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 //! Reused the code again to make the journal option page for the adding a journal and viewing them. Just editing the names but using the same ui to keep conistency.
@@ -78,7 +79,8 @@ class JournalOptionPage extends StatelessWidget {
                 },
                 child: Center(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                    margin: const EdgeInsets.only(
+                        bottom: 10, left: 16.0, right: 16.0), // Adjusted margin
                     width: 300,
                     height: 180,
                     padding: const EdgeInsets.symmetric(
@@ -103,7 +105,16 @@ class JournalOptionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 40),
+              SizedBox(
+                height: 120,
+                child: OverflowBox(
+                  minHeight: 300,
+                  maxHeight: 400,
+                  child: Lottie.asset("assets/animation/book.json"),
+                ),
+              ),
             ],
           ),
         ),
