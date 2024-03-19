@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/Game.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/confetti.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/pause_game.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/restart.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/time.dart';
@@ -182,6 +183,12 @@ class _GameBoardState extends State<GameBoard> {
                   ),
                 ),
               ),
+              if (showConfetti)
+                AnimatedOpacity(
+                  opacity: showConfetti ? 1.0 : 0.0,
+                  duration: Duration(milliseconds: 10000),
+                  child: const GameConfetti(),
+                ),
             ],
           ),
         ),
