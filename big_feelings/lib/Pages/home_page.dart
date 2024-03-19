@@ -160,7 +160,7 @@ class HomePage extends StatelessWidget {
     {
       'title': 'Mini-Games',
       'icon': Icons.gamepad,
-      'route': '/mini-games',
+      'route': '/mini-game-options',
     },
     {
       'title': 'Mental Health Activities',

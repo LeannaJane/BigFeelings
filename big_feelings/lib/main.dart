@@ -14,6 +14,8 @@ import 'package:big_feelings/Pages/Login/login_ui.dart';
 import 'package:big_feelings/Pages/Login/password_reset.dart';
 import 'package:big_feelings/Pages/Login/signup_page.dart';
 import 'package:big_feelings/Pages/Login/welcome_page.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/gameboard.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/UI/start_game.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_entires_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart';
@@ -26,7 +28,7 @@ import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two_option.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
-import 'package:big_feelings/Pages/minigames_page.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/MIni_game_option_page.dart/minigames_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -123,9 +125,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/mental-health-activities':
       page = const MentalHealthActivitiesPage();
       return RouteAnimations.piggyBackingAnimation(page);
-    case '/mini-games':
-      page = const MiniGamesPage();
-      break;
+
     case '/mood-tracker':
       page = const MoodTrackerPage();
       break;
@@ -162,6 +162,15 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/password_reset':
       page = const PasswordResetPage();
       break;
+    case '/mini-game-options':
+      page = const MiniGamesPage();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/memory-game-options':
+      page = const StartGame();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/memory-game':
+      page = const GameBoard();
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/journal-options':
       page = const JournalOptionPage();
       return RouteAnimations.piggyBackingAnimation(page);
