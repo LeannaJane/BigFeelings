@@ -98,6 +98,7 @@ class MentalHealthActivitiesPage extends StatelessWidget {
                       child: Text(
                         'Other activity not completed',
                         style: fontProvider.subheading(themeNotifier),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),

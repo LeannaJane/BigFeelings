@@ -77,7 +77,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
   }
 
   void _saveJournalEntry(String entry, String userId, FontProvider fontProvider,
-      BuildContext context) async {
+      ThemeNotifier themeNotifier, BuildContext context) async {
     try {
       await FirebaseFirestore.instance.collection('JournalCollection').add({
         'entry': entry,
@@ -91,7 +91,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
           content: Text(
             'Journal entry saved successfully!',
             textAlign: TextAlign.center,
-            style: fontProvider.getSubTitleStyle(),
+            style: fontProvider.subheadinglogin(themeNotifier),
           ),
           duration: const Duration(seconds: 2),
           backgroundColor: Colors.green,
@@ -395,8 +395,12 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                           onTap: () {
                             if (_textController.text.isNotEmpty) {
                               if (user != null) {
-                                _saveJournalEntry(_textController.text,
-                                    user.uid, fontProvider, context);
+                                _saveJournalEntry(
+                                    _textController.text,
+                                    user.uid,
+                                    fontProvider,
+                                    themeNotifier,
+                                    context);
                                 _textController.clear();
                               } else {
                                 logger.e('User is not logged in.');
@@ -407,7 +411,8 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                   content: Text(
                                     'Please type something before saving.',
                                     textAlign: TextAlign.center,
-                                    style: fontProvider.getSubTitleStyle(),
+                                    style: fontProvider
+                                        .subheadinglogin(themeNotifier),
                                   ),
                                   duration: const Duration(seconds: 2),
                                   backgroundColor: Colors.red,

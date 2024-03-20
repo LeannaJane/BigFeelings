@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, use_super_parameters
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 //! Importing Firebase Authentication package and flutter matrial.
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
 
   //! This code has been edited to fit the Ui with the correct theme and font provider.
   //! I set a constant image width to keep the image size constant through the app and Ui layouts.
-  //! The elevated buttons have all been changed to containers with gestures due to wanting shadows and generally to look better.
+  //! The elevated buttons have all been changed to containers with gestures due to wanting shadows
   @override
   Widget build(BuildContext context) {
     double imageWidth = 150;
@@ -251,8 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'Forgot Password?',
                     textAlign: TextAlign.center,
-                    style:
-                        fontProvider.getSubTitleStyle(textcolour: Colors.green),
+                    style: fontProvider.greentext(),
                   ),
                 ),
                 if (_loginError != null)

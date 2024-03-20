@@ -217,8 +217,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Text(
                         'An email has been sent to reset your password.',
-                        style: fontProvider.getSubTitleStyle(
-                            textcolour: Colors.green),
+                        style: fontProvider.greentext(),
                       ),
                     ),
                 ],
