@@ -17,17 +17,14 @@ class ThemeDropdownDialog extends StatelessWidget {
     //! Using the Provider package to manage theme and font data
     //! Extracting theme and font information from providers
     final currentTheme = themeNotifier.currentTheme;
-    final fontProvider = Provider.of<FontProvider>(context);
-    final selectedFontFamily = fontProvider.selectedFontFamily;
     //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-    Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-        ? Colors.grey[800]!
-        : Colors.white;
-    Color textColor =
-        currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
 
-    Color iconColor =
-        currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
+    Color cursorColor = themeNotifier.cursorColor();
+    final fontProvider = Provider.of<FontProvider>(context);
+    Color getContainerColor =
+        Provider.of<ThemeNotifier>(context).getContainerColor();
+    Color iconColor = themeNotifier.getIconColor();
+
     //! -Setting the initial value for the theme dropdown
     ThemeData? dropdownValue;
     if (currentTheme == ThemeNotifier.darkTheme) {
@@ -37,45 +34,29 @@ class ThemeDropdownDialog extends StatelessWidget {
     }
     //! Building the Scaffold widget
     return AlertDialog(
-        //! Setting the current theme as the background colour.
-        backgroundColor: backgroundColor,
+        backgroundColor: getContainerColor,
         title: Text(
           //! Select a theme option in settings page with the chosen font family.
           'Select a theme:',
-          style: TextStyle(
-            fontFamily: selectedFontFamily,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: textColor,
+          style: fontProvider.getSubTitleStyle(
+            themeNotifier: themeNotifier,
           ),
         ),
         //! Presenting the drop down selections with the textColour theme and background colours applied.
         content: DropdownButton<ThemeData>(
           value: dropdownValue,
-          dropdownColor: backgroundColor,
+          dropdownColor: getContainerColor,
           icon: Icon(Icons.arrow_drop_down, color: iconColor),
           items: <DropdownMenuItem<ThemeData>>[
             DropdownMenuItem<ThemeData>(
               value: ThemeNotifier.darkTheme,
-              child: Text(
-                'Black background and White text',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: textColor,
-                  fontFamily: selectedFontFamily,
-                ),
-              ),
+              child: Text('Dark Theme',
+                  style: fontProvider.subheadingbald(themeNotifier)),
             ),
             DropdownMenuItem<ThemeData>(
               value: ThemeNotifier.lightTheme,
-              child: Text(
-                'White background and Black text',
-                style: TextStyle(
-                  fontFamily: selectedFontFamily,
-                  fontSize: 15.0,
-                  color: textColor,
-                ),
-              ),
+              child: Text('Light Theme',
+                  style: fontProvider.subheadingbald(themeNotifier)),
             ),
           ],
           onChanged: (ThemeData? newValue) {
@@ -93,11 +74,8 @@ class ThemeDropdownDialog extends StatelessWidget {
             //! A piece of text that allows the user to select ok to return back to the settings page without confusion.
             child: Text(
               'OK',
-              style: TextStyle(
-                color: Colors.red,
-                fontFamily: selectedFontFamily,
-                fontSize: 16.0,
-              ),
+              style:
+                  fontProvider.smalltextfontstyle().copyWith(color: Colors.red),
             ),
           ),
         ]);
