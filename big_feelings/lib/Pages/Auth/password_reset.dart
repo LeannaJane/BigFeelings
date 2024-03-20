@@ -1,125 +1,222 @@
+import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
-final logger = Logger();
-
-//! A statement widget
 class PasswordResetPage extends StatefulWidget {
-  // ignore: use_super_parameters
   const PasswordResetPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _PasswordResetPageState createState() => _PasswordResetPageState();
 }
 
-//! A password reset class that allows the user to reset their password by entering their email, and if their emails correct and a real email a reset email will be sent.
 class _PasswordResetPageState extends State<PasswordResetPage> {
   final TextEditingController emailController = TextEditingController();
-  //! A flag for email sent.
-  bool _emailSent = false;
+  bool? _emailSent;
 
-  //! Method to send password reset email
+  @override
+  void initState() {
+    super.initState();
+    emailController.addListener(_clearError);
+  }
+
+  void _clearError() {
+    setState(() {
+      _emailSent = null;
+    });
+  }
+
   void _sendPasswordResetEmail(BuildContext context) async {
     String email = emailController.text.trim();
 
     try {
-      //! Sends password reset with firebase auth. If successsful a success message will be printed.
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-
-      //! If password reset email sent successfully
-      logger.i('Password reset email sent successfully');
-
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          //! A snackbar message to tell user that a email has been sent.
-          content: Text('Password reset email sent successfully'),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ),
-      );
-      //! If email sent is true it sets the state.
       setState(() {
         _emailSent = true;
       });
-      //! Catches error, and outputs it in a snackbar for 2 seconds.
     } catch (e) {
-      logger.e('Error sending password reset email: $e');
-
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Error sending password reset email'),
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 2),
-        ),
-      );
+      setState(() {
+        _emailSent = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        //! Reset password title.
-        title: const Text('Reset Password'),
-      ),
-      body: Padding(
-        //! 16 padding.
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              //! A message to ask user to enter their email. This is aligned in the center with a font size and font boldness set.
-              'Please Enter Your Email to Reset Password',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+    double imageWidth = 150;
+    return Consumer<ThemeNotifier>(
+      builder: (context, themeNotifier, child) {
+        Color cursorColor = themeNotifier.cursorColor();
+        final fontProvider = Provider.of<FontProvider>(context);
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
+        Color iconColor = themeNotifier.getIconColor();
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Reset Password',
+              style: fontProvider.getOtherTitleStyle(themeNotifier),
+              textAlign: TextAlign.center,
             ),
-            //! A sized box to make space between the email message and the input email.
-            const SizedBox(height: 20),
-            TextField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                size: 30.0,
+                color: iconColor,
               ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            //! A sized box to make space between the email input and send button.
-            const SizedBox(height: 20),
-            //! A button used to send the resetpassword email in red.
-            ElevatedButton(
-              onPressed: () => _sendPasswordResetEmail(context),
-              child: const Text(
-                'Send Reset Email',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            //! If statement to output a message if the email has been sent.
-            if (_emailSent)
-              const Padding(
-                padding: EdgeInsets.only(top: 16.0),
-                child: Text(
-                  //! When a correct email is inputted the user will recieve this message on their screen. When a password reset email has been set.
-                  'An email has been sent to reset your password.',
-                  style: TextStyle(
-                    //! The colour is set to green for now.
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/Waving_penguin.png',
+                          fit: BoxFit.cover,
+                          width: imageWidth,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  Container(
+                    width: 400,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: getContainerColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 8,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: getContainerColor,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Please Enter Email',
+                                textAlign: TextAlign.center,
+                                style:
+                                    fontProvider.subheadinglogin(themeNotifier),
+                              ),
+                              const SizedBox(height: 8),
+                              Container(
+                                width: 400,
+                                height: 40,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 16.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 0),
+                                    ),
+                                  ],
+                                  color: getContainerColor,
+                                ),
+                                child: TextField(
+                                  controller: emailController,
+                                  cursorColor: cursorColor,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: fontProvider
+                                      .subheadinglogin(themeNotifier),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.symmetric(
+                                      vertical: 14.0,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  GestureDetector(
+                    onTap: () => _sendPasswordResetEmail(context),
+                    child: Container(
+                      width: 100,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: getContainerColor,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 8,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Login',
+                        style: fontProvider.subheadinglogin(themeNotifier),
+                      ),
+                    ),
+                  ),
+                  if (_emailSent == false)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        'Error sending password reset email.',
+                        style: fontProvider.errortext(),
+                      ),
+                    ),
+                  if (_emailSent == true)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        'An email has been sent to reset your password.',
+                        style: fontProvider.getSubTitleStyle(
+                            textcolour: Colors.green),
+                      ),
+                    ),
+                ],
               ),
-          ],
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
