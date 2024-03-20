@@ -126,7 +126,6 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/mental-health-activities':
       page = const MentalHealthActivitiesPage();
       return RouteAnimations.piggyBackingAnimation(page);
-
     case '/mood-tracker':
       page = const MoodTrackerPage();
       break;
@@ -153,16 +152,16 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/login':
       page = const LoginPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/sign-up':
       page = const SignUpPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/settings-page':
       page = const SettingsPage();
       break;
     case '/password_reset':
       page = const PasswordResetPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/mini-game-options':
       page = const MiniGamesPage();
       return RouteAnimations.piggyBackingAnimation(page);
