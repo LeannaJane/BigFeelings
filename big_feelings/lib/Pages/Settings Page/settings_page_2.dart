@@ -222,8 +222,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     Color textColor = currentTheme == ThemeNotifier.darkTheme
                         ? Colors.white
                         : Colors.black;
-                    LogoutDialog.show(context, selectedFontFamily,
-                        backgroundColor, textColor);
+                    LogoutDialog.show(context, themeNotifier, fontProvider);
                   },
                 ),
               ),
