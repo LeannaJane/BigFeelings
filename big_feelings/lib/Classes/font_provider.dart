@@ -51,7 +51,7 @@ class FontProvider with ChangeNotifier {
       case 'ShortStack':
         return GoogleFonts.shortStack(fontSize: fontSize);
       case 'SingleDay':
-        return const TextStyle(fontFamily: 'SingleDay', fontSize: 20);
+        return const TextStyle(fontFamily: 'SingleDay', fontSize: 16);
       default:
         return TextStyle(
           fontFamily: fontFamily,
