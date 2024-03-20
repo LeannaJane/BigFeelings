@@ -1,28 +1,18 @@
-/*
-! This Flutter code implements a login page with 
-! Firebase authentication functionality. 
-! It allows users to input their email and password for authentication, 
-! with error handling for various authentication scenarios such as 
-! wrong password, invalid email format, and too many login attempts. 
-! The page includes UI elements for email and password input fields, 
-! a login button, and a "Forgot Password?" option. 
-! When the user successfully signs in they will be forwarded to the login page,
-! If the user selects the forgot password method, they will be asked to type their email,
-! And a new password can be made depending if their email is correct.
-*/
-
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, use_super_parameters
+//! Importing Firebase Authentication package and flutter matrial.
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+//! A sign Up page, that users can use to create an account, this page is pretty basic,
+//! as I just wanted the Sign up button to make accounts for now, the Ui Will look nicer eventually.
+//! Defining a stateful widget named SignUpPage.
 class LoginPage extends StatefulWidget {
-  // ignore: use_super_parameters
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -30,26 +20,56 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   String? _loginError;
-  //! If the user has forgot their password they can click the forget password text and they will be forwarded to the correct page.
+
+  @override
+  void initState() {
+    super.initState();
+    emailController.addListener(_clearError);
+    passwordController.addListener(_clearError);
+  }
+
+  void _clearError() {
+    setState(() {
+      _loginError = null;
+    });
+  }
 
   void _forgotPassword(BuildContext context) {
     Navigator.pushNamed(context, '/password_reset');
   }
 
+  //! This code has been edited to fit the Ui with the correct theme and font provider.
+  //! I set a constant image width to keep the image size constant through the app and Ui layouts.
+  //! The elevated buttons have all been changed to containers with gestures due to wanting shadows and generally to look better.
   @override
   Widget build(BuildContext context) {
-    //! These variables are used to calculate the image inside of the login page, as on mobile the image was too big so
-    //! I set tgat uf tge wudth of the screen is a certain size, the image will also be a certain size.
-    double screenWidth = MediaQuery.of(context).size.width;
-    double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
-    double imageWidth = (screenWidth * imageScaleFactor).clamp(150.0, 300.0);
-
+    double imageWidth = 150;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
+      Color cursorColor = themeNotifier.cursorColor();
       final fontProvider = Provider.of<FontProvider>(context);
-      Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color iconColor = themeNotifier.getIconColor();
       return Scaffold(
-        //! Setting the background colour, and adding and customising the page title.
-        backgroundColor: const Color.fromARGB(255, 209, 236, 238),
+        appBar: AppBar(
+          title: Text(
+            'Login',
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
+            textAlign: TextAlign.center,
+          ),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30.0,
+              color: iconColor,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -61,14 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        //! Centering the title like every title, to keep consistency.
-                        'LOGIN',
-                        textAlign: TextAlign.center,
-                        style: fontProvider.getTitleFontStyle(themeNotifier),
-                      ),
                       Image.asset(
-                        //! Waving penguin image.
                         'assets/images/Waving_penguin.png',
                         fit: BoxFit.cover,
                         width: imageWidth,
@@ -76,16 +89,14 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                //! Container containing login fields and button
                 Container(
                   width: 400,
                   padding: const EdgeInsets.symmetric(
                     vertical: 20,
                   ),
-                  //! Added padding
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Colors.white,
+                    color: getContainerColor,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
@@ -100,11 +111,10 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      //! This is the email field and label
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Column(
@@ -112,12 +122,11 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              //! A piece of text to tell user where to enter their email.
                               'Please Enter Email',
                               textAlign: TextAlign.center,
-                              style: fontProvider.getSubTitleStyle(),
+                              style:
+                                  fontProvider.subheadinglogin(themeNotifier),
                             ),
-                            //! Adding space between text and input.
                             const SizedBox(height: 8),
                             Container(
                               width: 600,
@@ -134,18 +143,14 @@ class _LoginPageState extends State<LoginPage> {
                                     offset: const Offset(0, 0),
                                   ),
                                 ],
-                                color: Colors.white,
+                                color: getContainerColor,
                               ),
-                              //! Email constroller to allow user to input their email with the singleday font and 16 font size.
                               child: TextField(
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                cursorColor: Colors.black,
-                                style: const TextStyle(
-                                  fontFamily: 'SingleDay',
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
+                                cursorColor: cursorColor,
+                                style:
+                                    fontProvider.subheadinglogin(themeNotifier),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
@@ -158,24 +163,22 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      //! Adding space between the two containers.
                       const SizedBox(height: 16),
-                      //! This is the password field and label
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            //! A piece of text that tells user where to enter their password.
                             Text(
                               'Please Enter Password',
                               textAlign: TextAlign.center,
-                              style: fontProvider.getSubTitleStyle(),
+                              style:
+                                  fontProvider.subheadinglogin(themeNotifier),
                             ),
                             const SizedBox(height: 8),
                             Padding(
@@ -194,22 +197,17 @@ class _LoginPageState extends State<LoginPage> {
                                       offset: const Offset(0, 0),
                                     ),
                                   ],
-                                  color: Colors.white,
+                                  color: getContainerColor,
                                 ),
-                                //! Allowing the user to input their password in the text input area within the container.
                                 child: TextField(
                                   controller: passwordController,
                                   obscureText: true,
-                                  cursorColor: Colors.black,
-                                  style: const TextStyle(
-                                    fontFamily: 'SingleDay',
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
+                                  cursorColor: cursorColor,
+                                  style: fontProvider
+                                      .subheadinglogin(themeNotifier),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    //! I had a padding issue, so these values may change
                                     contentPadding: EdgeInsets.symmetric(
                                         vertical: 18.0, horizontal: 16.0),
                                   ),
@@ -222,90 +220,48 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                //! A space between the container and the text.
+                const SizedBox(height: 25),
+                GestureDetector(
+                  onTap: () => _handleLogin(context),
+                  child: Container(
+                    width: 100,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      color: getContainerColor,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 8,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Login',
+                      style: fontProvider.subheadinglogin(themeNotifier),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16),
                 TextButton(
-                  //! If the user selects the forgot password they will be forwarded to the forgot password page.
                   onPressed: () => _forgotPassword(context),
                   child: Text(
                     'Forgot Password?',
                     textAlign: TextAlign.center,
                     style:
-                        fontProvider.getSubTitleStyle(textcolour: Colors.red),
+                        fontProvider.getSubTitleStyle(textcolour: Colors.green),
                   ),
                 ),
-                //! Another space betweem the login box and the forgot password.
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: 150,
-                  height: 50,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        textStyle: const TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'SingleDay',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      //! When the user selects the login button the application will try to log them in using the login function.
-                      //* Changed the On pressed to call the LoginLogic login method.
-                      onPressed: () => LoginLogic.login(
-                        //! Adding parameters.
-                        context,
-                        emailController,
-                        passwordController,
-                        (error) {
-                          //! Adding set state here for the error, which error outputs from the login function will be set here.
-                          setState(() {
-                            _loginError = error;
-                          });
-                        },
-                        () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Login successful'),
-                              backgroundColor: Colors.green,
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        },
-                        //! Placing the user id.
-                        (userId) {
-                          //! Once sucessfully signed in they will go to the homepage.
-                          Navigator.pushReplacementNamed(context, '/home');
-                        },
-                        //! This will send them to the forgot password page based on whether they forgot their password.
-                        _forgotPassword,
-                      ),
-                      child: Text(
-                        'Login',
-                        style: fontProvider.welcomepagetext(),
-                      ),
-                    ),
-                  ),
-                ),
-                //! This will display a login message based on the error.
                 if (_loginError != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      _loginError!,
-                      style: const TextStyle(
-                        color: Colors.red,
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        _loginError!,
+                        style: fontProvider.errortext(),
                       ),
                     ),
                   ),
@@ -315,5 +271,32 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     });
+  }
+
+  //! Moved the login state to own method.
+  void _handleLogin(BuildContext context) {
+    LoginLogic.login(
+      context,
+      emailController,
+      passwordController,
+      (error) {
+        setState(() {
+          _loginError = error;
+        });
+      },
+      () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Login successful'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      },
+      (userId) {
+        Navigator.pushReplacementNamed(context, '/home');
+      },
+      _forgotPassword,
+    );
   }
 }
