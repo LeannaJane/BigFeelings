@@ -36,9 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    //double screenWidth = MediaQuery.of(context).size.width;
-    //double imageScaleFactor = screenWidth < 700 ? 0.3 : 0.5;
-    //double imageWidth = (screenWidth * imageScaleFactor).clamp(150.0, 300.0);
     double imageWidth = 150;
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
@@ -218,7 +215,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
                   SizedBox(
                     width: 100,
                     height: 45,
@@ -245,9 +242,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: const Offset(0, 3),
+                              spreadRadius: 5,
+                              blurRadius: 8,
+                              offset: const Offset(0, 0),
                             ),
                           ],
                         ),
