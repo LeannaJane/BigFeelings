@@ -1,5 +1,3 @@
-// ignore_for_file: use_super_parameters
-
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,6 @@ class FontDropdownDialog extends StatelessWidget {
                     themeNotifier: themeNotifier,
                   ),
                 ),
-                //! The value of the font chosen is selected to the origional selected font.
                 content: DropdownButton<String>(
                   dropdownColor: getContainerColor,
                   value: selectedFontFamily,
@@ -59,7 +56,7 @@ class FontDropdownDialog extends StatelessWidget {
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
-                    //! IF the new value isnt null then the new state will be updated with the selected font.
+                    //! IF the new value isn't null then the new state will be updated with the selected font.
                     if (newValue != null) {
                       //! Update selectedFont immediately when the user selects a different font
                       fontProvider.setFontFamily(newValue);
