@@ -1,3 +1,5 @@
+import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,29 +10,27 @@ import 'package:flutter/material.dart';
 */
 
 class LogoutDialog {
-  //! Method to show the log out dialog. Which is basically yes or no.
-  static void show(BuildContext context, String selectedFontFamily,
-      Color backgroundColor, Color textColor) {
+  static void show(BuildContext context, ThemeNotifier themeNotifier,
+      FontProvider fontProvider) {
     showDialog(
       context: context,
       barrierColor: Colors.black.withOpacity(0.85),
       builder: (BuildContext context) {
+        final backgroundColor = themeNotifier.getContainerColor();
+        final selectedFontFamily = fontProvider.selectedFontFamily;
         return AlertDialog(
           //! Dialog content that asks user if they want to log out.
           content: Text(
             //! Message asking if the user wants to log out.
             'Do you want to log out?',
-            style: TextStyle(
-              //! Selected font family and 20.0 font size and set to bald.
-              fontFamily: selectedFontFamily,
-              fontSize: 20.0,
-              color: textColor,
+            style: fontProvider.getSubTitleStyle(
+              themeNotifier: themeNotifier,
             ),
           ),
           backgroundColor: backgroundColor,
           actions: <Widget>[
             //! cancel button and logout button with the font family assigned.
-            _buildCancelButton(context, selectedFontFamily),
+            _buildCancelButton(context, selectedFontFamily, fontProvider),
             _buildLogoutButton(context, selectedFontFamily),
           ],
         );
@@ -39,8 +39,8 @@ class LogoutDialog {
   }
 
   //! Widget for cancel button
-  static Widget _buildCancelButton(
-      BuildContext context, String selectedFontFamily) {
+  static Widget _buildCancelButton(BuildContext context,
+      String selectedFontFamily, FontProvider fontProvider) {
     return TextButton(
       onPressed: () {
         //! Checks if the context is still valid before popping the dialog
@@ -51,12 +51,7 @@ class LogoutDialog {
       child: Text(
         //! A no text button for cancel action
         'No',
-        style: TextStyle(
-          //! Set font family for the button text, font size and text colour.
-          fontFamily: selectedFontFamily,
-          fontSize: 16.0,
-          color: Colors.red,
-        ),
+        style: fontProvider.smalltextfontstyle().copyWith(color: Colors.red),
       ),
     );
   }
