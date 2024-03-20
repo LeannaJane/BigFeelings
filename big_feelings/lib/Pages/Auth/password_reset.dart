@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_super_parameters
+
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +13,8 @@ class PasswordResetPage extends StatefulWidget {
   _PasswordResetPageState createState() => _PasswordResetPageState();
 }
 
+//! A password reset class, that resets the password and presents the UI.
+//! This class contains a bool that checks whether an email has been sent, to output the right information to the user.
 class _PasswordResetPageState extends State<PasswordResetPage> {
   final TextEditingController emailController = TextEditingController();
   bool? _emailSent;
@@ -21,12 +25,14 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
     emailController.addListener(_clearError);
   }
 
+  //! Resets the state of the error.
   void _clearError() {
     setState(() {
       _emailSent = null;
     });
   }
 
+  //! A method to reset the email to firebase.
   void _sendPasswordResetEmail(BuildContext context) async {
     String email = emailController.text.trim();
 
@@ -42,6 +48,10 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
     }
   }
 
+  //! The UI for the reset password page, this is presented with a reset title with the correct theme and font.
+  //! This code has been reused and the Ui has been changed based on the pages requirements.
+  //! This Ui allows the user to input their email using a text controller, and then allows the user to select a button and when it's
+  //! Pressed it executes the _sendPasswordResetEmail and then provides the user with an output.
   @override
   Widget build(BuildContext context) {
     double imageWidth = 150;
