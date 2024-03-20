@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
@@ -5,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WelcomePage extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const WelcomePage({Key? key});
 
   @override
@@ -18,6 +19,7 @@ class WelcomePage extends StatelessWidget {
     double containerHeight;
     double buttonWidth;
     double buttonHeight;
+
     if (screenWidth < 400) {
       imageWidth = 350;
     } else if (screenWidth < 700) {
@@ -29,47 +31,35 @@ class WelcomePage extends StatelessWidget {
     } else {
       imageWidth = 500;
     }
-    //! Setting the container size based on the image width.
+
     if (imageWidth == 350) {
       containerWidth = 300;
-      containerHeight = 120;
-      buttonWidth = 140;
-      buttonHeight = 20;
+      containerHeight = 150;
+      buttonWidth = 200;
+      buttonHeight = 40;
     } else if (imageWidth == 400) {
       containerWidth = 400;
-      containerHeight = 130;
-      buttonWidth = 160;
-      buttonHeight = 25;
+      containerHeight = 160;
+      buttonWidth = 200;
+      buttonHeight = 40;
     } else if (imageWidth == 450) {
       containerWidth = 450;
-      containerHeight = 140;
-      buttonWidth = 180;
-      buttonHeight = 30;
+      containerHeight = 170;
+      buttonWidth = 200;
+      buttonHeight = 40;
     } else {
       containerWidth = 500;
-      containerHeight = 150;
-      buttonWidth = 140;
-      buttonHeight = 35;
+      containerHeight = 180;
+      buttonWidth = 200;
+      buttonHeight = 40;
     }
-    //! Adding a button style, so that the padding and size is equal for each button
-    //! I had issues where the buttons were not the same length.
-    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      fixedSize: Size(buttonWidth, buttonHeight),
-      backgroundColor: Colors.black,
-      foregroundColor: Colors.white,
-      elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-    );
 
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
         final fontProvider = Provider.of<FontProvider>(context);
-        Provider.of<ThemeNotifier>(context).getContainerColor();
+        Color getContainerColor = themeNotifier.getContainerColor();
+
         return Scaffold(
-          //! Setting background colour
-          backgroundColor: const Color.fromARGB(255, 209, 236, 238),
           body: SafeArea(
             //! SingleChildScrollView allows users to scroll.
             child: SingleChildScrollView(
@@ -81,10 +71,9 @@ class WelcomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
                       //! Title of the application in the top center. With the assigned style from the font provider page.
-
-                      'BIG FEELINGS',
-                      textAlign: TextAlign.center,
+                      'Big Feelings',
                       //! Editing the style as a whole instead of individually.
+                      textAlign: TextAlign.center,
                       style: fontProvider.getTitleFontStyle(themeNotifier),
                     ),
                   ),
@@ -99,81 +88,121 @@ class WelcomePage extends StatelessWidget {
                       style: fontProvider.smalltextfontstyle(),
                     ),
                   ),
-                  Stack(
-                    //! Image aligned in the bottom center, with a box fit cover.
-                    alignment: Alignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: imageWidth,
-                          height: imageWidth,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                //! Added padding only to the bottom
-                                bottom: 40.0),
-                            child: Image.asset(
-                              'assets/images/penguin_emotion.png',
-                              fit: BoxFit.contain, // Use
-                              //! Changed it to a contain because the image kept cutting out.
+                  //! Image aligned in the bottom center, with a box fit cover.
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 80.0),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            width: imageWidth,
+                            height: imageWidth,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 60.0),
+                              //! Added padding only to the bottom
+                              child: Image.asset(
+                                'assets/images/penguin_emotion.png',
+                                fit: BoxFit.contain,
+                                //! Changed it to a contain because the image kept cutting out.
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        //! A container that has the login and sign up button placed inside
-                        child: Container(
-                          //! Assigning width and container height variable to the container so that the container can change the size based on the screen size.
-                          width: containerWidth,
-                          height: containerHeight,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 8,
-                                offset: const Offset(0, -3),
-                              ),
-                            ],
-                            //! The corners of the box set to a 30 radius.
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          //! The login and sign up are placed in a column and centered.
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ElevatedButton(
-                                //! Removing the elevated buttons from the sized box as this caused issues.
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/login');
-                                },
-                                style: buttonStyle,
-                                child: Text(
-                                  'Login',
-                                  style: fontProvider.welcomepagetext(),
+                        Positioned(
+                          bottom: 0,
+                          //! A container that has the login and sign up button placed inside
+                          child: Container(
+                            //! Assigning width and container height variable to the container so that the container can change the size based on the screen size.
+                            width: containerWidth,
+                            height: containerHeight,
+                            decoration: BoxDecoration(
+                              color: getContainerColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 8,
+                                  offset: const Offset(0, -3),
                                 ),
-                              ),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                //! Removing the elevated buttons from the sized box as this caused issues.
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/sign-up');
-                                },
-                                style: buttonStyle,
-                                child: Text(
-                                  'Sign Up',
-                                  style: fontProvider.welcomepagetext(),
+                              ],
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            //! The login and sign up are placed in a column and centered.
+                            child: Column(
+                              //! Changed the elevated button to a container as looks nicer.
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(height: 10),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 20.0),
+                                  child: GestureDetector(
+                                    onTap: () =>
+                                        Navigator.pushNamed(context, '/login'),
+                                    child: Container(
+                                      width: buttonWidth,
+                                      height: buttonHeight,
+                                      decoration: BoxDecoration(
+                                        color: getContainerColor,
+                                        borderRadius: BorderRadius.circular(30),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Login',
+                                        style: fontProvider
+                                            .subheadinglogin(themeNotifier),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                //! Changed the elevated button to a container as looks nicer.
+                                const SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20.0),
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.pushNamed(
+                                        context, '/sign-up'),
+                                    child: Container(
+                                      width: buttonWidth,
+                                      height: buttonHeight,
+                                      decoration: BoxDecoration(
+                                        color: getContainerColor,
+                                        borderRadius: BorderRadius.circular(30),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Sign Up',
+                                        style: fontProvider
+                                            .subheadinglogin(themeNotifier),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -190,12 +219,12 @@ class WelcomePage extends StatelessWidget {
               );
             },
             //! Set background color to white of the button.
-            backgroundColor: Colors.black,
+            backgroundColor: getContainerColor,
             child: Center(
               child: Text(
                 //! Setting the letters as Tt, making it bald, black and the selected font family to keep consistency across the application.
                 'Tt',
-                style: fontProvider.smalltextfontstyle(fontSize: 24),
+                style: fontProvider.ButtonText(themeNotifier),
                 textAlign: TextAlign.center,
               ),
             ),
