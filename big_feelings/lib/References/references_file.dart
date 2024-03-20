@@ -156,8 +156,47 @@
 
 //! I had an error with the application on the android device not allowing urls to be forwarded.
 /*
+28
 ? Stack Overflow. (n.d.). Flutter url_launcher is not launching url in release mode. [online] Available at: https://stackoverflow.com/questions/65883844/flutter-url-launcher-is-not-launching-url-in-release-mode [Accessed 17 Mar. 2024].
 * This website asisted me in how to fixing the issue on the manifest page in the android folder. I made sure to add permissions for the url.
+ */
+
+
+//! Font dialog page References
+/*
+29
+? Android Developers. (n.d.). Work with fonts | Jetpack Compose. [online] Available at: https://developer.android.com/jetpack/compose/text/fonts [Accessed 3 Feb. 2024].
+* This website assisted in me setting fonts.
+
+30 
+? www.youtube.com. (n.d.). Custom Font in Flutter | Flutter external font | Flutter Tutorial #14. [online] Available at: https://www.youtube.com/watch?v=qI_7znKKlhA [Accessed 3 Feb. 2024].
+* This video guided me on how to use custom fonts in my flutter application.
+
+31
+? * www.youtube.com. (n.d.). Flutter Tutorial - Full Course - Project Based. [online] Available at: https://www.youtube.com/watch?v=OO_-MbnXQzY [Accessed 3 Feb. 2024].
+* This video guided me on how to use custom fonts in my flutter application.
+
+32
+? docs.flutter.dev. (n.d.). Work with long lists. [online] Available at: https://docs.flutter.dev/cookbook/lists/long-lists.
+* Tjos website taught me how to create lists.
+
+33 
+? api.flutter.dev. (n.d.). actions property - AppBar class - material library - Dart API. [online] Available at: https://api.flutter.dev/flutter/material/AppBar/actions.html [Accessed 6 Feb. 2024].
+* Implemented an action widget using the code provided by flutter to assist me.
+ 
+34
+? Stack Overflow. (n.d.). How to refresh an AlertDialog in Flutter? [online] Available at: https://stackoverflow.com/questions/51962272/how-to-refresh-an-alertdialog-in-flutter [Accessed 6 Feb. 2024].
+* I had an issue where the fonts were not updating to the selected font on the drop down, so this website helped me understand how to use an alert dialog.
+* This website also helped me understand how to write my show dialog dropdown using a stateful builder.
+ 
+35
+? Stack Overflow. (n.d.). How to make a full screen dialog in flutter? [online] Available at: https://stackoverflow.com/questions/51908187/how-to-make-a-full-screen-dialog-in-flutter [Accessed 6 Feb. 2024].
+* I used this website to understand how to change the opacity of the dimming in the background the line:
+* backgroundColor: Colors.white.withOpacity(0.85),
+
+36
+?  Stack Overflow. (n.d.). flutter DropDownButton remove arrow icon? [online] Available at: https://stackoverflow.com/questions/67997560/flutter-dropdownbutton-remove-arrow-icon [Accessed 12 Feb. 2024].
+* Hiding the default icon.
  */
 
 
