@@ -3,6 +3,10 @@ import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:big_feelings/Pages/Auth/Login/login_ui.dart';
+import 'package:big_feelings/Pages/Auth/Sign%20up/signup_ui.dart';
+import 'package:big_feelings/Pages/Auth/password_reset.dart';
+import 'package:big_feelings/Pages/Auth/welcome_page.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
 import 'package:big_feelings/Pages/Journal%20Page/view_journals.dart';
 import 'package:big_feelings/Pages/Library%20Page/Educational%20Videos/video_option_page.dart';
@@ -10,11 +14,8 @@ import 'package:big_feelings/Pages/Library%20Page/library_page.dart';
 import 'package:big_feelings/Pages/Mental%20Health%20Page/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/Mental%20health%20page/Breathing%20Page/breathing_page.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_options.dart';
-import 'package:big_feelings/Pages/Login/login_ui.dart';
-import 'package:big_feelings/Pages/Login/password_reset.dart';
-import 'package:big_feelings/Pages/Login/signup_page.dart';
-import 'package:big_feelings/Pages/Login/welcome_page.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/gameboard.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/mobile_ui.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/UI/start_game.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_entires_page.dart';
 import 'package:big_feelings/Pages/Mood%20Tracker/mood_option_page.dart';
@@ -168,8 +169,11 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/memory-game-options':
       page = const StartGame();
       return RouteAnimations.piggyBackingAnimation(page);
-    case '/memory-game':
+    case '/memory-game-desktop':
       page = const GameBoard();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/memory-mobile':
+      page = const GameBoardMobile();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/journal-options':
       page = const JournalOptionPage();

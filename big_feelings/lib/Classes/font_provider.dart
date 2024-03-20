@@ -197,6 +197,44 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  TextStyle subheadinglogin(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    double fontSize = 16.0;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: fontSize,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 16,
+          color: textColor,
+        );
+    }
+  }
+
   //! Adding another textstyle for a diff size font for the login and signup buttons.
   TextStyle welcomepagetext({double fontSize = 16.0}) {
     switch (_selectedFontFamily) {
@@ -227,6 +265,45 @@ class FontProvider with ChangeNotifier {
   TextStyle getSubTitleStyle({
     double fontSize = 16.0,
     Color textcolour = Colors.black,
+  }) {
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textcolour,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textcolour,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textcolour,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: textcolour,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: fontSize,
+          color: textcolour,
+        );
+    }
+  }
+
+  TextStyle errortext({
+    double fontSize = 16.0,
+    Color textcolour = Colors.red,
   }) {
     switch (_selectedFontFamily) {
       case 'Pacifico':

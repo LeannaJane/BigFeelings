@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:logger/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 //! This class fetches the quiz data from firestore based on the quizId
 class QuizFetcher {

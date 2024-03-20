@@ -14,6 +14,20 @@ class StartGame extends StatefulWidget {
 class _StartGameState extends State<StartGame> {
   bool showQuiz = false;
 
+  bool isDesktop(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    return width > 550 && height > 800;
+  }
+
+  void navigateToGame(BuildContext context) {
+    if (isDesktop(context)) {
+      Navigator.pushNamed(context, '/memory-game-desktop');
+    } else {
+      Navigator.pushNamed(context, '/memory-mobile');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
@@ -80,9 +94,7 @@ class _StartGameState extends State<StartGame> {
                       ),
                       const SizedBox(height: 50),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/memory-game');
-                        },
+                        onTap: () => navigateToGame(context),
                         child: Container(
                           width: 150,
                           height: 40,

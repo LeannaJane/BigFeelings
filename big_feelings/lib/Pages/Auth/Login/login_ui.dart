@@ -13,9 +13,9 @@
 
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:big_feelings/Pages/Auth/Login/login_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'login_logic.dart';
 
 class LoginPage extends StatefulWidget {
   // ignore: use_super_parameters
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text(
                         //! Centering the title like every title, to keep consistency.
-                        'BIG FEELINGS LOGIN',
+                        'LOGIN',
                         textAlign: TextAlign.center,
                         style: fontProvider.getTitleFontStyle(themeNotifier),
                       ),

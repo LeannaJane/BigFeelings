@@ -2,7 +2,8 @@
 
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
-import 'package:big_feelings/Pages/Login/login_logic.dart';
+import 'package:big_feelings/Pages/Auth/Login/login_logic.dart';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

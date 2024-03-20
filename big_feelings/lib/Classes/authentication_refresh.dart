@@ -1,4 +1,4 @@
-import 'package:big_feelings/Pages/Login/welcome_page.dart';
+import 'package:big_feelings/Pages/Auth/welcome_page.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
