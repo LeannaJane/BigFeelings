@@ -235,6 +235,44 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  TextStyle subheadingbald(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    double fontSize = 16.0;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: fontSize,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 16,
+          color: textColor,
+        );
+    }
+  }
+
   TextStyle ButtonText(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
@@ -302,7 +340,50 @@ class FontProvider with ChangeNotifier {
 
   TextStyle getSubTitleStyle({
     double fontSize = 16.0,
-    Color textcolour = Colors.black,
+    required ThemeNotifier themeNotifier,
+  }) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: fontSize,
+          color: textColor,
+        );
+    }
+  }
+
+  TextStyle errortext({
+    double fontSize = 16.0,
+    Color textcolour = Colors.red,
   }) {
     switch (_selectedFontFamily) {
       case 'Pacifico':
@@ -339,9 +420,9 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  TextStyle errortext({
+  TextStyle greentext({
     double fontSize = 16.0,
-    Color textcolour = Colors.red,
+    Color textcolour = Colors.green,
   }) {
     switch (_selectedFontFamily) {
       case 'Pacifico':
