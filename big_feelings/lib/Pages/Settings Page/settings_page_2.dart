@@ -20,14 +20,11 @@ class _SettingsPageState extends State<SettingsPage> {
   double menuItemSpacing = 10.0;
   @override
   Widget build(BuildContext context) {
-    double imageWidth = 150;
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        Color cursorColor = themeNotifier.cursorColor();
         final fontProvider = Provider.of<FontProvider>(context);
         Color getContainerColor =
             Provider.of<ThemeNotifier>(context).getContainerColor();
-        Color iconColor = themeNotifier.getIconColor();
         return Scaffold(
           backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
           appBar: AppBar(
