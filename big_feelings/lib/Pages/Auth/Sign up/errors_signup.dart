@@ -1,7 +1,7 @@
-import 'package:big_feelings/Classes/font_provider.dart';
-import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 
 class SignUpLogic {
   static Future<void> signup(
@@ -20,6 +20,9 @@ class SignUpLogic {
 
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Reset authentication state to not signed in as I dont want to automatically sign in users.
+      await FirebaseAuth.instance.signOut();
 
       if (userCredential.user != null) {
         ScaffoldMessenger.of(context).showSnackBar(

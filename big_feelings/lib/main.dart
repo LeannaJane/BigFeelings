@@ -200,6 +200,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     default:
       page = const WelcomePage();
+      return RouteAnimations.piggyBackingAnimation(page);
   }
   return RouteAnimations.forwardAnimation(page);
 }
