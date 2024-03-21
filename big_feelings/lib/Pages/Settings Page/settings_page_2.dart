@@ -20,29 +20,14 @@ class _SettingsPageState extends State<SettingsPage> {
   double menuItemSpacing = 10.0;
   @override
   Widget build(BuildContext context) {
+    double imageWidth = 150;
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
-        //! Using the Provider package to manage theme and font data
-        //! Extracting theme and font information from providers
-        final currentTheme = themeNotifier.currentTheme;
+        Color cursorColor = themeNotifier.cursorColor();
         final fontProvider = Provider.of<FontProvider>(context);
-        final selectedFontFamily = fontProvider.selectedFontFamily;
-        //! Setting up spacing variables based on screen width
-        final screenWidth = MediaQuery.of(context).size.width;
-        //! When the screen width increases the spacing between each button increases, so when the page is in full screen, the menu item buttons are more spread.
-        //! Calculate item spacing based on screen width
-        double menuItemSpacing = screenWidth * 0.008;
-        double minSpacing = 5.0;
-        //! This ensures that there is a minimum spacing so that the buttons do not overlap on very small screens
-        menuItemSpacing = menuItemSpacing.clamp(minSpacing, double.infinity);
-        //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-        Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.grey[800]!
-            : Colors.white;
-        Color textColor = currentTheme == ThemeNotifier.darkTheme
-            ? Colors.white
-            : Colors.black;
-
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
+        Color iconColor = themeNotifier.getIconColor();
         return Scaffold(
           backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
           appBar: AppBar(
@@ -51,12 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
               'Settings',
               //! Seting the title to settings.
               //! Adding a text style to control the fontweight, family and size.
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontFamily: selectedFontFamily,
-                fontSize: 30.0,
-                color: themeNotifier.currentTheme.textTheme.titleLarge?.color,
-              ),
+              style: fontProvider.getOtherTitleStyle(themeNotifier),
             ),
             //! added a automatcallyimplylead to remove the return icon in the top left corner.
             automaticallyImplyLeading: false,
@@ -77,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 decoration: BoxDecoration(
                   color:
                       //! Set container background colour to background colour based on the theme.
-                      backgroundColor,
+                      getContainerColor,
                   borderRadius:
                       //! Set border radius
                       BorderRadius.circular(15.0),
@@ -98,12 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text(
                       //! Creating a button called customise fonts, this will allow the user to select the button and choose a font.
                       'Customise Fonts',
-                      style: TextStyle(
-                        //! Set font family. fontmsoze and text colour.
-                        fontFamily: selectedFontFamily,
-                        fontSize: 16.0,
-                        color: textColor,
-                      ),
+                      style: fontProvider.subheadinglogin(themeNotifier),
                     ),
                   ),
                   //! Show font customisation dialog
@@ -129,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 decoration: BoxDecoration(
                   //! Set container background colour
-                  color: backgroundColor,
+                  color: getContainerColor,
                   borderRadius:
                       //! Setting the border radius
                       BorderRadius.circular(15.0),
@@ -150,12 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   title: Center(
                     child: Text(
                       'Customise Theme',
-                      style: TextStyle(
-                        fontFamily: // Setting the font family, font text and colour
-                            selectedFontFamily,
-                        fontSize: 16.0,
-                        color: textColor,
-                      ),
+                      style: fontProvider.subheadinglogin(themeNotifier),
                     ),
                   ),
                   //! Showing the customise themes dialog when they click on the button. Which presents the text in the font type and then
@@ -183,7 +153,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 decoration: BoxDecoration(
                   //! Set background colour
-                  color: backgroundColor,
+                  color: getContainerColor,
                   borderRadius:
                       //! Setting the border radius
                       BorderRadius.circular(15.0),
@@ -204,24 +174,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Text(
                       //! Set menu logout text
                       'Logout',
-                      style: TextStyle(
-                        //! Set font family, font size and colour.
-                        fontFamily: selectedFontFamily,
-                        fontSize: 16.0,
-                        color: textColor,
-                      ),
+                      style: fontProvider.subheadinglogin(themeNotifier),
                     ),
                   ),
                   // Show logout dialog
                   onTap: () {
-                    //! Determining background,text colours, icon colours based on theme
-                    Color backgroundColor =
-                        currentTheme == ThemeNotifier.darkTheme
-                            ? Colors.grey[800]!
-                            : Colors.white;
-                    Color textColor = currentTheme == ThemeNotifier.darkTheme
-                        ? Colors.white
-                        : Colors.black;
                     LogoutDialog.show(context, themeNotifier, fontProvider);
                   },
                 ),
