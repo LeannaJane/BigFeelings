@@ -1,4 +1,7 @@
 import 'package:big_feelings/Classes/bottom_app_bar.dart.dart';
+import 'package:big_feelings/Pages/Auth/welcome_page.dart';
+import 'package:big_feelings/Pages/Settings%20Page/delete_account.dart';
+import 'package:big_feelings/Pages/Settings%20Page/delete_buffer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
@@ -141,12 +144,63 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
               ),
+              //! Added a delete account container by reusing and editing previous code.
               Container(
                 margin: EdgeInsets.only(
                   top: menuItemSpacing,
                   left: 16.0,
                   right: 16.0,
-                  bottom: 20.0,
+                  bottom: menuItemSpacing,
+                ),
+                decoration: BoxDecoration(
+                  //! Set background colour
+                  color: getContainerColor,
+                  borderRadius:
+                      //! Setting the border radius
+                      BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(
+                          //! Setting the box shadow color with opacity
+                          0.5),
+                      spreadRadius: 1,
+                      blurRadius: 6,
+                      //! Set shadow offset
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: ListTile(
+                  title: Center(
+                    child: Text(
+                      //! Set menu logout text
+                      'Delete Account',
+                      style: fontProvider.subheadinglogin(themeNotifier),
+                    ),
+                  ),
+                  // Show logout dialog
+                  onTap: () {
+                    DeleteAccountDialog.show(
+                      context,
+                      themeNotifier,
+                      fontProvider,
+                      onSuccess: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const WelcomePage()));
+                      },
+                    );
+                  },
+                ),
+              ),
+              //! Moved the logout button to the bottom.
+              Container(
+                margin: EdgeInsets.only(
+                  top: menuItemSpacing,
+                  left: 16.0,
+                  right: 16.0,
+                  bottom: menuItemSpacing,
                 ),
                 decoration: BoxDecoration(
                   //! Set background colour
