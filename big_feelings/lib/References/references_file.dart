@@ -198,8 +198,56 @@
 ?  Stack Overflow. (n.d.). flutter DropDownButton remove arrow icon? [online] Available at: https://stackoverflow.com/questions/67997560/flutter-dropdownbutton-remove-arrow-icon [Accessed 12 Feb. 2024].
 * Hiding the default icon.
  */
+//! Main references
+/*
+37
+? flutterbyexample.com. (n.d.). ChangeNotifierProvider. [online] Available at: https://flutterbyexample.com/lesson/change-notifier-provider [Accessed 3 Feb. 2024].
+* The change notifier is a class provided by the provider package, this is used for managing and providing
+* instances.
+* In this case I used it to create and provider a instance of the Font provider class. 
+* This is used to change the font state, and then the changes will adapt. 
+* This code for the adding a ChangeNotiferProvider was assited by the flutter website.
+ */
+
+//! Home page references
+/*
+38
+? GeeksforGeeks. (2023). Flutter - Elevation in AppBar. [online] Available at: https://www.geeksforgeeks.org/flutter-elevation-in-appbar/ [Accessed 5 Feb. 2024].
+* This website helped me understand how to remove the shadow from the bottom appbar.
+39
+?GitHub. (n.d.). Inner ListView.builder with shrinkWrap as true builds all children at once · Issue #26072 · flutter/flutter. [online] Available at: https://github.com/flutter/flutter/issues/26072 [Accessed 5 Feb. 2024].
+* This was used to help me fix a issue with my code. The list builder had issues, and the text would show outside the list, but this fixed it.
+40
+? Kumar, Y. (2020). ListView in Flutter. [online] The Startup. Available at: https://medium.com/swlh/listview-in-flutter-222caba33e42 [Accessed 5 Feb. 2024].
+* Teaches me how to use list view and listview builder which was used in my home page.
+? Flutterdynasty (2023). Listview.builder in Flutter. [online] Medium. Available at: https://medium.com/@flutterdynasty/listview-builder-in-flutter-e54a8fa2c7a0 [Accessed 5 Feb. 2024].
+* Another reference to help me understand how to use a list.
+41
+?‌ dartpad.dev. (n.d.). DartPad Workshops. [online] Available at: https://dartpad.dev/workshops.html?webserver=https://fdr-shrinkwrap-slivers.web.app#Step2 [Accessed 5 Feb. 2024].
+42
+? Gupta, D. (2018). Flutter: Displaying Dynamic Contents using ListView.builder. [online] Medium. Available at: https://medium.com/@CognitiveProgrammer/flutter-displaying-dynamic-contents-using-listview-builder-f2cedb1a19fb [Accessed 5 Feb. 2024].
+* Another reference to help me understand how to use a list.
+43 
+? Sarkar, M. (2023). Flutter ListView Widget Full Tutorial. [online] All About Flutter | Flutter and Dart. Available at: https://www.allaboutflutter.com/flutter-listview-widget-full-tutorial [Accessed 5 Feb. 2024].
+* This website guided me how to create a listview widget.
+44
+? www.youtube.com. (n.d.). Add Dynamic Items to ListView in Flutter using GetX || Flutter || GetX. [online] Available at: https://www.youtube.com/watch?v=3G-dPzwO9s4 [Accessed 5 Feb. 2024].
+* This video walked me through on how to use a listview of the items for my home page, where all of the items, are in a list in containers.
+45
+?  How to Flutter. (n.d.). Maps & Sets. [online] Available at: https://howtoflutter.dev/dart/data-types/maps-sets/ [Accessed 5 Feb. 2024].
+*  This guided me on how to create a map dynamic string menu items, with the variables and their routes.
+
+46
+? Hire Developers, Free Coding Resources for the Developer. (n.d.). [Solved]-List to List Dart-Flutter. [online] Available at: https://www.appsloveworld.com/flutter/200/223/listmapstringdynamic-to-liststring-dart [Accessed 5 Feb. 2024].
+ * This website provided sample code that helped me understand how to organise using kmaps to strcute data.
+  * ‌I made modifications to align it with my code. 
+  * I made a method that navigates the user depedning on their menu item index and it will send the user to the correct route/page.
 
 
+47
+? Stack Overflow. (n.d.). Flutter: How to flip an icon to get mirror effect? [online] Available at: https://stackoverflow.com/questions/58047009/flutter-how-to-flip-an-icon-to-get-mirror-effect [Accessed 23 Mar. 2024].
+This website taught me how to flip an icon using transform the the homepage darkmode and light mode icons. 
+*/
 
 
 
