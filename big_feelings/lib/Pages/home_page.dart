@@ -5,21 +5,7 @@ import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/*
-! Reference:
-* GeeksforGeeks. (2023). Flutter - Elevation in AppBar. [online] Available at: https://www.geeksforgeeks.org/flutter-elevation-in-appbar/ [Accessed 5 Feb. 2024].
-This website helped me understand how to remove the shadow from the bottom appbar.
-* GitHub. (n.d.). Inner ListView.builder with shrinkWrap as true builds all children at once · Issue #26072 · flutter/flutter. [online] Available at: https://github.com/flutter/flutter/issues/26072 [Accessed 5 Feb. 2024].
-This was used to help me fix a issue with my code.
-* Kumar, Y. (2020). ListView in Flutter. [online] The Startup. Available at: https://medium.com/swlh/listview-in-flutter-222caba33e42 [Accessed 5 Feb. 2024].
-
-*‌ Flutterdynasty (2023). Listview.builder in Flutter. [online] Medium. Available at: https://medium.com/@flutterdynasty/listview-builder-in-flutter-e54a8fa2c7a0 [Accessed 5 Feb. 2024].
-
-* ‌dartpad.dev. (n.d.). DartPad Workshops. [online] Available at: https://dartpad.dev/workshops.html?webserver=https://fdr-shrinkwrap-slivers.web.app#Step2 [Accessed 5 Feb. 2024].
-
-* Gupta, D. (2018). Flutter: Displaying Dynamic Contents using ListView.builder. [online] Medium. Available at: https://medium.com/@CognitiveProgrammer/flutter-displaying-dynamic-contents-using-listview-builder-f2cedb1a19fb [Accessed 5 Feb. 2024].
-*/
-
+//? Ref 38-42
 // ignore: use_key_in_widget_constructors
 class HomePage extends StatelessWidget {
   @override
@@ -142,19 +128,7 @@ class HomePage extends StatelessWidget {
     Navigator.pushNamed(context, menuItems[index]['route']);
   }
 
-/*
- ! Reference:
-  * Sarkar, M. (2023). Flutter ListView Widget Full Tutorial. [online] All About Flutter | Flutter and Dart. Available at: https://www.allaboutflutter.com/flutter-listview-widget-full-tutorial [Accessed 5 Feb. 2024].
-  * www.youtube.com. (n.d.). Add Dynamic Items to ListView in Flutter using GetX || Flutter || GetX. [online] Available at: https://www.youtube.com/watch?v=3G-dPzwO9s4 [Accessed 5 Feb. 2024].
-  
-  * How to Flutter. (n.d.). Maps & Sets. [online] Available at: https://howtoflutter.dev/dart/data-types/maps-sets/ [Accessed 5 Feb. 2024].
-
-  * ‌Hire Developers, Free Coding Resources for the Developer. (n.d.). [Solved]-List to List Dart-Flutter. [online] Available at: https://www.appsloveworld.com/flutter/200/223/listmapstringdynamic-to-liststring-dart [Accessed 5 Feb. 2024].
-  * This website provided sample code that helped me understand how to organise using kmaps to strcute data.
-  * ‌I made modifications to align it with my code. 
-  * I made a method that navigates the user depedning on their menu item index and it will send the user to the correct route/page.
-*/
-
+  //? Ref 43-46
   //! Shows the routes, the icons, and the title of each menu item.
   final List<Map<String, dynamic>> menuItems = [
     {

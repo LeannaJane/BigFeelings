@@ -35,15 +35,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/*
-* This code for the adding a ChangeNotiferProvider was assited by the flutter website.
-! Reference:
-* flutterbyexample.com. (n.d.). ChangeNotifierProvider. [online] Available at: https://flutterbyexample.com/lesson/change-notifier-provider [Accessed 3 Feb. 2024].
-* The change notifier is a class provided by the provider package, this is used for managing and providing
-* instances.
-* In this case I used it to create and provider a instance of the Font provider class. 
-* This is used to change the font state, and then the changes will adapt. 
-‌*/
+//? Ref 37
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
