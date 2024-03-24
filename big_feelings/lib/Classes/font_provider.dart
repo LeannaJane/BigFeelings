@@ -273,7 +273,7 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  TextStyle ButtonText(ThemeNotifier themeNotifier) {
+  TextStyle buttonText(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
         : Colors.black;
