@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
-import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/Game.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/game.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/confetti.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/pause_game.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/restart.dart';
@@ -94,8 +94,6 @@ class _GameBoardState extends State<GameBoard> {
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       final fontProvider = Provider.of<FontProvider>(context);
-      Color getContainerColor =
-          Provider.of<ThemeNotifier>(context).getContainerColor();
       Color iconColor = themeNotifier.getIconColor();
       return Scaffold(
         appBar: AppBar(
@@ -186,7 +184,7 @@ class _GameBoardState extends State<GameBoard> {
               if (showConfetti)
                 AnimatedOpacity(
                   opacity: showConfetti ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 10000),
+                  duration: const Duration(milliseconds: 10000),
                   child: const GameConfetti(),
                 ),
             ],
