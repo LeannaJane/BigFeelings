@@ -25,6 +25,7 @@ class SignUpLogic {
       await FirebaseAuth.instance.signOut();
 
       if (userCredential.user != null) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
