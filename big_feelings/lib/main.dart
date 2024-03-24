@@ -27,6 +27,7 @@ import 'package:big_feelings/Pages/Quizzes/quiz_option.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_page.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two_option.dart';
+import 'package:big_feelings/Pages/Settings%20Page/delete_buffer.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/MIni_game_option_page.dart/minigames_page.dart';
@@ -88,6 +89,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return MaterialApp(
       //! Title for the Big feelings application.
       title: 'Big Feelings',
@@ -144,16 +146,16 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/login':
       page = const LoginPage();
-      return RouteAnimations.piggyBackingAnimation(page);
+      return RouteAnimations.instantAnimation(page);
     case '/sign-up':
       page = const SignUpPage();
-      return RouteAnimations.piggyBackingAnimation(page);
+      return RouteAnimations.instantAnimation(page);
     case '/settings-page':
       page = const SettingsPage();
       break;
     case '/password_reset':
       page = const PasswordResetPage();
-      return RouteAnimations.piggyBackingAnimation(page);
+      return RouteAnimations.instantAnimation(page);
     case '/mini-game-options':
       page = const MiniGamesPage();
       return RouteAnimations.piggyBackingAnimation(page);
@@ -190,6 +192,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/video-options':
       page = const VideoOptions();
       return RouteAnimations.piggyBackingAnimation(page);
+    case '/delete':
+      page = DeletingBufferingPage();
+      return RouteAnimations.instantAnimation(page);
     default:
       page = const WelcomePage();
       return RouteAnimations.piggyBackingAnimation(page);
