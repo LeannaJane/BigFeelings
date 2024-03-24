@@ -91,4 +91,8 @@ class ThemeNotifier with ChangeNotifier {
   Color cursorColor() {
     return _currentTheme == darkTheme ? Colors.white : Colors.black;
   }
+
+  IconData getThemeIcon() {
+    return _currentTheme == darkTheme ? Icons.brightness_2 : Icons.sunny;
+  }
 }
