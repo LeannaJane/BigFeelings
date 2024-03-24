@@ -2,9 +2,12 @@
 
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
+import 'package:big_feelings/Pages/Settings%20Page/theme_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:math' as math;
 
 class PasswordResetPage extends StatefulWidget {
   const PasswordResetPage({Key? key}) : super(key: key);
@@ -204,26 +207,76 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       ),
                     ),
                   ),
-                  if (_emailSent == false)
+                  if (_emailSent != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Text(
-                        'Error sending password reset email.',
-                        style: fontProvider.errortext(),
-                      ),
-                    ),
-                  if (_emailSent == true)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        'An email has been sent to reset your password.',
-                        style: fontProvider.greentext(),
+                        _emailSent!
+                            ? 'If your email is associated with an account, a password reset email has been sent.'
+                            : 'Invalid email format. Please enter a valid email address.',
+                        textAlign: TextAlign.center,
+                        style: _emailSent!
+                            ? fontProvider.greentext()
+                            : fontProvider.errortext(),
                       ),
                     ),
                 ],
               ),
             ),
           ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // New floating action button on the left
+                    FloatingActionButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierColor: Colors.black.withOpacity(0.85),
+                          builder: (BuildContext context) {
+                            return ThemeDropdownDialog(
+                              fontProvider: fontProvider,
+                              themeNotifier: themeNotifier,
+                            );
+                          },
+                        );
+                      },
+                      //? Ref 47
+                      backgroundColor: themeNotifier.getContainerColor(),
+                      heroTag: 'theme_button_hero',
+                      child: Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.rotationY(math.pi),
+                        child: Icon(
+                          themeNotifier.getThemeIcon(),
+                          size: 30,
+                          color: themeNotifier.getIconColor(),
+                        ),
+                      ),
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierColor: Colors.black.withOpacity(0.85),
+                          builder: (context) => const FontDropdownDialog(),
+                        );
+                      },
+                      backgroundColor: getContainerColor,
+                      heroTag: 'font_button_hero',
+                      child: Center(
+                        child: Text(
+                          'Tt',
+                          style: fontProvider.buttonText(themeNotifier),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ])),
         );
       },
     );
