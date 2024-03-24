@@ -45,7 +45,12 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
 
   //* Reference 10
   //! This method sets the current time, the mood selected and the userid, and saves it to firebase database.
-  void _saveMoodToFirestore(String mood, String userId) async {
+  void _saveMoodToFirestore(
+      String mood,
+      String userId,
+      FontProvider fontProvider,
+      ThemeNotifier themeNotifier,
+      BuildContext context) async {
     Timestamp currentTime = Timestamp.now();
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -60,9 +65,34 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
       });
       //! Shows that the mood is saved in the terminal.
       logger.i('Mood saved to Firestore with userId: $userId');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Mood entry saved successfully!',
+            textAlign: TextAlign.center,
+            style: fontProvider.subheadinglogin(themeNotifier),
+          ),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.green,
+        ),
+      );
     } catch (e) {
       //! Throws an exception if it fails.
       logger.e('Error saving mood: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Error saving mood entry. Please try again.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -202,7 +232,8 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 //! This accesses the current user ID
                 User? user = FirebaseAuth.instance.currentUser;
                 if (user != null) {
-                  _saveMoodToFirestore(moods[selectedEmotionIndex], user.uid);
+                  _saveMoodToFirestore(moods[selectedEmotionIndex], user.uid,
+                      fontProvider, themeNotifier, context);
                 } else {
                   logger.e('User is not logged in.');
                   //! This handles when user not logged in
