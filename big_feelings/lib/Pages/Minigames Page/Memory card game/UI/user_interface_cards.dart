@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters
+
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/card.dart';
@@ -49,7 +51,7 @@ class MemoryCard extends StatelessWidget {
                     ),
             ),
           ),
-          back: Container(
+          back: SizedBox(
             width: cardSize,
             height: cardSize,
           ),
