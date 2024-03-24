@@ -188,7 +188,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WelcomePage()));
+                                builder: (context) => DeletingBufferingPage()));
                       },
                     );
                   },
