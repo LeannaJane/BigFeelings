@@ -1,6 +1,7 @@
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class StartGame extends StatefulWidget {
@@ -116,6 +117,18 @@ class _StartGameState extends State<StartGame> {
                               style: fontProvider.subheading(themeNotifier),
                             ),
                           ),
+                        ),
+                      ),
+                      // const SizedBox(height: 80),
+                      SizedBox(
+                        height: 120,
+                        child: OverflowBox(
+                          minHeight: 300,
+                          maxHeight: 400,
+                          alignment: Alignment.topCenter,
+                          //? Ref 25
+                          child: Lottie.asset(
+                              "assets/animation/penguindance.json"),
                         ),
                       ),
                     ],
