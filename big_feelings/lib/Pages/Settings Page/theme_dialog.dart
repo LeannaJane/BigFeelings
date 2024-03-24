@@ -19,7 +19,6 @@ class ThemeDropdownDialog extends StatelessWidget {
     final currentTheme = themeNotifier.currentTheme;
     //! Determining background,text colours, icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
 
-    Color cursorColor = themeNotifier.cursorColor();
     final fontProvider = Provider.of<FontProvider>(context);
     Color getContainerColor =
         Provider.of<ThemeNotifier>(context).getContainerColor();
