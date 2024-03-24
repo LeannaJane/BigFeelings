@@ -1,7 +1,7 @@
 // ignore_for_file: use_super_parameters
 
 import 'dart:async';
-import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/Game.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/game.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/confetti.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/pause_game.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/restart.dart';
@@ -95,12 +95,9 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       final fontProvider = Provider.of<FontProvider>(context);
-      Color getContainerColor =
-          Provider.of<ThemeNotifier>(context).getContainerColor();
       Color iconColor = themeNotifier.getIconColor();
       double screenWidth = MediaQuery.of(context).size.width;
       double cardSize = screenWidth * 0.2; // Adjust card size here
-      final aspectRatio = MediaQuery.of(context).size.aspectRatio;
       return Scaffold(
         appBar: AppBar(
           title: Text(
