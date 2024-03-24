@@ -3,8 +3,11 @@
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_logic.dart';
+import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
+import 'package:big_feelings/Pages/Settings%20Page/theme_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:math' as math;
 
 //! A sign Up page, that users can use to create an account, this page is pretty basic,
 //! as I just wanted the Sign up button to make accounts for now, the Ui Will look nicer eventually.
@@ -260,6 +263,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Text(
                         _loginError!,
+                        textAlign: TextAlign.center,
                         style: fontProvider.errortext(),
                       ),
                     ),
@@ -268,6 +272,58 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // New floating action button on the left
+                  FloatingActionButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black.withOpacity(0.85),
+                        builder: (BuildContext context) {
+                          return ThemeDropdownDialog(
+                            fontProvider: fontProvider,
+                            themeNotifier: themeNotifier,
+                          );
+                        },
+                      );
+                    },
+                    //? Ref 47
+                    backgroundColor: themeNotifier.getContainerColor(),
+                    heroTag: 'theme_button_hero',
+                    child: Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(math.pi),
+                      child: Icon(
+                        themeNotifier.getThemeIcon(),
+                        size: 30,
+                        color: themeNotifier.getIconColor(),
+                      ),
+                    ),
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black.withOpacity(0.85),
+                        builder: (context) => const FontDropdownDialog(),
+                      );
+                    },
+                    backgroundColor: getContainerColor,
+                    heroTag: 'font_button_hero',
+                    child: Center(
+                      child: Text(
+                        'Tt',
+                        style: fontProvider.buttonText(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ])),
       );
     });
   }
