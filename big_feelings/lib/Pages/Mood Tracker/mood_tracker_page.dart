@@ -65,6 +65,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
       });
       //! Shows that the mood is saved in the terminal.
       logger.i('Mood saved to Firestore with userId: $userId');
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -79,6 +80,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     } catch (e) {
       //! Throws an exception if it fails.
       logger.e('Error saving mood: $e');
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
