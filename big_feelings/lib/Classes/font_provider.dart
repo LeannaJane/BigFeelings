@@ -136,13 +136,19 @@ class FontProvider with ChangeNotifier {
   }
 
   //!  Small text for the alert dialog.
-  TextStyle smalltextfontstyle({double fontSize = 18.0}) {
+  TextStyle smalltextfontstyle1() {
+    double fontSize = 14.0;
     switch (_selectedFontFamily) {
       case 'Pacifico':
-        return GoogleFonts.pacifico();
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+        );
+
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: fontSize,
+          fontWeight: FontWeight.bold,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
@@ -150,18 +156,59 @@ class FontProvider with ChangeNotifier {
           fontWeight: FontWeight.bold,
         );
       case 'SingleDay':
+        return const TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        );
+    }
+  }
+
+  //!  Small text for the alert dialog.
+  TextStyle smalltextfontstyle(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    double fontSize = 18.0;
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico();
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: fontSize,
+          color: textColor,
+          fontWeight: FontWeight.bold,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
           fontSize: fontSize,
+          color: textColor,
+          fontWeight: FontWeight.bold,
         );
     }
   }
 
+  //! 14 size not bald
   TextStyle subheading(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
@@ -197,6 +244,47 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  TextStyle subheadingbold(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: 14,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: 14,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: 14,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 18,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 14,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+    }
+  }
+
+  //! 16 size not bald.
   TextStyle subheadinglogin(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
@@ -235,12 +323,13 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  TextStyle subheadingbald(ThemeNotifier themeNotifier) {
+  //! 18 size text not bald.
+  TextStyle subheadingBig(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
         : Colors.black;
 
-    double fontSize = 16.0;
+    double fontSize = 18.0;
 
     switch (_selectedFontFamily) {
       case 'Pacifico':
@@ -267,12 +356,13 @@ class FontProvider with ChangeNotifier {
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
-          fontSize: 16,
+          fontSize: 18,
           color: textColor,
         );
     }
   }
 
+  //! Button text.
   TextStyle buttonText(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
@@ -311,33 +401,7 @@ class FontProvider with ChangeNotifier {
     }
   }
 
-  //! Adding another textstyle for a diff size font for the login and signup buttons.
-  TextStyle welcomepagetext({double fontSize = 16.0}) {
-    switch (_selectedFontFamily) {
-      case 'Pacifico':
-        return GoogleFonts.pacifico(
-          fontSize: 20,
-        );
-      case 'Roboto Mono':
-        return GoogleFonts.robotoMono(
-          fontSize: fontSize,
-        );
-      case 'ShortStack':
-        return GoogleFonts.shortStack(
-            fontSize: fontSize, fontWeight: FontWeight.bold);
-      case 'SingleDay':
-        return const TextStyle(
-          fontFamily: 'SingleDay',
-          fontSize: 20,
-        );
-      default:
-        return TextStyle(
-          fontFamily: _selectedFontFamily,
-          fontSize: fontSize,
-        );
-    }
-  }
-
+  //! 16 font size, bold.
   TextStyle getSubTitleStyle({
     double fontSize = 16.0,
     required ThemeNotifier themeNotifier,
@@ -368,7 +432,7 @@ class FontProvider with ChangeNotifier {
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
@@ -381,6 +445,7 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  //! For the login UI and error messages for the application.
   TextStyle errortext({
     double fontSize = 16.0,
     Color textcolour = Colors.red,
@@ -420,6 +485,7 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  //! For the Login UI and error messages.
   TextStyle greentext({
     double fontSize = 16.0,
     Color textcolour = Colors.green,
@@ -459,6 +525,8 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  //? Calender fonts.
+  //! Calender Text
   TextStyle fontstylenotbald({
     double fontSize = 14.0,
     Color textcolour = Colors.black, // Specify the default color here
@@ -499,6 +567,7 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  //! Used for the calender
   TextStyle calenderText({
     double fontSize = 18.0,
     Color textcolour = Colors.black,
