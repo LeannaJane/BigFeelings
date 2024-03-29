@@ -1,6 +1,5 @@
 import 'package:big_feelings/Classes/authentication_refresh.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
-import 'package:big_feelings/Classes/font_size.dart';
 import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_ui.dart';
@@ -74,7 +73,6 @@ void main() async {
       providers: [
         //! Font size provider to manage the fonts, and sizes and the theme changes.
         ChangeNotifierProvider(create: (_) => fontProvider),
-        ChangeNotifierProvider(create: (_) => FontSizeProvider()),
         ChangeNotifierProvider<ThemeNotifier>(
           create: (_) => themeNotifier,
         ),

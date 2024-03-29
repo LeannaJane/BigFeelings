@@ -228,8 +228,8 @@ class _BreathingPageState extends State<BreathingPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
                     decoration: BoxDecoration(
                       color: getContainerColor,
                       borderRadius: BorderRadius.circular(10.0),
@@ -240,7 +240,7 @@ class _BreathingPageState extends State<BreathingPage>
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   //! Container with a pulsating animation
                   SizedBox(
                     width: 200.0,
