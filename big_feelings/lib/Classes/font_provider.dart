@@ -86,14 +86,14 @@ class FontProvider with ChangeNotifier {
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: 25,
+          fontSize: 35,
           fontWeight: FontWeight.bold,
           color: textColor,
         );
       default:
         return TextStyle(
           fontFamily: _selectedFontFamily,
-          fontSize: 25,
+          fontSize: 35,
           color: textColor,
         );
     }

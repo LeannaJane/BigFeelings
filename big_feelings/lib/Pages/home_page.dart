@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
             title: Text(
               //! Application title on home page, centered with a trasnparent appbar. This has been assigned with the textcolour and the selectedFontFamily.
               'Big Feelings!',
-              style: fontProvider.getTitleFontStyle(themeNotifier),
+              style: fontProvider.getOtherTitleStyle(themeNotifier),
             ),
             //! This removes the return arrow from the page.
             automaticallyImplyLeading: false,
