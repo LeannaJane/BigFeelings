@@ -40,6 +40,9 @@ class _BreathingPageState extends State<BreathingPage>
   //! Duration of the breathing cycle in and out. 4 secs in, 4 secs out.
   final Duration cycleDuration = const Duration(seconds: 4);
 
+  late int _secondsElapsed = 0;
+  late Timer _timerHandler = Timer(Duration.zero, () {});
+
   //! The list of available colours for the pulsating animation.
   List<Color> availableColours = [
     Colors.blue,
@@ -76,12 +79,29 @@ class _BreathingPageState extends State<BreathingPage>
     inhale = true;
   }
 
+  void _startTimer() {
+    _timerHandler = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _secondsElapsed++;
+      });
+    });
+  }
+
+  void _resetTimer() {
+    _timerHandler.cancel();
+    setState(() {
+      _secondsElapsed = 0;
+    });
+    _startTimer();
+  }
+
   //! Function to start or stop the pulsating animation
   void _startPulsatingAnimation() {
     if (_isAnimating) {
       //! If animation is active, stop it
       _controller.stop();
       _timer?.cancel();
+      _timerHandler.cancel();
     } else {
       //! If animation is not active, start it
       _controller.repeat(reverse: true);
@@ -90,6 +110,7 @@ class _BreathingPageState extends State<BreathingPage>
           inhale = !inhale;
         });
       });
+      _startTimer();
     }
     setState(() {
       _isBreathing = !_isAnimating;
@@ -162,6 +183,8 @@ class _BreathingPageState extends State<BreathingPage>
     _controller.dispose();
     //! Cancel the timer if it is active
     _timer?.cancel();
+    //! Cancel the timer handler
+    _timerHandler.cancel();
     //! Call the superclass dispose method
     super.dispose();
   }
@@ -170,35 +193,16 @@ class _BreathingPageState extends State<BreathingPage>
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      //! Using the Provider package to manage theme and font data
-      //! Extracting theme and font information from providers
-      final currentTheme = themeNotifier.currentTheme;
       final fontProvider = Provider.of<FontProvider>(context);
-      final selectedFontFamily = fontProvider.selectedFontFamily;
-      //! Determining background,text colors and icon colours based on theme - if dark theme, the text will be white and grey background, if light it will be white background and white text.
-      Color backgroundColor = currentTheme == ThemeNotifier.darkTheme
-          ? Colors.grey[800]!
-          : Colors.white;
-      Color textColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-      Color iconColor =
-          currentTheme == ThemeNotifier.darkTheme ? Colors.white : Colors.black;
-
+      Color getContainerColor =
+          Provider.of<ThemeNotifier>(context).getContainerColor();
+      Color iconColor = themeNotifier.getIconColor();
       return Scaffold(
-        //! Setting the current theme as the background colour.
-        backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
         appBar: AppBar(
-          //! Setting the current theme as the background colour.
-          backgroundColor: themeNotifier.currentTheme.scaffoldBackgroundColor,
           title: Text(
-            //! Page title, centered with a trasnparent appbar. This has been assigned with the textcolour and the selectedFontFamily.
-            'Breathing Exercise',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: selectedFontFamily,
-              fontSize: 30.0,
-              color: textColor,
-            ),
+            'Calm Breathing',
+            style: fontProvider.getOtherTitleStyle(themeNotifier),
+            textAlign: TextAlign.center,
           ),
           centerTitle: true,
           //! automaticallyImplyLeading set to true to remove return button.
@@ -223,6 +227,20 @@ class _BreathingPageState extends State<BreathingPage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      color: getContainerColor,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      'Timer: ${(_secondsElapsed ~/ 60).toString().padLeft(2, '0')}:${(_secondsElapsed % 60).toString().padLeft(2, '0')}',
+                      style: fontProvider.subheadingBig(themeNotifier),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: 50),
                   //! Container with a pulsating animation
                   SizedBox(
                     width: 200.0,
@@ -246,12 +264,13 @@ class _BreathingPageState extends State<BreathingPage>
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 45.0),
                   //! Button to start/stop the pulsating animation
                   ElevatedButton(
                     onPressed: _startPulsatingAnimation,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: backgroundColor,
+                      backgroundColor: getContainerColor,
                       elevation: 5,
                       shadowColor: Colors.black,
                       shape: RoundedRectangleBorder(
@@ -259,12 +278,9 @@ class _BreathingPageState extends State<BreathingPage>
                       ),
                     ),
                     child: Text(
-                      _isBreathing ? 'Stop Breathing' : 'Start Breathing',
-                      style: TextStyle(
-                          color: textColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                          fontFamily: selectedFontFamily),
+                      _isBreathing ? 'Pause' : 'Start',
+                      style: fontProvider.subheadingBig(themeNotifier),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   const SizedBox(height: 16.0),
@@ -276,9 +292,10 @@ class _BreathingPageState extends State<BreathingPage>
               bottom: 10.0,
               right: 8.0,
               child: ElevatedButton(
-                onPressed: () => _showPopupMenu(backgroundColor, fontProvider),
+                onPressed: () =>
+                    _showPopupMenu(getContainerColor, fontProvider),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: backgroundColor,
+                  backgroundColor: getContainerColor,
                   elevation: 5,
                   shadowColor: Colors.black,
                   padding: const EdgeInsets.symmetric(
@@ -296,11 +313,8 @@ class _BreathingPageState extends State<BreathingPage>
                           ? 'Colour'
                           : colourName(selectedColour!),
                       //! Applying the text colour
-                      style: TextStyle(
-                          color: textColor,
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: selectedFontFamily),
+                      style: fontProvider.subheadingBig(themeNotifier),
+                      textAlign: TextAlign.center,
                     ),
                     //! Adding a drop down icon with a sized box between the text and icon.
                     const SizedBox(width: 25.0),
