@@ -185,7 +185,8 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                   child: TextField(
                                     controller: _textController,
                                     maxLines: 7,
-                                    style: fontProvider.smalltextfontstyle(),
+                                    style: fontProvider
+                                        .smalltextfontstyle(themeNotifier),
                                     decoration: InputDecoration(
                                       //! Removed the input border and the hover colour.
                                       border: InputBorder.none,
@@ -195,8 +196,8 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                       hoverColor: themeNotifier.hoverColour(),
                                       contentPadding:
                                           const EdgeInsets.all(14.0),
-                                      hintStyle:
-                                          fontProvider.smalltextfontstyle(),
+                                      hintStyle: fontProvider
+                                          .smalltextfontstyle(themeNotifier),
                                     ),
                                     cursorColor: themeNotifier.cursorColor(),
                                   ),

@@ -20,18 +20,34 @@ class LogoutDialog {
         final selectedFontFamily = fontProvider.selectedFontFamily;
         return AlertDialog(
           //! Dialog content that asks user if they want to log out.
-          content: Text(
-            //! Message asking if the user wants to log out.
-            'Do you want to log out?',
-            style: fontProvider.getSubTitleStyle(
-              themeNotifier: themeNotifier,
-            ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  //! Message asking if the user wants to log out.
+                  'Do you want to log out?',
+                  style: fontProvider.getSubTitleStyle(
+                    themeNotifier: themeNotifier,
+                  ),
+                ),
+              ),
+            ],
           ),
           backgroundColor: backgroundColor,
           actions: <Widget>[
-            //! cancel button and logout button with the font family assigned.
-            _buildCancelButton(context, selectedFontFamily, fontProvider),
-            _buildLogoutButton(context, selectedFontFamily),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //! cancel button
+                _buildCancelButton(
+                    context, selectedFontFamily, fontProvider, themeNotifier),
+                //! logout button with the font family assigned.
+                _buildLogoutButton(
+                    context, selectedFontFamily, themeNotifier, fontProvider),
+              ],
+            ),
           ],
         );
       },
@@ -39,8 +55,11 @@ class LogoutDialog {
   }
 
   //! Widget for cancel button
-  static Widget _buildCancelButton(BuildContext context,
-      String selectedFontFamily, FontProvider fontProvider) {
+  static Widget _buildCancelButton(
+      BuildContext context,
+      String selectedFontFamily,
+      FontProvider fontProvider,
+      ThemeNotifier themeNotifier) {
     return TextButton(
       onPressed: () {
         //! Checks if the context is still valid before popping the dialog
@@ -51,14 +70,19 @@ class LogoutDialog {
       child: Text(
         //! A no text button for cancel action
         'No',
-        style: fontProvider.smalltextfontstyle().copyWith(color: Colors.red),
+        style: fontProvider
+            .subheadingbold(themeNotifier)
+            .copyWith(color: Colors.red),
       ),
     );
   }
 
   //! Widget for logout button
   static Widget _buildLogoutButton(
-      BuildContext context, String selectedFontFamily) {
+      BuildContext context,
+      String selectedFontFamily,
+      ThemeNotifier themeNotifier,
+      FontProvider fontProvider) {
     return TextButton(
       //! Check if the context is still valid before handling logout
       onPressed: () async {
@@ -69,12 +93,9 @@ class LogoutDialog {
       child: Text(
         //! Yes text button for logout action
         'Yes',
-        style: TextStyle(
-          //! Set font family for the button text, font size and text colour.
-          fontFamily: selectedFontFamily,
-          fontSize: 16.0,
-          color: Colors.green,
-        ),
+        style: fontProvider
+            .subheadingbold(themeNotifier)
+            .copyWith(color: Colors.green),
       ),
     );
   }

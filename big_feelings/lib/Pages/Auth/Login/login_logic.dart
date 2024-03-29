@@ -54,6 +54,9 @@ class LoginLogic {
             'Invalid credentials. Please check your email and password.');
         //! Then a unknown error, this will print out the full firebase error.
         //! Once this error has been found, ill handle it by adding it to this if statement.
+      } else if (e.message!.contains('malformed')) {
+        setLoginError(
+            'Invalid credentials. Please check your email and password.');
       } else {
         setLoginError('An unknown error occurred: ${e.message}');
       }

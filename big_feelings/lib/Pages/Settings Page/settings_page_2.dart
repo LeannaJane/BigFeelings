@@ -1,5 +1,4 @@
 import 'package:big_feelings/Classes/bottom_app_bar.dart.dart';
-import 'package:big_feelings/Pages/Auth/welcome_page.dart';
 import 'package:big_feelings/Pages/Settings%20Page/delete_account.dart';
 import 'package:big_feelings/Pages/Settings%20Page/delete_buffer.dart';
 import 'package:flutter/material.dart';

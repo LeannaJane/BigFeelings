@@ -17,49 +17,83 @@ class DeleteAccountDialog {
         final backgroundColor = themeNotifier.getContainerColor();
         final selectedFontFamily = fontProvider.selectedFontFamily;
         return AlertDialog(
-          content: Text(
-            'Are you sure you want to delete your account?',
-            style: fontProvider.getSubTitleStyle(themeNotifier: themeNotifier),
-          ),
-          backgroundColor: backgroundColor,
-          actions: <Widget>[
-            _buildCancelButton(context),
-            _buildDeleteButton(
-                context, selectedFontFamily, onSuccess), // Pass onSuccess here
-          ],
-        );
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    //! Message asking if the user wants to delete their account.
+                    'Do you want to delete your account?',
+                    style: fontProvider.getSubTitleStyle(
+                      themeNotifier: themeNotifier,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: backgroundColor,
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildCancelButton(
+                      context, selectedFontFamily, fontProvider, themeNotifier),
+                  _buildDeleteButton(context, selectedFontFamily, onSuccess,
+                      fontProvider, themeNotifier), // Pass onSuccess here
+                ],
+              )
+            ]);
       },
     );
   }
 
-  static Widget _buildCancelButton(BuildContext context) {
+  static Widget _buildCancelButton(
+      BuildContext context,
+      String selectedFontFamily,
+      FontProvider fontProvider,
+      ThemeNotifier themeNotifier) {
     return TextButton(
       onPressed: () => Navigator.of(context).pop(),
-      child: const Text('No', style: TextStyle(color: Colors.red)),
+      child: Text(
+        //! A no text button for cancel action
+        'No',
+        style: fontProvider
+            .subheadingbold(themeNotifier)
+            .copyWith(color: Colors.red),
+      ),
     );
   }
 
   static Widget _buildDeleteButton(
-      BuildContext context, String selectedFontFamily, VoidCallback onSuccess) {
+      BuildContext context,
+      String selectedFontFamily,
+      VoidCallback onSuccess,
+      FontProvider fontProvider,
+      ThemeNotifier themeNotifier) {
     return TextButton(
       onPressed: () {
         Navigator.of(context).pop();
-        _handleDelete(context, selectedFontFamily, onSuccess);
+        _handleDelete(context, selectedFontFamily, onSuccess, fontProvider);
       },
       child: Text(
         'Yes',
-        style: TextStyle(
-          fontFamily: selectedFontFamily,
-          fontSize: 16.0,
-          color: Colors.green,
-        ),
+        style: fontProvider
+            .subheadingbold(themeNotifier)
+            .copyWith(color: Colors.green),
       ),
     );
   }
 
   static void _handleDelete(
-      BuildContext context, String selectedFontFamily, VoidCallback onSuccess) {
+    BuildContext context,
+    String selectedFontFamily,
+    VoidCallback onSuccess,
+    FontProvider fontProvider,
+  ) {
     final user = FirebaseAuth.instance.currentUser;
+    final scaffoldMessenger =
+        ScaffoldMessenger.of(context); // Store the ScaffoldMessengerState
     if (user != null) {
       deleteUserAccount(user).then((result) {
         if (result == 'success') {
@@ -68,18 +102,30 @@ class DeleteAccountDialog {
           final snackBarMessage = result == 'requires-recent-login'
               ? 'Account deletion failed. Authentication required. Please re-sign in again.'
               : 'Error occurred while deleting account.';
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(snackBarMessage), backgroundColor: Colors.red));
+          scaffoldMessenger.showSnackBar(SnackBar(
+            content: Text(
+              snackBarMessage,
+              style: fontProvider
+                  .smalltextfontstyle1()
+                  .copyWith(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+          ));
         }
       }).catchError((error) {
         logger.e(error);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('An unexpected error occurred.'),
-            backgroundColor: Colors.red));
+        scaffoldMessenger.showSnackBar(const SnackBar(
+          content: Text(
+            'An unexpected error occurred.',
+          ),
+          backgroundColor: Colors.red,
+        ));
       });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('User not found.'), backgroundColor: Colors.red));
+      scaffoldMessenger.showSnackBar(const SnackBar(
+        content: Text('User not found.'),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 

@@ -34,11 +34,13 @@ class ThemeDropdownDialog extends StatelessWidget {
     //! Building the Scaffold widget
     return AlertDialog(
         backgroundColor: getContainerColor,
-        title: Text(
-          //! Select a theme option in settings page with the chosen font family.
-          'Select a theme:',
-          style: fontProvider.getSubTitleStyle(
-            themeNotifier: themeNotifier,
+        title: Center(
+          child: Text(
+            //! Select a theme option
+            'Select a theme:',
+            style: fontProvider.getSubTitleStyle(
+              themeNotifier: themeNotifier,
+            ),
           ),
         ),
         //! Presenting the drop down selections with the textColour theme and background colours applied.
@@ -50,12 +52,12 @@ class ThemeDropdownDialog extends StatelessWidget {
             DropdownMenuItem<ThemeData>(
               value: ThemeNotifier.darkTheme,
               child: Text('Dark Theme',
-                  style: fontProvider.subheadingbald(themeNotifier)),
+                  style: fontProvider.subheading(themeNotifier)),
             ),
             DropdownMenuItem<ThemeData>(
               value: ThemeNotifier.lightTheme,
               child: Text('Light Theme',
-                  style: fontProvider.subheadingbald(themeNotifier)),
+                  style: fontProvider.subheading(themeNotifier)),
             ),
           ],
           onChanged: (ThemeData? newValue) {
@@ -73,8 +75,9 @@ class ThemeDropdownDialog extends StatelessWidget {
             //! A piece of text that allows the user to select ok to return back to the settings page without confusion.
             child: Text(
               'OK',
-              style:
-                  fontProvider.smalltextfontstyle().copyWith(color: Colors.red),
+              style: fontProvider
+                  .smalltextfontstyle1()
+                  .copyWith(color: Colors.green),
             ),
           ),
         ]);

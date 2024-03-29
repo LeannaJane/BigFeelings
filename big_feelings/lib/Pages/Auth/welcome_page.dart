@@ -87,7 +87,7 @@ class WelcomePage extends StatelessWidget {
                         //! Welcome message centered with assigned font provider and text style.
                         'Welcome to the Big Feelings application where your child can manage and understand their feelings',
                         textAlign: TextAlign.center,
-                        style: fontProvider.smalltextfontstyle(),
+                        style: fontProvider.smalltextfontstyle(themeNotifier),
                       ),
                     ),
                     //! Image aligned in the bottom center, with a box fit cover.
