@@ -15,6 +15,7 @@ class Game with ChangeNotifier {
     gridSize = 6;
     generateCardsAndImages();
   }
+
   void generateCardsAndImages() {
     imagePaths = [];
     List<String> imagePathsList = [
@@ -33,25 +34,32 @@ class Game with ChangeNotifier {
     ];
 
     cards = [];
-    final List<Color> cardColors = Colors.primaries.toList();
-    final List<Color> assignedColors = [];
+    List<Color> cardColors = [
+      const Color.fromARGB(255, 0, 92, 167),
+      Colors.green,
+      Colors.purple,
+      const Color.fromARGB(255, 63, 250, 231),
+      const Color.fromARGB(255, 188, 243, 136),
+      const Color.fromARGB(255, 115, 187, 253),
+      const Color.fromARGB(255, 126, 243, 126),
+      const Color.fromARGB(255, 165, 188, 253),
+      const Color.fromARGB(255, 250, 122, 122),
+      const Color.fromARGB(255, 253, 227, 108),
+      const Color.fromARGB(255, 247, 140, 90),
+      const Color.fromARGB(255, 239, 129, 253),
+    ];
+    cardColors.shuffle(Random());
 
     int totalCardsNeeded = 4 * 6 ~/ 2;
 
     for (int j = 0; j < totalCardsNeeded; j++) {
-      final String imagePath = imagePathsList[j % imagePathsList.length];
+      String imagePath = imagePathsList[j % imagePathsList.length];
       imagePaths.add(imagePath);
-      final cardValue = j + 1;
-      final assignedColor = cardColors[Random().nextInt(cardColors.length)];
-      assignedColors.add(assignedColor);
-      final List<CardItem> newCards =
+      int cardValue = j + 1;
+      Color assignedColor = cardColors[j % cardColors.length];
+      List<CardItem> newCards =
           _createCardItems(imagePath, assignedColor, cardValue);
       cards.addAll(newCards);
-    }
-
-    for (int i = 0; i < cards.length; i += 2) {
-      cards[i].color = assignedColors[i ~/ 2];
-      cards[i + 1].color = assignedColors[i ~/ 2];
     }
 
     cards.shuffle(Random());
