@@ -262,6 +262,10 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? LottieFiles. (n.d.). Tamojit Das. [online] Available at: https://lottiefiles.com/animations/water-splash-rrD8jCHcFi?from=search.
 * This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
  
+51
+? Klein-baer, R. (2022). How to Model Healthy Coping Skills. [online] Child Mind Institute. Available at: https://childmind.org/article/how-to-model-healthy-coping-skills/.
+* This website I used to gain information on scientific information around coping mechanism for kids, for the coping mechanism page.
+‌
  */
 
 

@@ -52,6 +52,7 @@ class _CopingMethodsState extends State<CopingMethods> {
         "assets/animation/boywalk.json",
       ];
 
+      //? Ref 51
       List<String> copingMethods = [
         "Go on a           Walk",
         "Call a            Friend",
