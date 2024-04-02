@@ -67,6 +67,8 @@ class _BreathingPageState extends State<BreathingPage>
     return colorNames[colour] ?? 'Unknown';
   }
 
+  // ignore: unused_field
+  String? _currentMessage;
   @override
   void initState() {
     super.initState();
@@ -83,13 +85,20 @@ class _BreathingPageState extends State<BreathingPage>
     _timerHandler = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _secondsElapsed++;
+        if (_secondsElapsed == 60) {
+          _currentMessage = 'You have reached 1 minute!';
+        } else if (_secondsElapsed == 120) {
+          _currentMessage = 'You have reached 2 minutes!';
+        } else if (_secondsElapsed == 180) {
+          _currentMessage = 'You have reached 3 minutes!';
+        }
       });
     });
   }
 
   void _startPulsatingAnimation() {
     if (_isBreathing) {
-      // Reset the animation
+      // Reset the an imation
       _controller.stop();
       _controller.reset();
       _timer?.cancel();
@@ -99,6 +108,7 @@ class _BreathingPageState extends State<BreathingPage>
         _isAnimating = false;
         _secondsElapsed = 0;
         inhale = true; // Reset inhale to default
+        _currentMessage = null;
       });
     } else {
       // Start the animation
@@ -285,6 +295,7 @@ class _BreathingPageState extends State<BreathingPage>
 
                   const SizedBox(height: 45.0),
                   //! Button to start/stop the pulsating animation
+
                   ElevatedButton(
                     onPressed: _startPulsatingAnimation,
                     style: ElevatedButton.styleFrom(
@@ -301,7 +312,15 @@ class _BreathingPageState extends State<BreathingPage>
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 16.0),
+                  if (_currentMessage != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        _currentMessage!,
+                        style: fontProvider.greentext(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                 ],
               ),
             ),
