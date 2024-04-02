@@ -1,4 +1,4 @@
-// ignore_for_file: use_super_parameters
+// ignore_for_file: use_super_parameters, unused_local_variable
 
 import 'dart:async';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/game.dart';
@@ -14,7 +14,8 @@ import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 
 class GameBoardMobile extends StatefulWidget {
-  const GameBoardMobile({Key? key}) : super(key: key);
+  final Color color;
+  const GameBoardMobile({Key? key, required this.color}) : super(key: key);
 
   @override
   State<GameBoardMobile> createState() => _GameBoardMobileState();
@@ -97,7 +98,7 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
       final fontProvider = Provider.of<FontProvider>(context);
       Color iconColor = themeNotifier.getIconColor();
       double screenWidth = MediaQuery.of(context).size.width;
-      double cardSize = screenWidth * 0.2; // Adjust card size here
+      double cardSize = screenWidth * 0.2;
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -130,18 +131,19 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
                         childAspectRatio: 1.0,
-                        mainAxisSpacing: 0, // Set mainAxisSpacing to zero
-                        crossAxisSpacing: 0, // Set crossAxisSpacing to zero
+                        mainAxisSpacing: 0,
+                        crossAxisSpacing: 0,
                       ),
                       itemBuilder: (context, index) {
                         if (index < game.cards.length) {
                           return MemoryCard(
-                            isPaused: isPaused,
+                            isPaused: false,
                             index: index,
+                            cardSize: cardSize,
                             card: game.cards[index],
                             onCardPressed: game.onCardPressed,
                             frontColor: game.cards[index].color,
-                            cardSize: cardSize,
+                            backColor: widget.color,
                           );
                         } else {
                           return const SizedBox();
