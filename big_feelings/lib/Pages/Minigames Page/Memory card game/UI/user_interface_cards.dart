@@ -11,6 +11,7 @@ class MemoryCard extends StatelessWidget {
   final Color frontColor;
   final bool isPaused;
   final double cardSize;
+  final Color backColor;
 
   const MemoryCard({
     required this.index,
@@ -18,6 +19,7 @@ class MemoryCard extends StatelessWidget {
     required this.onCardPressed,
     this.frontColor = Colors.blue,
     required this.isPaused,
+    required this.backColor,
     this.cardSize = 100.0,
     Key? key,
   }) : super(key: key);
@@ -37,7 +39,7 @@ class MemoryCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            color: card.state == CardState.hidden ? Colors.pink : frontColor,
+            color: card.state == CardState.hidden ? backColor : frontColor,
             child: Center(
               child: card.state == CardState.hidden
                   ? Container()
