@@ -1,3 +1,5 @@
+// ignore_for_file: use_super_parameters, library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
@@ -12,11 +14,10 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameBoard extends StatefulWidget {
-  // ignore: use_super_parameters
-  const GameBoard({Key? key}) : super(key: key);
-
+  final Color color;
+  const GameBoard({Key? key, required this.color}) : super(key: key);
   @override
-  State<GameBoard> createState() => _GameBoardState();
+  _GameBoardState createState() => _GameBoardState();
 }
 
 class _GameBoardState extends State<GameBoard> {
@@ -143,6 +144,7 @@ class _GameBoardState extends State<GameBoard> {
                                 card: game.cards[index],
                                 onCardPressed: game.onCardPressed,
                                 frontColor: game.cards[index].color,
+                                backColor: widget.color,
                               );
                             } else {
                               return const SizedBox();
