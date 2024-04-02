@@ -43,12 +43,25 @@ class MemoryCard extends StatelessWidget {
             child: Center(
               child: card.state == CardState.hidden
                   ? Container()
-                  : ClipOval(
-                      child: Image.asset(
-                        card.imagePath,
-                        width: cardSize - 16,
-                        height: cardSize - 16,
-                        fit: BoxFit.cover,
+                  : Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          card.imagePath,
+                          width: cardSize - 30,
+                          height: cardSize - 30,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
             ),
