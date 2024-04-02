@@ -617,26 +617,22 @@ class FontProvider with ChangeNotifier {
       case 'Pacifico':
         return GoogleFonts.pacifico(
           fontSize: 12,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: 12,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
           fontSize: 12,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
           fontSize: 14,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       default:

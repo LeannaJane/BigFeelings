@@ -54,12 +54,12 @@ class _CopingMethodsState extends State<CopingMethods> {
 
       //? Ref 51
       List<String> copingMethods = [
-        "Go on a           Walk",
-        "Call a            Friend",
+        "Go on a Walk",
+        "Call a Friend",
         "Water coping  tricks",
-        "Listen to         music",
+        "Listen to music",
         "Journalling",
-        "Deep              Breathing",
+        "Deep Breathing",
         "Mindfulness",
         "Read a book",
         "Boy Walk",
