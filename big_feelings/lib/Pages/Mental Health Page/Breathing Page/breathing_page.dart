@@ -87,14 +87,6 @@ class _BreathingPageState extends State<BreathingPage>
     });
   }
 
-  void _resetTimer() {
-    _timerHandler.cancel();
-    setState(() {
-      _secondsElapsed = 0;
-    });
-    _startTimer();
-  }
-
   void _startPulsatingAnimation() {
     if (_isBreathing) {
       // Reset the animation
