@@ -95,27 +95,53 @@ class _BreathingPageState extends State<BreathingPage>
     _startTimer();
   }
 
-  //! Function to start or stop the pulsating animation
   void _startPulsatingAnimation() {
-    if (_isAnimating) {
-      //! If animation is active, stop it
+    if (_isBreathing) {
+      // Reset the animation
       _controller.stop();
+      _controller.reset();
       _timer?.cancel();
       _timerHandler.cancel();
-    } else {
-      //! If animation is not active, start it
-      _controller.repeat(reverse: true);
-      _timer = Timer.periodic(cycleDuration, (timer) {
-        setState(() {
-          inhale = !inhale;
-        });
+      setState(() {
+        _isBreathing = false;
+        _isAnimating = false;
+        _secondsElapsed = 0;
+        inhale = true; // Reset inhale to default
       });
+    } else {
+      // Start the animation
+      double remainingDuration = cycleDuration.inSeconds -
+          (_controller.value * cycleDuration.inSeconds).floorToDouble();
+      if (inhale) {
+        _timer = Timer(Duration(seconds: remainingDuration.toInt()), () {
+          setState(() {
+            inhale = false;
+          });
+          _timer = Timer.periodic(cycleDuration, (timer) {
+            setState(() {
+              inhale = !inhale;
+            });
+          });
+        });
+      } else {
+        _timer = Timer(Duration(seconds: remainingDuration.toInt()), () {
+          setState(() {
+            inhale = true;
+          });
+          _timer = Timer.periodic(cycleDuration, (timer) {
+            setState(() {
+              inhale = !inhale;
+            });
+          });
+        });
+      }
+      _controller.repeat(reverse: inhale);
       _startTimer();
+      setState(() {
+        _isBreathing = true;
+        _isAnimating = true;
+      });
     }
-    setState(() {
-      _isBreathing = !_isAnimating;
-    });
-    _isAnimating = !_isAnimating;
   }
 
   //! Function to show color selection popup menu
@@ -278,7 +304,7 @@ class _BreathingPageState extends State<BreathingPage>
                       ),
                     ),
                     child: Text(
-                      _isBreathing ? 'Pause' : 'Start',
+                      _isBreathing ? 'Reset' : 'Start',
                       style: fontProvider.subheadingBig(themeNotifier),
                       textAlign: TextAlign.center,
                     ),
