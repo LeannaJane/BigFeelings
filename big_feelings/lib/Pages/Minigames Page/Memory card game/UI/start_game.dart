@@ -1,5 +1,6 @@
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/color.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ class StartGame extends StatefulWidget {
 
 class _StartGameState extends State<StartGame> {
   bool showQuiz = false;
+  Color? selectedColor;
 
   bool isDesktop(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -21,11 +23,28 @@ class _StartGameState extends State<StartGame> {
     return width > 550 && height > 800;
   }
 
+  String getColorName(Color color) {
+    if (color == Colors.red) {
+      return 'Red';
+    } else if (color == Colors.green) {
+      return 'Green';
+    } else if (color == Colors.blue) {
+      return 'Blue';
+    } else if (color == const Color.fromARGB(255, 255, 90, 145)) {
+      return 'Pink';
+    } else if (color == const Color.fromARGB(255, 0, 195, 255)) {
+      return 'Baby Blue';
+    } else {
+      return 'Unknown Color';
+    }
+  }
+
   void navigateToGame(BuildContext context) {
     if (isDesktop(context)) {
-      Navigator.pushNamed(context, '/memory-game-desktop');
+      Navigator.pushNamed(context, '/memory-game-desktop',
+          arguments: selectedColor);
     } else {
-      Navigator.pushNamed(context, '/memory-mobile');
+      Navigator.pushNamed(context, '/memory-mobile', arguments: selectedColor);
     }
   }
 
@@ -93,7 +112,47 @@ class _StartGameState extends State<StartGame> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 50),
+                      GestureDetector(
+                        onTap: () async {
+                          Color? selectedColor = await showDialog<Color>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ColorDialog();
+                            },
+                          );
+
+                          setState(() {
+                            this.selectedColor = selectedColor ?? Colors.red;
+                          });
+                        },
+                        child: Container(
+                          width: 150,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              selectedColor == null
+                                  ? 'Colour'
+                                  : getColorName(
+                                      selectedColor!), // Call getColorName method
+                              textAlign: TextAlign.center,
+                              style: fontProvider.subheading(themeNotifier),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       GestureDetector(
                         onTap: () => navigateToGame(context),
                         child: Container(
