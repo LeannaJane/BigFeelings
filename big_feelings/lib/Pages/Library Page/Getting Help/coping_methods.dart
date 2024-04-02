@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_super_parameters
+
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +35,11 @@ class _CopingMethodsState extends State<CopingMethods> {
       const containerHeight = 150.0;
 
       List<String> animations = [
+        //? Ref 48
         "assets/animation/boywalk.json",
+        //? Ref 49
         "assets/animation/callafriend.json",
+        //? Ref 50
         "assets/animation/water.json",
         "assets/animation/boywalk.json",
         "assets/animation/boywalk.json",
@@ -55,7 +60,7 @@ class _CopingMethodsState extends State<CopingMethods> {
         "Journalling",
         "Deep              Breathing",
         "Mindfulness",
-        "Boy Walk",
+        "Read a book",
         "Boy Walk",
         "Boy Walk",
         "Boy Walk",
@@ -72,7 +77,7 @@ class _CopingMethodsState extends State<CopingMethods> {
           centerTitle: true,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               size: 30.0,
             ),
@@ -95,7 +100,10 @@ class _CopingMethodsState extends State<CopingMethods> {
                       (colIndex) {
                         int animationIndex = rowIndex * 4 + colIndex;
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            _showCopingMethodDialog(context, animationIndex,
+                                fontProvider, themeNotifier);
+                          },
                           child: Container(
                             margin: const EdgeInsets.symmetric(
                               horizontal: 8.0,
@@ -158,4 +166,81 @@ class _CopingMethodsState extends State<CopingMethods> {
       );
     });
   }
+}
+
+void _showCopingMethodDialog(BuildContext context, int animationIndex,
+    FontProvider fontProvider, ThemeNotifier themeNotifier) {
+  String copingMethod;
+  TextStyle textStyle = fontProvider.libarytext(themeNotifier);
+  TextStyle greenTextStyle = textStyle.copyWith(color: Colors.green);
+  switch (animationIndex) {
+    case 0:
+      copingMethod = "Walking is cool";
+      break;
+    case 1:
+      copingMethod = "Call a friend lol";
+      break;
+    case 2:
+      copingMethod = "Splash cold water on face.";
+      break;
+    case 3:
+      copingMethod = "Listen to music";
+      break;
+    case 4:
+      copingMethod = "Journalling";
+      break;
+    default:
+      copingMethod = "No information available";
+      break;
+  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        backgroundColor:
+            Provider.of<ThemeNotifier>(context).getContainerColor(),
+        child: SizedBox(
+          width: 300.0,
+          height: 300.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  'Coping Method',
+                  style: textStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  copingMethod,
+                  style: textStyle,
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Close',
+                      style: greenTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

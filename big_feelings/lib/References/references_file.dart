@@ -257,6 +257,10 @@ This website taught me how to flip an icon using transform the the homepage dark
 49
 ? LottieFiles. (n.d.). Md Maruf. [online] Available at: https://lottiefiles.com/qvessfriim.
 * This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
+
+50
+? LottieFiles. (n.d.). Tamojit Das. [online] Available at: https://lottiefiles.com/animations/water-splash-rrD8jCHcFi?from=search.
+* This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
  
  */
 
