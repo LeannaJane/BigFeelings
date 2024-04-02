@@ -31,6 +31,7 @@ class _BreathingPageState extends State<BreathingPage>
   Timer? _timer;
   //! Flags to track whether breathing is happening and whether the animation is moving in or out.
   bool _isBreathing = false;
+  // ignore: unused_field
   bool _isAnimating = false;
   //! Deciding on the color based on the selected colour chosen by the user.
   Color? selectedColour;
