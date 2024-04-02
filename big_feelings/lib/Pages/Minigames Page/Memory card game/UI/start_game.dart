@@ -15,7 +15,8 @@ class StartGame extends StatefulWidget {
 
 class _StartGameState extends State<StartGame> {
   bool showQuiz = false;
-  Color? selectedColor;
+  Color selectedColor = Colors.red;
+  bool colorSelected = false;
 
   bool isDesktop(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -114,7 +115,7 @@ class _StartGameState extends State<StartGame> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          Color? selectedColor = await showDialog<Color>(
+                          Color? newColor = await showDialog<Color>(
                             context: context,
                             builder: (BuildContext context) {
                               return ColorDialog();
@@ -122,14 +123,15 @@ class _StartGameState extends State<StartGame> {
                           );
 
                           setState(() {
-                            this.selectedColor = selectedColor ?? Colors.red;
+                            selectedColor = newColor ?? Colors.red;
+                            colorSelected = true;
                           });
                         },
                         child: Container(
                           width: 150,
                           height: 40,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: getContainerColor,
                             borderRadius: BorderRadius.circular(15.0),
                             boxShadow: [
                               BoxShadow(
@@ -142,13 +144,11 @@ class _StartGameState extends State<StartGame> {
                           ),
                           child: Center(
                             child: Text(
-                              selectedColor == null
-                                  ? 'Colour'
-                                  : getColorName(
-                                      selectedColor!), // Call getColorName method
-                              textAlign: TextAlign.center,
-                              style: fontProvider.subheading(themeNotifier),
-                            ),
+                                colorSelected
+                                    ? getColorName(selectedColor)
+                                    : 'Colour',
+                                textAlign: TextAlign.center,
+                                style: fontProvider.subheading(themeNotifier)),
                           ),
                         ),
                       ),

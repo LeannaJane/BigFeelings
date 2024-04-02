@@ -643,4 +643,81 @@ class FontProvider with ChangeNotifier {
         );
     }
   }
+
+  TextStyle subheadingBigBald(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    double fontSize = 18.0;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 22,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 22,
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        );
+    }
+  }
+
+  TextStyle smalltextalert(ThemeNotifier themeNotifier) {
+    Color textColor = Colors.white;
+    double fontSize = 16.0;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 18,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 18,
+          color: textColor,
+        );
+    }
+  }
 }
