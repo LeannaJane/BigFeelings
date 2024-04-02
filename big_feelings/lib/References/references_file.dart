@@ -249,6 +249,19 @@
 This website taught me how to flip an icon using transform the the homepage darkmode and light mode icons. 
 */
 
+/*
+48
+? LottieFiles. (n.d.). UsamaRazzaq. [online] Available at: https://lottiefiles.com/animations/walking-kid-DqYW4LjiwO.
+* This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
+
+49
+? LottieFiles. (n.d.). Md Maruf. [online] Available at: https://lottiefiles.com/qvessfriim.
+* This animation was edited and changed but created by Issey in lottie files, under the Simple lottie Lisense.
+ 
+ */
+
+
+
 
 
 

@@ -607,4 +607,44 @@ class FontProvider with ChangeNotifier {
         );
     }
   }
+
+  TextStyle libarytext(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 14,
+          color: textColor,
+        );
+    }
+  }
 }

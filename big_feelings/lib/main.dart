@@ -9,6 +9,7 @@ import 'package:big_feelings/Pages/Auth/welcome_page.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
 import 'package:big_feelings/Pages/Journal%20Page/view_journals.dart';
 import 'package:big_feelings/Pages/Library%20Page/Educational%20Videos/video_option_page.dart';
+import 'package:big_feelings/Pages/Library%20Page/Getting%20Help/coping_methods.dart';
 import 'package:big_feelings/Pages/Library%20Page/library_page.dart';
 import 'package:big_feelings/Pages/Mental%20Health%20Page/mental_healthactivitiespage.dart';
 import 'package:big_feelings/Pages/Mental%20health%20page/Breathing%20Page/breathing_page.dart';
@@ -189,6 +190,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/video-options':
       page = const VideoOptions();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/coping-methods':
+      page = const CopingMethods();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/delete':
       page = DeletingBufferingPage();
