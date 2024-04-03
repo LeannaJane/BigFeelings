@@ -42,6 +42,7 @@ flutter:
     - assets/images/images_mood/
     - fonts/
     - assets/animation/
+    - assets/images/coping_skills/
    
   fonts:
     - family: SingleDay
