@@ -52,6 +52,11 @@ class _GameBoardState extends State<GameBoard> {
     }
   }
 
+  Future<void> saveBestTime(int time) async {
+    SharedPreferences gameSP = await SharedPreferences.getInstance();
+    gameSP.setInt('BestTime', time);
+  }
+
   startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) async {
       if (!isPaused) {
@@ -63,12 +68,12 @@ class _GameBoardState extends State<GameBoard> {
 
       if (game.isGameOver) {
         timer.cancel();
-        SharedPreferences gameSP = await SharedPreferences.getInstance();
-        if (gameSP.getInt('BestTime') == null ||
-            gameSP.getInt('BestTime')! > duration.inSeconds) {
-          gameSP.setInt('BestTime', duration.inSeconds);
+        setState(() {
+          showConfetti = true;
+        });
+        if (bestTime == 0 || duration.inSeconds < bestTime) {
+          saveBestTime(duration.inSeconds);
           setState(() {
-            showConfetti = true;
             bestTime = duration.inSeconds;
           });
         }
