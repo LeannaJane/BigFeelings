@@ -327,11 +327,11 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                 },
                                 startingDayOfWeek: StartingDayOfWeek.monday,
                               ),
-                              const SizedBox(height: 20),
+
                               //! Journal entries status
                               //! Added a row that shows the colour and a piece of text to desribe the circle colour meaning on the calender underneath it.
 
-                              Row(
+                              Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
@@ -356,7 +356,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                     ],
                                   ),
                                   //! A status shower to show users what things mean in the calender.
-                                  const SizedBox(width: 20),
+                                  const SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

@@ -1,10 +1,9 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Mental%20Health%20Page/Breathing%20Page/pulsating_animation.dart';
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /* 
 ! References
@@ -45,6 +44,7 @@ class _BreathingPageState extends State<BreathingPage>
   late Timer _timerHandler = Timer(Duration.zero, () {});
 
   //! The list of available colours for the pulsating animation.
+
   List<Color> availableColours = [
     Colors.blue,
     Colors.red,
@@ -99,7 +99,7 @@ class _BreathingPageState extends State<BreathingPage>
 
   void _startPulsatingAnimation() {
     if (_isBreathing) {
-      // Reset the an imation
+      //!Reset the an imation
       _controller.stop();
       _controller.reset();
       _timer?.cancel();
@@ -108,11 +108,12 @@ class _BreathingPageState extends State<BreathingPage>
         _isBreathing = false;
         _isAnimating = false;
         _secondsElapsed = 0;
-        inhale = true; // Reset inhale to default
+        //! Reset inhale to default
+        inhale = true;
         _currentMessage = null;
       });
     } else {
-      // Start the animation
+      //! Start the animation
       double remainingDuration = cycleDuration.inSeconds -
           (_controller.value * cycleDuration.inSeconds).floorToDouble();
       if (inhale) {
@@ -187,11 +188,12 @@ class _BreathingPageState extends State<BreathingPage>
             child: Text(
               colourName(colour),
               style: TextStyle(
-                  //! Setting the text colour to textcolour and the font to 13.
-                  color: textColor,
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: selectedFontFamily),
+                //! Setting the text colour to textcolour and the font to 13.
+                color: textColor,
+                fontSize: 13.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: selectedFontFamily,
+              ),
             ),
           ),
         );
@@ -249,119 +251,128 @@ class _BreathingPageState extends State<BreathingPage>
             },
           ),
         ),
-        body: Stack(
-          children: [
-            //! Center widget to horizontally and vertically center its child
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    decoration: BoxDecoration(
-                      color: getContainerColor,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Text(
-                      'Timer: ${(_secondsElapsed ~/ 60).toString().padLeft(2, '0')}:${(_secondsElapsed % 60).toString().padLeft(2, '0')}',
-                      style: fontProvider.subheadingBig(themeNotifier),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  //! Container with a pulsating animation
-                  SizedBox(
-                    width: 200.0,
-                    height: 200.0,
-                    child: Hero(
-                      tag: 'breathing_1',
-                      child: AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, child) {
-                          //! Custom painter for pulsating circles animation
-                          return CustomPaint(
-                            painter: PulsatingCirclesPainter(
-                                _controller,
-                                //! Default colour.
-                                selectedColour ?? Colors.grey,
-                                //! Default set to inhale.
-                                inhale,
-                                fontProvider),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 45.0),
-                  //! Button to start/stop the pulsating animation
-
-                  ElevatedButton(
-                    onPressed: _startPulsatingAnimation,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: getContainerColor,
-                      elevation: 5,
-                      shadowColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    child: Text(
-                      _isBreathing ? 'Reset' : 'Start',
-                      style: fontProvider.subheadingBig(themeNotifier),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  if (_currentMessage != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        _currentMessage!,
-                        style: fontProvider.greentext(),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            //! Positioned button at the bottom right to show color selection menu
-            Positioned(
-              bottom: 10.0,
-              right: 8.0,
-              child: ElevatedButton(
-                onPressed: () =>
-                    _showPopupMenu(getContainerColor, fontProvider),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: getContainerColor,
-                  elevation: 5,
-                  shadowColor: Colors.black,
+        body: SingleChildScrollView(
+          //! Center widget to horizontally and vertically center its child
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 10.5),
-                  shape: RoundedRectangleBorder(
+                      vertical: 40.0, horizontal: 20.0),
+                  decoration: BoxDecoration(
+                    color: getContainerColor,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                  child: Text(
+                    'Timer: ${(_secondsElapsed ~/ 60).toString().padLeft(2, '0')}:${(_secondsElapsed % 60).toString().padLeft(2, '0')}',
+                    style: fontProvider.subheadingBig(themeNotifier),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    //! Display selected Colour
-                    Text(
-                      selectedColour == null
-                          ? 'Colour'
-                          : colourName(selectedColour!),
-                      //! Applying the text colour
-                      style: fontProvider.subheadingBig(themeNotifier),
-                      textAlign: TextAlign.center,
+                const SizedBox(height: 20),
+                //! Container with a pulsating animation
+                SizedBox(
+                  width: 200.0,
+                  height: 200.0,
+                  child: Hero(
+                    tag: 'breathing_1',
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        //! Custom painter for pulsating circles animation
+                        return CustomPaint(
+                          painter: PulsatingCirclesPainter(
+                              _controller,
+                              //! Default colour.
+                              selectedColour ?? Colors.grey,
+                              //! Default set to inhale.
+                              inhale,
+                              fontProvider),
+                        );
+                      },
                     ),
-                    //! Adding a drop down icon with a sized box between the text and icon.
-                    const SizedBox(width: 25.0),
-                    Icon(Icons.arrow_drop_down, color: iconColor),
+                  ),
+                ),
+                //! Changed elevated buttons to containers.
+                const SizedBox(height: 60),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: _startPulsatingAnimation,
+                      child: Container(
+                        width: 130,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: getContainerColor,
+                          borderRadius: BorderRadius.circular(15.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            _isBreathing ? 'Reset' : 'Start',
+                            style: fontProvider.subheadingBig(themeNotifier),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () =>
+                          _showPopupMenu(getContainerColor, fontProvider),
+                      child: Container(
+                        width: 130,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: getContainerColor,
+                          borderRadius: BorderRadius.circular(15.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              selectedColour == null
+                                  ? 'Colour'
+                                  : colourName(selectedColour!),
+                              style: fontProvider.subheadingBig(themeNotifier),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
+                const SizedBox(height: 20),
+                if (_currentMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Text(
+                      _currentMessage!,
+                      style: fontProvider.greentext(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     });
