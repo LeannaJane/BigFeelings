@@ -80,7 +80,9 @@ class QuizSubmitter {
       //! If not it will show a error message telling the user to answer all questions.
       if (userAnswers.length != quizData.length) {
         showMessage(
-            'Please answer all questions before submitting.', Colors.red);
+          'Please answer all questions before submitting.',
+          Colors.red,
+        );
         return false;
       }
       //! Calculate the score based on user answers

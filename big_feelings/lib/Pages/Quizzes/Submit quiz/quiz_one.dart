@@ -107,7 +107,6 @@ class _StartQuiz1State extends State<StartQuiz1> {
   //! Then the user can scroll through questions and answer them and finally save them. These questions are retrieved from firebase,
   //! Then the answers are also retrieved to check against the user answers, then a score is collected and saved to firebase.
   @override
-  @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
@@ -120,7 +119,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Emotion Management Quiz',
+              'Emotional management',
               style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),
@@ -165,8 +164,8 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                   children: [
                                     Text(
                                       'Question ${currentQuestionIndex + 1}: ${quizData[currentQuestionIndex]['question']}',
-                                      style: fontProvider.calenderText(
-                                        themeNotifier: themeNotifier,
+                                      style: fontProvider.quiztextquestion(
+                                        themeNotifier,
                                       ),
                                     ),
                                     const SizedBox(height: 24),
@@ -184,8 +183,8 @@ class _StartQuiz1State extends State<StartQuiz1> {
                                         return RadioListTile(
                                           title: Text(
                                             option,
-                                            style: fontProvider.calenderText(
-                                              themeNotifier: themeNotifier,
+                                            style: fontProvider.quiztext(
+                                              themeNotifier,
                                             ),
                                           ),
                                           value: option,
@@ -210,7 +209,7 @@ class _StartQuiz1State extends State<StartQuiz1> {
                           const SizedBox(height: 20),
                           //! Back button container, to go back to the previous question.
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 100.0),
+                            padding: const EdgeInsets.only(bottom: 20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -332,11 +331,11 @@ class _StartQuiz1State extends State<StartQuiz1> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: 50,
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.green.withOpacity(0.8),
                       child: Center(
                         child: Text(
                           'Your score: $score/10',
-                          style: const TextStyle(color: Colors.white),
+                          style: fontProvider.smalltextalert(themeNotifier),
                         ),
                       ),
                     ),

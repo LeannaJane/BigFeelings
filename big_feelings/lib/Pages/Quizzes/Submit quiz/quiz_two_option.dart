@@ -73,7 +73,7 @@ class _QuizPage2State extends State<QuizPage2> {
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
                               'Welcome to Quiz 2: Keeping our minds healthy and happy! In this quiz, you will learn a lot of interesting things about taking care of your feelings and being able to understand many different things about emotions.',
-                              style: fontProvider.subheading(themeNotifier),
+                              style: fontProvider.quiztext(themeNotifier),
                               textAlign: TextAlign.center,
                             ),
                           ),

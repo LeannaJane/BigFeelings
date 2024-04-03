@@ -26,10 +26,19 @@ class _QuizPage1State extends State<QuizPage1> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              'Quiz 1: Emotion Management',
-              style: fontProvider.getOtherTitleStyle(themeNotifier),
-              textAlign: TextAlign.center,
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Quiz 1',
+                  style: fontProvider.getOtherTitleStyle(themeNotifier),
+                ),
+                Text(
+                  'Emotion Management',
+                  style: fontProvider.getOtherTitleStyle(themeNotifier),
+                ),
+              ],
             ),
             centerTitle: true,
             automaticallyImplyLeading: false,
@@ -73,7 +82,7 @@ class _QuizPage1State extends State<QuizPage1> {
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
                               'Welcome to Quiz 1: Keeping our minds healthy and happy! In this quiz, you will learn a lot of interesting things about taking care of your feelings and being able to understand many different things about emotions.',
-                              style: fontProvider.subheading(themeNotifier),
+                              style: fontProvider.quiztext(themeNotifier),
                               textAlign: TextAlign.center,
                             ),
                           ),

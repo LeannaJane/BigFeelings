@@ -165,8 +165,8 @@ class _StartQuiz2State extends State<StartQuiz2> {
                                   children: [
                                     Text(
                                       'Question ${currentQuestionIndex + 1}: ${quizData[currentQuestionIndex]['question']}',
-                                      style: fontProvider.calenderText(
-                                        themeNotifier: themeNotifier,
+                                      style: fontProvider.quiztextquestion(
+                                        themeNotifier,
                                       ),
                                     ),
                                     const SizedBox(height: 24),
@@ -184,8 +184,8 @@ class _StartQuiz2State extends State<StartQuiz2> {
                                         return RadioListTile(
                                           title: Text(
                                             option,
-                                            style: fontProvider.calenderText(
-                                              themeNotifier: themeNotifier,
+                                            style: fontProvider.quiztext(
+                                              themeNotifier,
                                             ),
                                           ),
                                           value: option,
@@ -210,7 +210,7 @@ class _StartQuiz2State extends State<StartQuiz2> {
                           const SizedBox(height: 20),
                           //! Back button container, to go back to the previous question.
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 100.0),
+                            padding: const EdgeInsets.only(bottom: 20.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -332,11 +332,11 @@ class _StartQuiz2State extends State<StartQuiz2> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: 50,
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.green.withOpacity(0.8),
                       child: Center(
                         child: Text(
                           'Your score: $score/10',
-                          style: const TextStyle(color: Colors.white),
+                          style: fontProvider.smalltextalert(themeNotifier),
                         ),
                       ),
                     ),
