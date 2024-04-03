@@ -53,6 +53,11 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
     }
   }
 
+  Future<void> saveBestTime(int time) async {
+    SharedPreferences gameSP = await SharedPreferences.getInstance();
+    gameSP.setInt('BestTime', time);
+  }
+
   startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) async {
       if (!isPaused) {
@@ -65,11 +70,12 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
       if (game.isGameOver) {
         timer.cancel();
         SharedPreferences gameSP = await SharedPreferences.getInstance();
-        if (gameSP.getInt('BestTime') == null ||
-            gameSP.getInt('BestTime')! > duration.inSeconds) {
-          gameSP.setInt('BestTime', duration.inSeconds);
+        setState(() {
+          showConfetti = true;
+        });
+        if (bestTime == 0 || duration.inSeconds < bestTime) {
+          saveBestTime(duration.inSeconds);
           setState(() {
-            showConfetti = true;
             bestTime = duration.inSeconds;
           });
         }
@@ -122,6 +128,12 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
         body: SafeArea(
           child: Column(
             children: [
+              if (showConfetti)
+                AnimatedOpacity(
+                  opacity: showConfetti ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 1000),
+                  child: const GameConfetti(),
+                ),
               Expanded(
                 child: Center(
                   child: SizedBox(
@@ -187,12 +199,10 @@ class _GameBoardMobileState extends State<GameBoardMobile> {
                   ],
                 ),
               ),
-              if (showConfetti)
-                AnimatedOpacity(
-                  opacity: showConfetti ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 1000),
-                  child: const GameConfetti(),
-                ),
+              Text(
+                'Best Time: $bestTime seconds',
+                style: fontProvider.subheading(themeNotifier),
+              ),
             ],
           ),
         ),

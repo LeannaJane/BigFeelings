@@ -159,28 +159,36 @@ class _GameBoardState extends State<GameBoard> {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GameTimer(
-                        time: duration,
-                      ),
-                      const SizedBox(width: 20),
-                      RestartGame(
-                        isGameOver: game.isGameOver,
-                        restartGame: _resetGame,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 20),
-                      PauseGame(
-                        isPaused: isPaused,
-                        pauseGame: _pauseGame,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RestartGame(
+                          isGameOver: game.isGameOver,
+                          restartGame: _resetGame,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 20),
+                        GameTimer(
+                          time: duration,
+                        ),
+                        const SizedBox(width: 20),
+                        PauseGame(
+                          isPaused: isPaused,
+                          pauseGame: _pauseGame,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Best Time: $bestTime seconds',
+                      style: fontProvider.subheading(themeNotifier),
+                    ),
+                    const SizedBox(height: 10),
+                  ],
                 ),
               ),
               if (showConfetti)

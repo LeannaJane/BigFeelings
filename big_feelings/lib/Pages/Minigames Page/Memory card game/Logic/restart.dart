@@ -43,7 +43,7 @@ class RestartGame extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'Reset timer',
+              'Reset game',
               style: fontProvider.subheading(themeNotifier),
             ),
           ),
