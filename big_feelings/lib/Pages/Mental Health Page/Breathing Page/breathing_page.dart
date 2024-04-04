@@ -261,7 +261,6 @@ class _BreathingPageState extends State<BreathingPage>
                   padding: const EdgeInsets.symmetric(
                       vertical: 40.0, horizontal: 20.0),
                   decoration: BoxDecoration(
-                    color: getContainerColor,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Text(
