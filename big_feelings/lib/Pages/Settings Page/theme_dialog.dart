@@ -34,13 +34,11 @@ class ThemeDropdownDialog extends StatelessWidget {
     //! Building the Scaffold widget
     return AlertDialog(
         backgroundColor: getContainerColor,
-        title: Center(
-          child: Text(
-            //! Select a theme option
-            'Select a theme:',
-            style: fontProvider.getSubTitleStyle(
-              themeNotifier: themeNotifier,
-            ),
+        title: Text(
+          //! Select a theme option
+          'Select a theme:',
+          style: fontProvider.getSubTitleStyle(
+            themeNotifier: themeNotifier,
           ),
         ),
         //! Presenting the drop down selections with the textColour theme and background colours applied.

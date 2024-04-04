@@ -22,12 +22,10 @@ class FontDropdownDialog extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               child: AlertDialog(
                 backgroundColor: getContainerColor,
-                title: Center(
-                  child: Text(
-                    'Select a font:',
-                    style: fontProvider.getSubTitleStyle(
-                      themeNotifier: themeNotifier,
-                    ),
+                title: Text(
+                  'Select a font',
+                  style: fontProvider.getSubTitleStyle(
+                    themeNotifier: themeNotifier,
                   ),
                 ),
                 content: DropdownButton<String>(

@@ -23,12 +23,12 @@ class DeleteAccountDialog {
               children: [
                 Center(
                   child: Text(
-                    //! Message asking if the user wants to delete their account.
-                    'Do you want to delete your account?',
-                    style: fontProvider.getSubTitleStyle(
-                      themeNotifier: themeNotifier,
-                    ),
-                  ),
+                      //! Message asking if the user wants to delete their account.
+                      'Do you want to delete your account?',
+                      style: fontProvider.getSubTitleStyle(
+                        themeNotifier: themeNotifier,
+                      ),
+                      textAlign: TextAlign.center),
                 ),
               ],
             ),

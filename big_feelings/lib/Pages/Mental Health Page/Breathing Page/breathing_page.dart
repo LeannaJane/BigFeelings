@@ -148,63 +148,93 @@ class _BreathingPageState extends State<BreathingPage>
     }
   }
 
-  //! Function to show color selection popup menu
-  void _showPopupMenu(Color backgroundColor, FontProvider fontProvider) async {
-    final selectedFontFamily = fontProvider.selectedFontFamily;
-    //! Finds the render box of the button that triggers the popup
-    final RenderBox button = context.findRenderObject() as RenderBox;
-    //! Calculate the position of the popup relative to the button
-    final RelativeRect position = RelativeRect.fromRect(
-      Rect.fromPoints(
-        button.localToGlobal(button.size.bottomRight(Offset.zero)),
-        button.localToGlobal(button.size.bottomRight(Offset.zero)),
-      ),
-      Offset.zero & MediaQuery.of(context).size,
-    );
-    //! Show the color selection popup menu
-    final Color? selectedColor = await showMenu<Color?>(
+  //! Function to show color selection popup menu-- reused the code from the other dialog on the card minigame.
+  void _showPopupMenu(Color backgroundColor, FontProvider fontProvider,
+      ThemeNotifier themeNotifier) async {
+    Color getContainerColor = themeNotifier.getContainerColor();
+    showDialog(
       context: context,
-      position: position,
-      //! Initialised the background colour behind the colour selection items to the the theme type.
-      color: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      //! Map available colors to menu items
-      items: availableColours.map<PopupMenuEntry<Color?>>((Color colour) {
-        double luminance = colour.computeLuminance();
-        //! Text colour set based on the theme.
-        Color textColor = luminance > 0.5 ? Colors.black : Colors.white;
-        //! The actual menu item colour is set behind the text of the colours.
-        return PopupMenuItem<Color?>(
-          value: colour,
-          child: Container(
-            decoration: BoxDecoration(
-              color: colour,
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            padding:
-                const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-            child: Text(
-              colourName(colour),
-              style: TextStyle(
-                //! Setting the text colour to textcolour and the font to 13.
-                color: textColor,
-                fontSize: 13.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: selectedFontFamily,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Material(
+            color: Colors.black.withOpacity(0.5),
+            child: Center(
+              child: Container(
+                width: 300,
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: getContainerColor,
+                  borderRadius: BorderRadius.circular(30.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 6,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
+                  Text(
+                    'Select a Colour',
+                    textAlign: TextAlign.center,
+                    style: fontProvider.subheadingBigBald(themeNotifier),
+                  ),
+                  const SizedBox(height: 16),
+                  ...List.generate(availableColours.length, (index) {
+                    final color = availableColours[index];
+                    final colorName = colourName(color);
+                    double luminance = color.computeLuminance();
+                    //! Text colour set based on the theme.
+                    Color textColor =
+                        luminance > 0.5 ? Colors.black : Colors.white;
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop(color);
+                        setState(() {
+                          selectedColour = color;
+                        });
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: color,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 10.0),
+                            width: 200,
+                            height: 50,
+                            child: Center(
+                              child: Center(
+                                child: Text(
+                                  colorName,
+                                  style: fontProvider
+                                      .smalltextalert(themeNotifier)
+                                      .copyWith(
+                                        color: textColor,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ]),
               ),
             ),
           ),
         );
-      }).toList(),
+      },
     );
-    //! Update the selected color if a coloUr is chosen from the popup menu
-    if (selectedColor != null) {
-      setState(() {
-        selectedColour = selectedColor;
-      });
-    }
   }
 
   //! Dispose method to clean up resources when the widget is disposed
@@ -253,10 +283,12 @@ class _BreathingPageState extends State<BreathingPage>
         ),
         body: SingleChildScrollView(
           //! Center widget to horizontally and vertically center its child
+
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(height: 150),
                 Container(
                   padding: const EdgeInsets.symmetric(
                       vertical: 40.0, horizontal: 20.0),
@@ -294,71 +326,6 @@ class _BreathingPageState extends State<BreathingPage>
                   ),
                 ),
                 //! Changed elevated buttons to containers.
-                const SizedBox(height: 60),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: _startPulsatingAnimation,
-                      child: Container(
-                        width: 130,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: getContainerColor,
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            _isBreathing ? 'Reset' : 'Start',
-                            style: fontProvider.subheadingBig(themeNotifier),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () =>
-                          _showPopupMenu(getContainerColor, fontProvider),
-                      child: Container(
-                        width: 130,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: getContainerColor,
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              selectedColour == null
-                                  ? 'Colour'
-                                  : colourName(selectedColour!),
-                              style: fontProvider.subheadingBig(themeNotifier),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 20),
                 if (_currentMessage != null)
                   Padding(
@@ -369,6 +336,76 @@ class _BreathingPageState extends State<BreathingPage>
                       textAlign: TextAlign.center,
                     ),
                   ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: Container(
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: _startPulsatingAnimation,
+                  child: Container(
+                    width: 130,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: getContainerColor,
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        _isBreathing ? 'Reset' : 'Start',
+                        style: fontProvider.subheadingBig(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => _showPopupMenu(
+                      getContainerColor, fontProvider, themeNotifier),
+                  child: Container(
+                    width: 130,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: getContainerColor,
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          selectedColour == null
+                              ? 'Colour'
+                              : colourName(selectedColour!),
+                          style: fontProvider.subheadingBig(themeNotifier),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

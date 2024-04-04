@@ -239,9 +239,9 @@
 
 46
 ? Hire Developers, Free Coding Resources for the Developer. (n.d.). [Solved]-List to List Dart-Flutter. [online] Available at: https://www.appsloveworld.com/flutter/200/223/listmapstringdynamic-to-liststring-dart [Accessed 5 Feb. 2024].
- * This website provided sample code that helped me understand how to organise using kmaps to strcute data.
-  * ‌I made modifications to align it with my code. 
-  * I made a method that navigates the user depedning on their menu item index and it will send the user to the correct route/page.
+* This website provided sample code that helped me understand how to organise using kmaps to strcute data.
+* I made modifications to align it with my code. 
+* I made a method that navigates the user depedning on their menu item index and it will send the user to the correct route/page.
 
 
 47
@@ -249,6 +249,7 @@
 This website taught me how to flip an icon using transform the the homepage darkmode and light mode icons. 
 */
 
+ 
 /*
 48
 ? LottieFiles. (n.d.). UsamaRazzaq. [online] Available at: https://lottiefiles.com/animations/walking-kid-DqYW4LjiwO.
@@ -266,6 +267,19 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? Klein-baer, R. (2022). How to Model Healthy Coping Skills. [online] Child Mind Institute. Available at: https://childmind.org/article/how-to-model-healthy-coping-skills/.
 * This website I used to gain information on scientific information around coping mechanism for kids, for the coping mechanism page.
 ‌
+/*
+
+52
+? Dart packages. (n.d.). flutter_painter_themedata example | Flutter package. [online] Available at: https://pub.dev/packages/flutter_painter_themedata/example [Accessed 1 Feb. 2024].
+? CustomPainter for pulsating circles
+
+* Adding the circle animation for the breathing animation.
+* Code assisted by Stack Overflow.
+* PulsatingCirclesPainter defines the custom painting logic for the pulsating circles
+* that visualizes the breathing exercise.
+
+
+*/
 
 fix these
 <a href="https://www.flaticon.com/free-icons/child" title="child icons">Child icons created by Freepik - Flaticon</a>
