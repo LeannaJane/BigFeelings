@@ -170,6 +170,42 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  TextStyle breathingtext() {
+    double fontSize = 14.0;
+
+    Color textColor = Colors.white;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 20,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 18,
+          color: textColor,
+        );
+    }
+  }
+
   //!  Small text for the alert dialog.
   TextStyle smalltextfontstyle(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme

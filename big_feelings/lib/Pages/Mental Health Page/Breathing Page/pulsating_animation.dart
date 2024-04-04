@@ -2,15 +2,9 @@ import 'dart:math';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:flutter/material.dart';
 
-/* 
-* Adding the circle animation for the breathing animation.
-* Code assisted by Stack Overflow.
-* PulsatingCirclesPainter defines the custom painting logic for the pulsating circles
-* that visualizes the breathing exercise.
-! Reference:
-* Dart packages. (n.d.). flutter_painter_themedata example | Flutter package. [online] Available at: https://pub.dev/packages/flutter_painter_themedata/example [Accessed 1 Feb. 2024].
-* CustomPainter for pulsating circles
-*/
+//? Ref 52
+//! A class that contains the circles for the pulsating animation, there are many variables, e.g. the animation, the font
+//! provider, a bool to check whether the animation is the inhale stage.
 
 class PulsatingCirclesPainter extends CustomPainter {
   //! Animation controller
@@ -21,54 +15,52 @@ class PulsatingCirclesPainter extends CustomPainter {
   final bool _inhale;
   //! Font provider
   final FontProvider _fontProvider;
-  PulsatingCirclesPainter(
-      this._animation, this._selectedColor, this._inhale, this._fontProvider)
-      : super(repaint: _animation);
 
-  //! This function draws a pulsating circle on the canvas
+  PulsatingCirclesPainter(
+    this._animation,
+    this._selectedColor,
+    this._inhale,
+    this._fontProvider,
+  ) : super(repaint: _animation);
+  //! This is a method thaat draws the pulsating circle on the canvas, and all the different circles will have
+
+  //! different transparcys, and below also is presented the different colours.
   void drawPulsatingCircle(Canvas canvas, double value, Size size) {
     //! This calculates the opacity based on animation value
     double opacity = (1.0 - (value / 4.0)).clamp(0.0, 1.0);
     //! So all the different circles have different shades of the colour chosen.
     //! This creates the colour based on the opacity.
     Color color = Color.fromRGBO(
-        _selectedColor.red, _selectedColor.green, _selectedColor.blue, opacity);
+      _selectedColor.red,
+      _selectedColor.green,
+      _selectedColor.blue,
+      opacity,
+    );
 
     //! These calculations work out the circle size, area, and radius
     //! double circleSize = size.width / 2;
     double circleSize = 1.5 * size.width / 2;
     double area = circleSize * circleSize;
     double radius = sqrt(area * value / 4);
-
-    //! This defines the paint settings for the circle
+//! This defines the paint settings for the circle
     final Paint paint = Paint()..color = color;
 
     //! The canvas then draws a circle.
     canvas.drawCircle(Offset(size.width / 2, size.height / 2), radius, paint);
 
-    //! This defines the text for the inhale and exhale and changes the colour of the text to white
-    //! and changes the boldness of the text.
-    final textStyle = TextStyle(
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      // Changing the font size.
-      fontSize: 16,
-      fontFamily: _fontProvider.selectedFontFamily,
-    );
+    //! A textpan with the correct font textstyle.
 
     //! This creates a text span with 'Inhale' or 'Exhale' text
     final textSpan = TextSpan(
       text: _inhale ? 'Inhale' : 'Exhale',
-      style: textStyle,
+      style: _fontProvider.breathingtext(),
     );
-
-    // This creates a text painter
+    //! This creates a text painter
     final textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
     );
-
-    // This lays out the text.
+    //! This lays out the text.
     textPainter.layout(
       minWidth: 0,
       maxWidth: size.width,
