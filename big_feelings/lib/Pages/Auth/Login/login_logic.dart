@@ -58,7 +58,7 @@ class LoginLogic {
         setLoginError(
             'Invalid credentials. Please check your email and password.');
       } else {
-        setLoginError('An unknown error occurred: ${e.message}');
+        setLoginError('An error occurred during login. Please try again.');
       }
     }
   }

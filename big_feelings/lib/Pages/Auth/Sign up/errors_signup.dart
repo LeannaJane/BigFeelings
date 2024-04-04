@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
@@ -25,7 +27,6 @@ class SignUpLogic {
       await FirebaseAuth.instance.signOut();
 
       if (userCredential.user != null) {
-        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -41,12 +42,19 @@ class SignUpLogic {
         onError('Sign-up failed');
       }
     } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException: ${e.code}');
+      print('FirebaseAuthException Message: ${e.message}');
       if (e.code == 'email-already-in-use') {
-        onError('Email is already in use on another account.');
+        onError('The email address is already in use by another account.');
+      } else if (e.code == 'invalid-email') {
+        onError('Please enter a valid email address.');
+      } else if (e.code == 'weak-password') {
+        onError('Password should be at least 6 characters.');
       } else {
         onError('Error during sign-up: ${e.message}');
       }
     } catch (e) {
+      print('Unexpected Error: $e');
       onError('An unexpected error occurred.');
     }
   }
