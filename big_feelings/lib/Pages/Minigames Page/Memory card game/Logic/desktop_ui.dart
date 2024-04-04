@@ -8,7 +8,7 @@ import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/c
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/pause_game.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/restart.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/time.dart';
-import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/UI/user_interface_cards.dart';
+import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/user_interface_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,7 +104,7 @@ class _GameBoardState extends State<GameBoard> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Match the emotion game',
+            'Match the emotion',
             style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),

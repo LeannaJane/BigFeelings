@@ -127,8 +127,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                             Text(
                               'Please Enter Email',
                               textAlign: TextAlign.center,
-                              style:
-                                  fontProvider.subheadinglogin(themeNotifier),
+                              style: fontProvider.desktoplogin(themeNotifier),
                             ),
                             const SizedBox(height: 10),
                             Container(
@@ -152,13 +151,12 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
                                 cursorColor: cursorColor,
-                                style:
-                                    fontProvider.subheadinglogin(themeNotifier),
+                                style: fontProvider.desktoplogin(themeNotifier),
                                 textAlignVertical: TextAlignVertical.center,
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.symmetric(
-                                    vertical: 14.0,
+                                    vertical: 12.0,
                                   ),
                                 ),
                               ),
@@ -180,8 +178,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                             Text(
                               'Please Enter Password',
                               textAlign: TextAlign.center,
-                              style:
-                                  fontProvider.subheadinglogin(themeNotifier),
+                              style: fontProvider.desktoplogin(themeNotifier),
                             ),
                             const SizedBox(height: 10),
                             Padding(
@@ -206,8 +203,8 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                                   controller: passwordController,
                                   obscureText: true,
                                   cursorColor: cursorColor,
-                                  style: fontProvider
-                                      .subheadinglogin(themeNotifier),
+                                  style:
+                                      fontProvider.desktoplogin(themeNotifier),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
@@ -244,7 +241,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                     alignment: Alignment.center,
                     child: Text(
                       'Login',
-                      style: fontProvider.subheadinglogin(themeNotifier),
+                      style: fontProvider.desktoplogin(themeNotifier),
                     ),
                   ),
                 ),
@@ -274,7 +271,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
         ),
         bottomNavigationBar: Container(
           height: 100,
-          color: Colors.transparent, // Choose your desired color
+          color: Colors.transparent,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

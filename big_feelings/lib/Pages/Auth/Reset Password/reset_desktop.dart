@@ -164,13 +164,13 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
                                   controller: emailController,
                                   cursorColor: cursorColor,
                                   keyboardType: TextInputType.emailAddress,
-                                  style: fontProvider
-                                      .subheadinglogin(themeNotifier),
+                                  style:
+                                      fontProvider.desktoplogin(themeNotifier),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.symmetric(
-                                      vertical: 14.0,
+                                      vertical: 12.0,
                                     ),
                                   ),
                                 ),
@@ -203,7 +203,7 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
                       alignment: Alignment.center,
                       child: Text(
                         'Reset',
-                        style: fontProvider.subheadinglogin(themeNotifier),
+                        style: fontProvider.desktoplogin(themeNotifier),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -227,7 +227,7 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
           ),
           bottomNavigationBar: Container(
             height: 100,
-            color: Colors.transparent, // Choose your desired color
+            color: Colors.transparent,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

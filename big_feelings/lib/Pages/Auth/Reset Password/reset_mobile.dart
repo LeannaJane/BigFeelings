@@ -226,7 +226,7 @@ class _PasswordResetMobileState extends State<PasswordResetMobile> {
           ),
           bottomNavigationBar: Container(
             height: 100,
-            color: Colors.transparent, // Choose your desired color
+            color: Colors.transparent,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

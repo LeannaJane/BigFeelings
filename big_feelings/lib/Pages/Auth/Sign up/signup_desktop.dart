@@ -122,8 +122,7 @@ class _SignupdesktopState extends State<Signupdesktop> {
                               Text(
                                 'Please Enter Email',
                                 textAlign: TextAlign.center,
-                                style:
-                                    fontProvider.subheadinglogin(themeNotifier),
+                                style: fontProvider.desktoplogin(themeNotifier),
                               ),
                               const SizedBox(height: 10),
                               Container(
@@ -147,13 +146,13 @@ class _SignupdesktopState extends State<Signupdesktop> {
                                   controller: _emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   cursorColor: cursorColor,
-                                  style: fontProvider
-                                      .subheadinglogin(themeNotifier),
+                                  style:
+                                      fontProvider.desktoplogin(themeNotifier),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.symmetric(
-                                      vertical: 14.0,
+                                      vertical: 13.0,
                                     ),
                                   ),
                                 ),
@@ -175,8 +174,7 @@ class _SignupdesktopState extends State<Signupdesktop> {
                               Text(
                                 'Please Enter Password',
                                 textAlign: TextAlign.center,
-                                style:
-                                    fontProvider.subheadinglogin(themeNotifier),
+                                style: fontProvider.desktoplogin(themeNotifier),
                               ),
                               const SizedBox(height: 10),
                               Padding(
@@ -202,12 +200,12 @@ class _SignupdesktopState extends State<Signupdesktop> {
                                     obscureText: true,
                                     cursorColor: cursorColor,
                                     style: fontProvider
-                                        .subheadinglogin(themeNotifier),
+                                        .desktoplogin(themeNotifier),
                                     textAlignVertical: TextAlignVertical.center,
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       contentPadding: EdgeInsets.symmetric(
-                                          vertical: 18.0, horizontal: 16.0),
+                                          vertical: 16.0, horizontal: 16.0),
                                     ),
                                   ),
                                 ),
@@ -257,7 +255,7 @@ class _SignupdesktopState extends State<Signupdesktop> {
                         alignment: Alignment.center,
                         child: Text(
                           'Sign Up',
-                          style: fontProvider.subheadinglogin(themeNotifier),
+                          style: fontProvider.desktoplogin(themeNotifier),
                         ),
                       ),
                     ),

@@ -207,7 +207,7 @@ class _SignupMobileState extends State<SignupMobile> {
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       contentPadding: EdgeInsets.symmetric(
-                                          vertical: 14.0, horizontal: 14.0),
+                                          vertical: 16.0, horizontal: 14.0),
                                     ),
                                   ),
                                 ),

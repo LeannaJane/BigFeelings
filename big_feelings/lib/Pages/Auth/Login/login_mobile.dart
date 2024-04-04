@@ -248,15 +248,6 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                TextButton(
-                  onPressed: () => _forgotPassword(context),
-                  child: Text(
-                    'Forgot Password?',
-                    textAlign: TextAlign.center,
-                    style: fontProvider.greentext(),
-                  ),
-                ),
                 if (_loginError != null)
                   Center(
                     child: Padding(
@@ -268,13 +259,21 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                       ),
                     ),
                   ),
+                TextButton(
+                  onPressed: () => _forgotPassword(context),
+                  child: Text(
+                    'Forgot Password?',
+                    textAlign: TextAlign.center,
+                    style: fontProvider.greentext(),
+                  ),
+                ),
               ],
             ),
           ),
         ),
         bottomNavigationBar: Container(
           height: 100,
-          color: Colors.transparent, // Choose your desired color
+          color: Colors.transparent,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
