@@ -1,9 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, use_super_parameters
-
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class CopingMethods extends StatefulWidget {
