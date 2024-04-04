@@ -69,7 +69,7 @@ class WelcomePage extends StatelessWidget {
     }
 
     if (imageWidth == 350) {
-      containerWidth = 300;
+      containerWidth = 350;
       containerHeight = 150;
       buttonWidth = 200;
       buttonHeight = 40;
@@ -205,8 +205,7 @@ class WelcomePage extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 20.0),
                                   child: GestureDetector(
-                                    onTap: () => Navigator.pushNamed(
-                                        context, '/sign-up'),
+                                    onTap: () => navigatesignup(context),
                                     child: Container(
                                       width: buttonWidth,
                                       height: buttonHeight,
