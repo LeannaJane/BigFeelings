@@ -165,8 +165,8 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
             //! Ref 11.
             Container(
               //! The width and height of the container.
-              width: 300,
-              height: 300,
+              width: 250,
+              height: 250,
               decoration: BoxDecoration(
                 //! The boarder radius styled.
                 borderRadius: BorderRadius.circular(30.0),
@@ -195,7 +195,6 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -211,7 +210,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 const SizedBox(width: 30),
                 Text(
                   moods[selectedEmotionIndex],
-                  style: fontProvider.subheading(themeNotifier),
+                  style: fontProvider.subheadinglogin(themeNotifier),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(width: 30),
@@ -259,7 +258,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 alignment: Alignment.center,
                 child: Text(
                   'Save Mood',
-                  style: fontProvider.subheading(themeNotifier),
+                  style: fontProvider.subheadinglogin(themeNotifier),
                 ),
               ),
             )
