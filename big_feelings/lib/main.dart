@@ -4,7 +4,8 @@ import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_desktop.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_mobile.dart';
-import 'package:big_feelings/Pages/Auth/Sign%20up/signup_ui.dart';
+import 'package:big_feelings/Pages/Auth/Sign%20up/signup_desktop.dart';
+import 'package:big_feelings/Pages/Auth/Sign%20up/signup_mobile.dart';
 import 'package:big_feelings/Pages/Auth/password_reset.dart';
 import 'package:big_feelings/Pages/Auth/welcome_page.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
@@ -150,8 +151,11 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/login-mobile':
       page = const LoginMobilePage();
       return RouteAnimations.instantAnimation(page);
-    case '/sign-up':
-      page = const SignUpPage();
+    case '/signup-desktop':
+      page = const Signupdesktop();
+      return RouteAnimations.instantAnimation(page);
+    case '/signup-mobile':
+      page = const SignupMobile();
       return RouteAnimations.instantAnimation(page);
     case '/settings-page':
       page = const SettingsPage();
