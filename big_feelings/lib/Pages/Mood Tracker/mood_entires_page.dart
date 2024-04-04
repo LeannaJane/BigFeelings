@@ -17,6 +17,8 @@ class MoodEntriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
+
+    // Remove the 'const' keyword here
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       final fontProvider = Provider.of<FontProvider>(context);
       Color getContainerColor =
@@ -98,22 +100,38 @@ class MoodEntriesPage extends StatelessWidget {
               }
 
               if (snapshot.hasError) {
-                //! I struggled to understand the error why my code was not actually retrieivng the data, and it was because of
-                //! an indexing problem.
                 logger.e('Error fetching data: ${snapshot.error}');
-                //! If there is an error while fetching the data it will present a error text.
-                return const Center(
-                  //! If there is an error while fetching the data it will present a error text.
-                  //! If there is an error while fetching the data it will present a error text.
-                  child: Text('An error occurred while fetching data.'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 300),
+                      Text(
+                        'Service error',
+                        style: fontProvider.errormessages(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 );
               }
+
               if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-                return const Center(
-                  //! This shows a message if no mood entries are found
-                  child: Text('No mood entries found.'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 300),
+                      Text(
+                        'No mood entries found',
+                        style: fontProvider.errormessages(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 );
               }
+
               //! This creates a list of mood entry containers
               List<Widget> moodEntryContainers =
                   snapshot.data!.docs.map((moodEntry) {

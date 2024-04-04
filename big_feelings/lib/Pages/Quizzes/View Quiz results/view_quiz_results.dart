@@ -40,8 +40,11 @@ class QuizResults extends StatelessWidget {
               },
             ),
           ),
-          body: const Center(
-            child: Text('User is not logged in.'),
+          body: Center(
+            child: Text(
+              'User is not logged in.',
+              style: fontProvider.errormessages(themeNotifier),
+            ),
           ),
         );
       }
@@ -84,13 +87,33 @@ class QuizResults extends StatelessWidget {
               }
               if (snapshot.hasError) {
                 logger.e('Error fetching data: ${snapshot.error}');
-                return const Center(
-                  child: Text('An error occurred while fetching data.'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 300),
+                      Text(
+                        'An error occurred while fetching data.',
+                        style: fontProvider.errormessages(themeNotifier),
+                      ),
+                    ],
+                  ),
                 );
               }
+
               if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-                return const Center(
-                  child: Text('No quiz results found.'),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 300),
+                      Text(
+                        'No quiz results found',
+                        style: fontProvider.errormessages(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 );
               }
 

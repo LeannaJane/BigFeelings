@@ -36,7 +36,7 @@ class ThemeDropdownDialog extends StatelessWidget {
         backgroundColor: getContainerColor,
         title: Text(
           //! Select a theme option
-          'Select a theme:',
+          'Select a theme',
           style: fontProvider.getSubTitleStyle(
             themeNotifier: themeNotifier,
           ),

@@ -212,7 +212,7 @@ class FontProvider with ChangeNotifier {
         ? Colors.white
         : Colors.black;
 
-    double fontSize = 18.0;
+    double fontSize = 16.0;
     switch (_selectedFontFamily) {
       case 'Pacifico':
         return GoogleFonts.pacifico();
@@ -230,7 +230,7 @@ class FontProvider with ChangeNotifier {
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: fontSize,
+          fontSize: 18,
           color: textColor,
           fontWeight: FontWeight.bold,
         );
@@ -603,7 +603,6 @@ class FontProvider with ChangeNotifier {
   //! Calender Text
   TextStyle fontstylenotbald({
     double fontSize = 14.0,
-    Color textcolour = Colors.black, // Specify the default color here
     required ThemeNotifier themeNotifier,
   }) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
@@ -614,17 +613,17 @@ class FontProvider with ChangeNotifier {
       case 'Pacifico':
         return GoogleFonts.pacifico(
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor,
         );
       case 'SingleDay':
         return TextStyle(
@@ -644,7 +643,6 @@ class FontProvider with ChangeNotifier {
   //! Used for the calender
   TextStyle calenderText({
     double fontSize = 18.0,
-    Color textcolour = Colors.black,
     required ThemeNotifier themeNotifier,
   }) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
@@ -655,17 +653,17 @@ class FontProvider with ChangeNotifier {
       case 'Pacifico':
         return GoogleFonts.pacifico(
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor,
         );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor,
         );
       case 'ShortStack':
         return GoogleFonts.shortStack(
           fontSize: fontSize,
-          color: textcolour,
+          color: textColor,
         );
       case 'SingleDay':
         return TextStyle(
@@ -862,6 +860,44 @@ class FontProvider with ChangeNotifier {
         return TextStyle(
           fontFamily: _selectedFontFamily,
           fontSize: 18,
+          color: textColor,
+        );
+    }
+  }
+
+  TextStyle errormessages(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    double fontSize = 16.0;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: fontSize,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 22,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 16,
           color: textColor,
         );
     }

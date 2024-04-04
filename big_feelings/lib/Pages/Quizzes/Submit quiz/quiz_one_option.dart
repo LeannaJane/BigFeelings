@@ -31,11 +31,7 @@ class _QuizPage1State extends State<QuizPage1> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Quiz 1',
-                  style: fontProvider.getOtherTitleStyle(themeNotifier),
-                ),
-                Text(
-                  'Emotion Management',
+                  'Emotion Management Quiz',
                   style: fontProvider.getOtherTitleStyle(themeNotifier),
                 ),
               ],

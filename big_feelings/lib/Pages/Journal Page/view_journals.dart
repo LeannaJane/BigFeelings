@@ -95,19 +95,31 @@ class JournalViewer extends StatelessWidget {
               if (snapshot.hasError) {
                 logger.e('Error fetching data: ${snapshot.error}');
                 return Center(
-                  child: Text(
-                    'An error occurred while fetching data.',
-                    style: fontProvider.subheading(themeNotifier),
-                    textAlign: TextAlign.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 300),
+                      Text(
+                        'Service error', //! error for fetching data.
+                        style: fontProvider.errormessages(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 );
               }
               if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
                 return Center(
-                  child: Text(
-                    'No journals saved.',
-                    style: fontProvider.subheading(themeNotifier),
-                    textAlign: TextAlign.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 300),
+                      Text(
+                        'No journals saved',
+                        style: fontProvider.errormessages(themeNotifier),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 );
               }

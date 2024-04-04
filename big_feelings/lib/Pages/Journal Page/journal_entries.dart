@@ -48,6 +48,21 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
     super.dispose();
   }
 
+  bool isDesktop(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    return height > 800;
+  }
+
+  int checkssize(BuildContext context) {
+    int maxLines;
+    if (isDesktop(context)) {
+      maxLines = 12;
+    } else {
+      maxLines = 6;
+    }
+    return maxLines;
+  }
+
   //! This method retrieves the current user from firebase. then if the user is not null (is found) it
   //! queries the firestore collection JournalCollection and where the user is equal to the user id saved during the login.
   //! Thne it sets the state and updates the entries.
@@ -100,16 +115,13 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
     } catch (e) {
       logger.e('Error saving journal entry: $e. User ID: $userId');
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
             'Error saving journal entry. Please try again.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            style: fontProvider.subheadinglogin(themeNotifier),
           ),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           backgroundColor: Colors.red,
         ),
       );
@@ -184,7 +196,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                                   ),
                                   child: TextField(
                                     controller: _textController,
-                                    maxLines: 7,
+                                    maxLines: checkssize(context),
                                     style: fontProvider
                                         .smalltextfontstyle(themeNotifier),
                                     decoration: InputDecoration(

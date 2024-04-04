@@ -47,13 +47,12 @@ class _StartQuiz1State extends State<StartQuiz1> {
   void submitQuiz() async {
     final List<String?> initialUserAnswers = List<String?>.from(userAnswers);
     final int initialQuestionIndex = currentQuestionIndex;
+    FontProvider fontProvider = FontProvider();
+    ThemeNotifier themeNotifier =
+        Provider.of<ThemeNotifier>(context, listen: false);
 
     bool submissionSuccessful = await QuizSubmitter.submitQuiz(
-      'Quiz 1',
-      userAnswers,
-      showMessage,
-      quizData,
-    );
+        'Quiz 1', userAnswers, context, quizData, fontProvider, themeNotifier);
 
     if (submissionSuccessful) {
       score = calculateScore();

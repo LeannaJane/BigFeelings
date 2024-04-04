@@ -82,16 +82,13 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
       logger.e('Error saving mood: $e');
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
             'Error saving mood entry. Please try again.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            style: fontProvider.subheadinglogin(themeNotifier),
           ),
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
           backgroundColor: Colors.red,
         ),
       );

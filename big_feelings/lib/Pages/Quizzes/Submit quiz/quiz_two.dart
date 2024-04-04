@@ -47,12 +47,16 @@ class _StartQuiz2State extends State<StartQuiz2> {
   void submitQuiz() async {
     final List<String?> initialUserAnswers = List<String?>.from(userAnswers);
     final int initialQuestionIndex = currentQuestionIndex;
+    FontProvider fontProvider = FontProvider();
+    ThemeNotifier themeNotifier = ThemeNotifier(ThemeNotifier.lightTheme);
 
     bool submissionSuccessful = await QuizSubmitter.submitQuiz(
       'Quiz 2',
       userAnswers,
-      showMessage,
+      context,
       quizData,
+      fontProvider,
+      themeNotifier,
     );
 
     if (submissionSuccessful) {
@@ -120,7 +124,7 @@ class _StartQuiz2State extends State<StartQuiz2> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Healthy Habits Quiz',
+              'Healthy Habits',
               style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),

@@ -27,7 +27,7 @@ class _QuizPage2State extends State<QuizPage2> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Quiz 2: Healthy Habits',
+              'Healthy Habits Quiz ',
               style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),

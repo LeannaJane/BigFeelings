@@ -1,3 +1,5 @@
+import 'package:big_feelings/Classes/font_provider.dart';
+import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -64,35 +66,60 @@ class QuizFetcher {
 
 class QuizSubmitter {
   static final Logger _logger = Logger();
-  //! Submits the quiz results to Firestore
+
   static Future<bool> submitQuiz(
     String quizId,
     List<String?> userAnswers,
-    void Function(String message, Color color) showMessage,
+    BuildContext context, // Added BuildContext parameter
     List<Map<String, dynamic>> quizData,
+    FontProvider fontProvider,
+    ThemeNotifier themeNotifier,
   ) async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       final User? user = FirebaseAuth.instance.currentUser;
 
       int score = 0;
-      //! Check if the number of user answers matches the number of quiz questions
-      //! If not it will show a error message telling the user to answer all questions.
+
       if (userAnswers.length != quizData.length) {
-        showMessage(
-          'Please answer all questions before submitting.',
-          Colors.red,
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Center(
+              child: Text(
+                'Please answer all questions before submitting.',
+                textAlign: TextAlign.center,
+                style: fontProvider.subheadingBig(themeNotifier),
+              ),
+            ),
+            backgroundColor:
+                themeNotifier.currentTheme == ThemeNotifier.lightTheme
+                    ? Colors.red
+                    : Colors.red.shade800,
+          ),
         );
         return false;
       }
-      //! Calculate the score based on user answers
+
       for (int i = 0; i < userAnswers.length; i++) {
         String? userAnswer = userAnswers[i];
         String correctAnswer = quizData[i]['answer'];
 
         if (userAnswer == null) {
-          showMessage(
-              'Please answer all questions before submitting.', Colors.red);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Center(
+                child: Text(
+                  'Please answer all questions before submitting.',
+                  textAlign: TextAlign.center,
+                  style: fontProvider.subheadingBig(themeNotifier),
+                ),
+              ),
+              backgroundColor:
+                  themeNotifier.currentTheme == ThemeNotifier.lightTheme
+                      ? Colors.red
+                      : Colors.red.shade800,
+            ),
+          );
           return false;
         }
 
@@ -100,20 +127,48 @@ class QuizSubmitter {
           score++;
         }
       }
-      //! Saves the user, quizid, score and time to firestore.
+
       await firestore.collection('QuizCollectionResults').add({
         'quizId': quizId,
         'score': score,
         'user': user?.uid,
         'timestamp': Timestamp.now(),
       });
-      //! Message to tell user quiz has been saved.
-      showMessage('Quiz submitted successfully!', Colors.green);
+
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Center(
+            child: Text(
+              'Quiz saved successfully.',
+              textAlign: TextAlign.center,
+              style: fontProvider.subheadingBig(themeNotifier),
+            ),
+          ),
+          backgroundColor:
+              themeNotifier.currentTheme == ThemeNotifier.lightTheme
+                  ? Colors.green
+                  : Colors.green.shade800,
+        ),
+      );
       return true;
-      //! Error message to tell user it failed.
     } catch (error, stackTrace) {
       _logger.e('Error submitting quiz', error: error, stackTrace: stackTrace);
-      showMessage('Failed to submit quiz. Please try again later.', Colors.red);
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Center(
+            child: Text(
+              'Failed to submit quiz. Please try again later.',
+              style: fontProvider.subheadingBig(themeNotifier),
+            ),
+          ),
+          backgroundColor: themeNotifier.currentTheme ==
+                  ThemeNotifier.lightTheme
+              ? Colors.red // Set red background color for light theme
+              : Colors.red.shade800, // Set red background color for dark theme
+        ),
+      );
       return false;
     }
   }
