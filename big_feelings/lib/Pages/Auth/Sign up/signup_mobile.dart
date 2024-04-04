@@ -12,14 +12,14 @@ import 'dart:math' as math;
 //! A sign Up page, that users can use to create an account, this page is pretty basic,
 //! as I just wanted the Sign up button to make accounts for now, the Ui Will look nicer eventually.
 //! Defining a stateful widget named SignUpPage.
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignupMobile extends StatefulWidget {
+  const SignupMobile({Key? key}) : super(key: key);
   //!Getting state.
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SignupMobileState createState() => _SignupMobileState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignupMobileState extends State<SignupMobile> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _signupError;
@@ -39,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    double imageWidth = 150;
+    double imageWidth = 120;
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
         Color cursorColor = themeNotifier.cursorColor();
@@ -88,7 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   Container(
-                    width: 400,
+                    width: 350,
                     padding: const EdgeInsets.symmetric(
                       vertical: 20,
                     ),
@@ -125,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 style:
                                     fontProvider.subheadinglogin(themeNotifier),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 10),
                               Container(
                                 width: 600,
                                 height: 40,
@@ -153,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.symmetric(
-                                      vertical: 14.0,
+                                      vertical: 10.0,
                                     ),
                                   ),
                                 ),
@@ -178,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 style:
                                     fontProvider.subheadinglogin(themeNotifier),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 10),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
@@ -207,7 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       contentPadding: EdgeInsets.symmetric(
-                                          vertical: 18.0, horizontal: 16.0),
+                                          vertical: 14.0, horizontal: 14.0),
                                     ),
                                   ),
                                 ),
@@ -220,7 +220,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   const SizedBox(height: 25),
                   SizedBox(
-                    width: 100,
+                    width: 150,
                     height: 45,
                     child: GestureDetector(
                       onTap: () async {
@@ -274,59 +274,83 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // New floating action button on the left
-                    FloatingActionButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierColor: Colors.black.withOpacity(0.85),
-                          builder: (BuildContext context) {
-                            return ThemeDropdownDialog(
-                              fontProvider: fontProvider,
-                              themeNotifier: themeNotifier,
-                            );
-                          },
+          bottomNavigationBar: Container(
+            height: 100,
+            color: Colors.transparent, // Choose your desired color
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => showDialog(
+                      context: context,
+                      barrierColor: Colors.black.withOpacity(0.85),
+                      builder: (BuildContext context) {
+                        return ThemeDropdownDialog(
+                          fontProvider: fontProvider,
+                          themeNotifier: themeNotifier,
                         );
-                      },
-                      //? Ref 47
-                      backgroundColor: themeNotifier.getContainerColor(),
-                      heroTag: 'theme_button_hero',
-                      child: Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.rotationY(math.pi),
-                        child: Icon(
-                          themeNotifier.getThemeIcon(),
-                          size: 30,
-                          color: themeNotifier.getIconColor(),
+                      }),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    margin: const EdgeInsets.only(left: 20.0),
+                    decoration: BoxDecoration(
+                      color: getContainerColor,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 8,
+                          offset: const Offset(0, 0),
                         ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(math.pi),
+                      child: Icon(
+                        themeNotifier.getThemeIcon(),
+                        size: 30,
+                        color: themeNotifier.getIconColor(),
                       ),
                     ),
-                    FloatingActionButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierColor: Colors.black.withOpacity(0.85),
-                          builder: (context) => const FontDropdownDialog(),
-                        );
-                      },
-                      backgroundColor: getContainerColor,
-                      heroTag: 'font_button_hero',
-                      child: Center(
-                        child: Text(
-                          'Tt',
-                          style: fontProvider.buttonText(themeNotifier),
-                          textAlign: TextAlign.center,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => showDialog(
+                    context: context,
+                    barrierColor: Colors.black.withOpacity(0.85),
+                    builder: (context) => const FontDropdownDialog(),
+                  ),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    margin: const EdgeInsets.only(right: 20.0),
+                    decoration: BoxDecoration(
+                      color: getContainerColor,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 8,
+                          offset: const Offset(0, 0),
                         ),
-                      ),
+                      ],
                     ),
-                  ])),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Tt',
+                      style: fontProvider.buttonText(themeNotifier),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         );
       },
     );
