@@ -38,7 +38,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
   }
 
   void _forgotPassword(BuildContext context) {
-    Navigator.pushNamed(context, '/password_reset');
+    Navigator.pushNamed(context, '/reset-desktop');
   }
 
   //! This code has been edited to fit the Ui with the correct theme and font provider.
@@ -130,7 +130,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                               style:
                                   fontProvider.subheadinglogin(themeNotifier),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 10),
                             Container(
                               width: 600,
                               height: 40,
@@ -183,7 +183,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                               style:
                                   fontProvider.subheadinglogin(themeNotifier),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 10),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),

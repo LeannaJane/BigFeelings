@@ -1,42 +1,60 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, use_super_parameters
-//! Importing Firebase Authentication package and flutter matrial.
+// ignore_for_file: library_private_types_in_public_api, use_super_parameters
+
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
-import 'package:big_feelings/Pages/Auth/Sign%20up/errors_signup.dart';
 import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
 import 'package:big_feelings/Pages/Settings%20Page/theme_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
-//! A sign Up page, that users can use to create an account, this page is pretty basic,
-//! as I just wanted the Sign up button to make accounts for now, the Ui Will look nicer eventually.
-//! Defining a stateful widget named SignUpPage.
-class Signupdesktop extends StatefulWidget {
-  const Signupdesktop({Key? key}) : super(key: key);
-  //!Getting state.
+class PasswordResetDesktop extends StatefulWidget {
+  const PasswordResetDesktop({Key? key}) : super(key: key);
+
   @override
-  _SignupdesktopState createState() => _SignupdesktopState();
+  _PasswordResetDesktopState createState() => _PasswordResetDesktopState();
 }
 
-class _SignupdesktopState extends State<Signupdesktop> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  String? _signupError;
+//! A password reset class, that resets the password and presents the UI.
+//! This class contains a bool that checks whether an email has been sent, to output the right information to the user.
+class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
+  final TextEditingController emailController = TextEditingController();
+  bool? _emailSent;
 
   @override
   void initState() {
     super.initState();
-    _emailController.addListener(_clearError);
-    _passwordController.addListener(_clearError);
+    emailController.addListener(_clearError);
   }
 
+  //! Resets the state of the error.
   void _clearError() {
     setState(() {
-      _signupError = null;
+      _emailSent = null;
     });
   }
 
+  //! A method to reset the email to firebase.
+  void _sendPasswordResetEmail(BuildContext context) async {
+    String email = emailController.text.trim();
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      setState(() {
+        _emailSent = true;
+      });
+    } catch (e) {
+      setState(() {
+        _emailSent = false;
+      });
+    }
+  }
+
+  //! The UI for the reset password page, this is presented with a reset title with the correct theme and font.
+  //! This code has been reused and the Ui has been changed based on the pages requirements.
+  //! This Ui allows the user to input their email using a text controller, and then allows the user to select a button and when it's
+  //! Pressed it executes the _sendPasswordResetEmail and then provides the user with an output.
   @override
   Widget build(BuildContext context) {
     double imageWidth = 150;
@@ -50,8 +68,7 @@ class _SignupdesktopState extends State<Signupdesktop> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              //! Adding a basic sign up page title in black
-              'Sign Up',
+              'Reset Password',
               style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),
@@ -127,7 +144,7 @@ class _SignupdesktopState extends State<Signupdesktop> {
                               ),
                               const SizedBox(height: 10),
                               Container(
-                                width: 600,
+                                width: 400,
                                 height: 40,
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 16.0),
@@ -144,9 +161,9 @@ class _SignupdesktopState extends State<Signupdesktop> {
                                   color: getContainerColor,
                                 ),
                                 child: TextField(
-                                  controller: _emailController,
-                                  keyboardType: TextInputType.emailAddress,
+                                  controller: emailController,
                                   cursorColor: cursorColor,
+                                  keyboardType: TextInputType.emailAddress,
                                   style: fontProvider
                                       .subheadinglogin(themeNotifier),
                                   textAlignVertical: TextAlignVertical.center,
@@ -157,117 +174,51 @@ class _SignupdesktopState extends State<Signupdesktop> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: getContainerColor,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Please Enter Password',
-                                textAlign: TextAlign.center,
-                                style:
-                                    fontProvider.subheadinglogin(themeNotifier),
-                              ),
-                              const SizedBox(height: 10),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Container(
-                                  width: 600,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.5),
-                                        spreadRadius: 5,
-                                        blurRadius: 8,
-                                        offset: const Offset(0, 0),
-                                      ),
-                                    ],
-                                    color: getContainerColor,
-                                  ),
-                                  child: TextField(
-                                    controller: _passwordController,
-                                    obscureText: true,
-                                    cursorColor: cursorColor,
-                                    style: fontProvider
-                                        .subheadinglogin(themeNotifier),
-                                    textAlignVertical: TextAlignVertical.center,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 18.0, horizontal: 16.0),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 25),
-                  SizedBox(
-                    width: 100,
-                    height: 45,
-                    child: GestureDetector(
-                      onTap: () async {
-                        SignUpLogic.signup(_emailController.text.trim(),
-                                _passwordController.text.trim(), (error) {
-                          setState(() {
-                            _signupError = error;
-                          });
-                        }, context, fontProvider, themeNotifier)
-                            .then((_) {
-                          if (_signupError == null) {
-                            setState(() {
-                              _signupError = null;
-                            });
-                          }
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: getContainerColor,
-                          borderRadius: BorderRadius.circular(30.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 8,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Sign Up',
-                          style: fontProvider.subheadinglogin(themeNotifier),
-                        ),
+                  GestureDetector(
+                    onTap: () => _sendPasswordResetEmail(context),
+                    child: Container(
+                      width: 150,
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: getContainerColor,
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 8,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Reset',
+                        style: fontProvider.subheadinglogin(themeNotifier),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  if (_signupError != null)
+                  if (_emailSent != null)
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.only(top: 16.0),
                       child: Text(
-                        _signupError!,
-                        style: fontProvider.errortext(),
+                        _emailSent!
+                            ? 'If your email is associated with an account, a password reset email has been sent.'
+                            : 'Invalid email format. Please enter a valid email address.',
+                        textAlign: TextAlign.center,
+                        style: _emailSent!
+                            ? fontProvider.greentext()
+                            : fontProvider.errortext(),
                       ),
                     ),
                 ],
