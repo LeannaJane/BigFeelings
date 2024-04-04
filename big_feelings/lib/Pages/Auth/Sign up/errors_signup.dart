@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class SignUpLogic {
   static Future<void> signup(
@@ -42,8 +45,8 @@ class SignUpLogic {
         onError('Sign-up failed');
       }
     } on FirebaseAuthException catch (e) {
-      print('FirebaseAuthException: ${e.code}');
-      print('FirebaseAuthException Message: ${e.message}');
+      logger.e('FirebaseAuthException: ${e.code}');
+      logger.e('FirebaseAuthException Message: ${e.message}');
       if (e.code == 'email-already-in-use') {
         onError('The email address is already in use by another account.');
       } else if (e.code == 'invalid-email') {
@@ -54,7 +57,7 @@ class SignUpLogic {
         onError('Error during sign-up: ${e.message}');
       }
     } catch (e) {
-      print('Unexpected Error: $e');
+      logger.e('Unexpected Error: $e');
       onError('An unexpected error occurred.');
     }
   }
