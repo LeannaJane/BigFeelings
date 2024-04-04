@@ -386,7 +386,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
 
                     //! Snack bar to tell user to type something if they click save button and to tell them if it submitted.
                     Center(
@@ -430,7 +430,7 @@ class _JournalEntriesPageState extends State<JournalEntriesPage> {
                           borderRadius: BorderRadius.circular(40.0),
                           child: Container(
                             width: 150,
-                            height: 35,
+                            height: 40,
                             decoration: BoxDecoration(
                               color: themeNotifier.getContainerColor(),
                               borderRadius: BorderRadius.circular(30.0),
