@@ -1,73 +1,88 @@
+// ignore_for_file: library_private_types_in_public_api, use_super_parameters
+
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:big_feelings/Pages/Mood%20Tracker/moods.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-//! Added a logger
 final logger = Logger();
 
 class MoodTrackerPage extends StatefulWidget {
-  // ignore: use_super_parameters
   const MoodTrackerPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _MoodTrackerPageState createState() => _MoodTrackerPageState();
 }
 
-//! Adding an emotion name to go under each emotional image.
 class _MoodTrackerPageState extends State<MoodTrackerPage> {
   late int selectedEmotionIndex;
-  final List<String> moods = [
-    'Angry',
-    'Happy',
-    'Ok',
-    'Overwhelmed',
-    'Sad',
-    'Sick',
-    'Silly',
-    'Surprised',
-    'Tired',
-    'Unhappy',
-    'Upset',
-    'Lonely'
-  ];
-  //! Map to store descriptions for each mood
-  final Map<String, String> moodDescriptions = {
-    'Angry': 'Feeling really mad or upset.',
-    'Happy':
-        ' Feeling really good and joyful, like when you are laughing and smiling a lot.',
-    'Ok': 'Feeling alright, not too good, not too bad.',
-    'Overwhelmed':
-        'Feeling like there is too much going on all at once and it hard to handle.',
-    'Sad':
-        'Feeling unhappy or down, like when you might want to cry because something makes you feel bad or disappointed. It can also include feeling anxious or worried.',
-    'Sick': 'Feeling unwell or not very healthy.',
-    'Silly': 'Feeling playful or goofy.',
-    'Surprised': 'Feeling really amazed or shocked.',
-    'Tired': 'Feeling really sleepy or worn out.',
-    'Unhappy':
-        'Feeling unhappy or down, like when you might want to cry because something makes you feel bad or disappointed.',
-    'Upset': 'Feeling a bit bothered or troubled.',
-    'Lonely':
-        'Feeling like there\'s nobody around. Or feeling like you have no friends.'
-  };
 
   bool showImage = true;
   bool showDescription = false;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late DateTime _focusedDay;
 
   @override
   void initState() {
     super.initState();
-    //! This Initialises the selected emotion index to 0  which means that no emotion is selected
     selectedEmotionIndex = 0;
+    _focusedDay = DateTime.now();
+    retrieveEntries();
   }
 
-  //* Reference 10
-  //! This method sets the current time, the mood selected and the userid, and saves it to firebase database.
+  void _navigateForward() {
+    setState(() {
+      selectedEmotionIndex = (selectedEmotionIndex + 1) % moods.length;
+      showDescription = false;
+    });
+  }
+
+  void _navigateBackward() {
+    setState(() {
+      selectedEmotionIndex =
+          (selectedEmotionIndex - 1 + moods.length) % moods.length;
+      showDescription = false;
+    });
+  }
+
+  late List<DocumentSnapshot> _moods = [];
+
+  void retrieveEntries() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        final querySnapshot = await _firestore
+            .collection('MoodsCollection')
+            .where('user', isEqualTo: user.uid)
+            .get();
+        setState(() {
+          _moods = querySnapshot.docs;
+        });
+      } catch (e) {
+        logger.e('Error retrieving mood entries: $e');
+      }
+    } else {
+      logger.e('User is not logged in.');
+    }
+  }
+
+  bool _hasEntryForDate(DateTime date) {
+    final formatter = DateFormat('yyyy-MM-dd');
+    final dateString = formatter.format(date);
+
+    return _moods.any((mood) {
+      final entryDate = (mood['time'] as Timestamp).toDate();
+      final entryDateString = formatter.format(entryDate);
+      return entryDateString == dateString;
+    });
+  }
+
   void _saveMoodToFirestore(
       String mood,
       String userId,
@@ -78,17 +93,13 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     try {
-      //! Changing it to MoodsCollection without a space.
       await firestore.collection('MoodsCollection').add({
-        //! The three items in the collection saved to firebase.
         'mood': mood,
         'time': currentTime,
-        //! Changed it from userId to user as it couldve been the issue.
         'user': userId,
       });
-      //! Shows that the mood is saved in the terminal.
       logger.i('Mood saved to Firestore with userId: $userId');
-      // ignore: use_build_context_synchronously
+      retrieveEntries();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -101,9 +112,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
         ),
       );
     } catch (e) {
-      //! Throws an exception if it fails.
       logger.e('Error saving mood: $e');
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -118,38 +127,17 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     }
   }
 
-  //! This is a method that allows the user to forward to the next emotion in the list by selecting the forward arrow.
-  void _navigateForward() {
-    setState(() {
-      //! Increment the selectedEmotionIndex by 1 to move to the next emotion
-      //! This uses a modulo (%) operator to make sure that the index remains within the bounds of the moods list
-      selectedEmotionIndex = (selectedEmotionIndex + 1) % moods.length;
-      showDescription = false;
-    });
-  }
-
-  //! This is a method that allows the user to go to the previous emotion in the list by selecting the back button.
-  void _navigateBackward() {
-    setState(() {
-      //! Decrement the selectedEmotionIndex by 1 to move to the previous emotion.
-      //! This uses a modulo (%) operator to handle the case where the index becomes negative after decrementing
-      //! This adds the moods.length before taking modulo to make sure that the index remains positive
-
-      selectedEmotionIndex =
-          (selectedEmotionIndex - 1 + moods.length) % moods.length;
-      showDescription = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
-      final fontProvider = Provider.of<FontProvider>(context);
-      Color getContainerColor =
-          Provider.of<ThemeNotifier>(context).getContainerColor();
-      Color iconColor = themeNotifier.getIconColor();
+    final User? user = FirebaseAuth.instance.currentUser;
+    return Consumer<ThemeNotifier>(
+      builder: (context, themeNotifier, child) {
+        final fontProvider = Provider.of<FontProvider>(context);
+        Color getContainerColor =
+            Provider.of<ThemeNotifier>(context).getContainerColor();
+        Color iconColor = themeNotifier.getIconColor();
 
-      return Scaffold(
+        return Scaffold(
           appBar: AppBar(
             title: Text(
               'How do you feel?',
@@ -169,165 +157,340 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
               },
             ),
           ),
-          body: Stack(children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        showDescription = !showDescription;
-                      });
-                    },
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                            offset: const Offset(0, 0),
+          body: ScrollConfiguration(
+            behavior: const ScrollBehavior().copyWith(overscroll: true),
+            child: SingleChildScrollView(
+              physics:
+                  const ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showDescription = !showDescription;
+                                  });
+                                },
+                                child: Container(
+                                  width: 250,
+                                  height: 250,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          30, 20, 30, 30), // Adjusted padding
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: getContainerColor,
+                                      ),
+                                      child: showDescription
+                                          ? Center(
+                                              child: Text(
+                                                moodDescriptions[moods[
+                                                        selectedEmotionIndex]] ??
+                                                    '',
+                                                style: fontProvider
+                                                    .subheadinglogin(
+                                                        themeNotifier),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            )
+                                          : Image.asset(
+                                              'assets/images/images_mood/${moods[selectedEmotionIndex].toLowerCase()}.png',
+                                              fit: BoxFit.contain,
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: getContainerColor,
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: IconButton(
+                                    onPressed: _navigateBackward,
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      size: 20,
+                                      color: iconColor,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 45,
+                                  width: 120,
+                                  child: Center(
+                                    child: Text(
+                                      moods[selectedEmotionIndex],
+                                      style: fontProvider
+                                          .subheadinglogin(themeNotifier),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: getContainerColor,
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: IconButton(
+                                    onPressed: _navigateForward,
+                                    icon: Icon(
+                                      Icons.arrow_forward,
+                                      size: 20,
+                                      color: iconColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        User? user = FirebaseAuth.instance.currentUser;
+                        if (user != null) {
+                          _saveMoodToFirestore(moods[selectedEmotionIndex],
+                              user.uid, fontProvider, themeNotifier, context);
+                        } else {
+                          logger.e('User is not logged in.');
+                        }
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: getContainerColor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: const Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Save Mood',
+                            style: fontProvider.subheadinglogin(themeNotifier),
+                            textAlign: TextAlign.center,
                           ),
-                        ],
+                        ),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(
-                              30, 20, 30, 30), // Adjusted padding
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 350,
+                          margin: const EdgeInsets.symmetric(vertical: 20.0),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(15.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                             color: getContainerColor,
                           ),
-                          child: showDescription
-                              ? Center(
-                                  child: Text(
-                                    moodDescriptions[
-                                            moods[selectedEmotionIndex]] ??
-                                        '',
-                                    style: fontProvider
-                                        .subheadinglogin(themeNotifier),
-                                    textAlign: TextAlign.center,
+                          child: TableCalendar(
+                            firstDay: DateTime.utc(2024, 01, 01),
+                            lastDay: DateTime.utc(2030, 3, 14),
+                            focusedDay: _focusedDay,
+                            selectedDayPredicate: (DateTime date) {
+                              return _hasEntryForDate(date);
+                            },
+                            onDaySelected: (selectedDay, focusedDay) {
+                              setState(() {
+                                _focusedDay = focusedDay;
+                              });
+                            },
+                            calendarFormat: CalendarFormat.month,
+                            calendarStyle: CalendarStyle(
+                              outsideDaysVisible: false,
+                              defaultTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              todayTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              selectedTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              weekendTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              holidayTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              rangeStartTextStyle:
+                                  fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              rangeEndTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              disabledTextStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              weekNumberTextStyle:
+                                  fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              selectedDecoration: const BoxDecoration(
+                                color: Colors.green,
+                                shape: BoxShape.circle,
+                              ),
+                              todayDecoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            headerStyle: HeaderStyle(
+                              formatButtonVisible: false,
+                              titleTextStyle: fontProvider.calenderText(
+                                themeNotifier: themeNotifier,
+                              ),
+                              leftChevronIcon: Icon(
+                                Icons.chevron_left,
+                                color: iconColor,
+                                size: 20,
+                              ),
+                              rightChevronIcon: Icon(
+                                Icons.chevron_right,
+                                color: iconColor,
+                                size: 20,
+                              ),
+                              leftChevronMargin: EdgeInsets.zero,
+                              rightChevronMargin: EdgeInsets.zero,
+                              titleCentered: true,
+                              titleTextFormatter: (date, locale) =>
+                                  DateFormat.yMMM(locale).format(date),
+                            ),
+                            daysOfWeekStyle: DaysOfWeekStyle(
+                              weekdayStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                              weekendStyle: fontProvider.fontstylenotbald(
+                                themeNotifier: themeNotifier,
+                              ),
+                            ),
+                            availableCalendarFormats: const {
+                              CalendarFormat.month: ''
+                            },
+                            startingDayOfWeek: StartingDayOfWeek.monday,
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.green,
+                                    shape: BoxShape.circle,
                                   ),
-                                )
-                              : Image.asset(
-                                  'assets/images/images_mood/${moods[selectedEmotionIndex].toLowerCase()}.png',
-                                  fit: BoxFit.contain,
                                 ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Mood entries saved',
+                                  style: fontProvider.fontstylenotbald(
+                                    themeNotifier: themeNotifier,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            //! A status shower to show users what things mean in the calender.
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 20,
+                                  height: 20,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'No Mood entry saved today',
+                                  style: fontProvider.fontstylenotbald(
+                                    themeNotifier: themeNotifier,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: getContainerColor,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        onPressed: _navigateBackward,
-                        icon: Icon(
-                          Icons.arrow_back,
-                          size: 20,
-                          color: iconColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 45,
-                      width: 120,
-                      child: Center(
-                        // Centering the text
-                        child: Text(
-                          moods[selectedEmotionIndex],
-                          style: fontProvider.subheadinglogin(themeNotifier),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: getContainerColor,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                            offset: const Offset(0, 0),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        onPressed: _navigateForward,
-                        icon: Icon(
-                          Icons.arrow_forward,
-                          size: 20,
-                          color: iconColor,
-                        ),
-                      ),
+                        const SizedBox(height: 25),
+                      ],
                     ),
                   ],
                 ),
-                SizedBox(height: 350.0),
-              ],
-            ),
-            Positioned(
-              bottom: 20,
-              left: MediaQuery.of(context).size.width / 2 - 75,
-              child: GestureDetector(
-                onTap: () {
-                  User? user = FirebaseAuth.instance.currentUser;
-                  if (user != null) {
-                    _saveMoodToFirestore(moods[selectedEmotionIndex], user.uid,
-                        fontProvider, themeNotifier, context);
-                  } else {
-                    logger.e('User is not logged in.');
-                  }
-                },
-                child: Container(
-                  height: 40,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    color: getContainerColor,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Save Mood',
-                      style: fontProvider.subheadinglogin(themeNotifier),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
               ),
-            )
-          ]));
-    });
+            ),
+          ),
+        );
+      },
+    );
   }
 }
