@@ -215,7 +215,10 @@ class FontProvider with ChangeNotifier {
     double fontSize = 16.0;
     switch (_selectedFontFamily) {
       case 'Pacifico':
-        return GoogleFonts.pacifico();
+        return GoogleFonts.pacifico(
+          fontSize: fontSize,
+          color: textColor,
+        );
       case 'Roboto Mono':
         return GoogleFonts.robotoMono(
           fontSize: fontSize,
@@ -224,7 +227,6 @@ class FontProvider with ChangeNotifier {
       case 'ShortStack':
         return GoogleFonts.shortStack(
           fontSize: fontSize,
-          fontWeight: FontWeight.bold,
           color: textColor,
         );
       case 'SingleDay':
@@ -232,7 +234,6 @@ class FontProvider with ChangeNotifier {
           fontFamily: 'SingleDay',
           fontSize: 18,
           color: textColor,
-          fontWeight: FontWeight.bold,
         );
       default:
         return TextStyle(

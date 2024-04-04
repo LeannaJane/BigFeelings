@@ -1,4 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, use_super_parameters
+// ignore_for_file: library_private_types_in_public_api, use_super_parameters, use_build_context_synchronously
+
+import 'dart:async';
 
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
@@ -27,6 +29,21 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
   bool showDescription = false;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late DateTime _focusedDay;
+
+  bool isDesktop2(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    return width > 550;
+  }
+
+  double _containerSizewidth(BuildContext context) {
+    double containerSize;
+    if (isDesktop2(context)) {
+      containerSize = 550;
+    } else {
+      containerSize = 350;
+    }
+    return containerSize;
+  }
 
   @override
   void initState() {
@@ -83,12 +100,53 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     });
   }
 
+  DateTime? _lastMoodEntryTime;
+  Timer? _debounceTimer;
+  int _moodSelectionCount = 0;
+
   void _saveMoodToFirestore(
-      String mood,
-      String userId,
-      FontProvider fontProvider,
-      ThemeNotifier themeNotifier,
-      BuildContext context) async {
+    String mood,
+    String userId,
+    FontProvider fontProvider,
+    ThemeNotifier themeNotifier,
+    BuildContext context,
+  ) async {
+    //! Cancel the previous debounce timer
+    _debounceTimer?.cancel();
+
+    if (_lastMoodEntryTime != null) {
+      //! Calculate the difference between the current time and the last mood entry time
+      Duration difference = DateTime.now().difference(_lastMoodEntryTime!);
+
+      //! Checks if the difference is less than a minute (60 seconds)
+      if (difference.inSeconds < 60) {
+        //! If mood has been selected more than 2 times within a minute, ignore the touch input
+        if (_moodSelectionCount >= 3) {
+          return;
+        }
+        //! Otherwise, increment the mood selection count and display the cooldown message
+        _moodSelectionCount++;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Please wait for a minute before making another mood entry.',
+              textAlign: TextAlign.center,
+              style: fontProvider.subheadinglogin(themeNotifier),
+            ),
+            duration: const Duration(seconds: 2),
+            backgroundColor: Colors.red,
+          ),
+        );
+        //! Set a debounce timer to reset the error message and reset the mood selection count after 2 seconds
+        _debounceTimer = Timer(const Duration(seconds: 2), () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          _moodSelectionCount = 0; //! Resets the mood selection count
+        });
+        return;
+      }
+    }
+
+    //! If there's no cooldown save the mood entry
     Timestamp currentTime = Timestamp.now();
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -98,6 +156,11 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
         'time': currentTime,
         'user': userId,
       });
+
+      //! Update the time of the last mood entry and reset the mood selection count
+      _lastMoodEntryTime = DateTime.now();
+      _moodSelectionCount = 0;
+
       logger.i('Mood saved to Firestore with userId: $userId');
       retrieveEntries();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -129,7 +192,6 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
         final fontProvider = Provider.of<FontProvider>(context);
@@ -199,7 +261,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                                     borderRadius: BorderRadius.circular(30),
                                     child: Container(
                                       padding: const EdgeInsets.fromLTRB(
-                                          30, 20, 30, 30), // Adjusted padding
+                                          30, 20, 30, 30),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
                                         color: getContainerColor,
@@ -330,7 +392,7 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 350,
+                          width: _containerSizewidth(context),
                           margin: const EdgeInsets.symmetric(vertical: 20.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.0),

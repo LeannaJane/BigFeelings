@@ -158,7 +158,7 @@ class JournalViewer extends StatelessWidget {
                           horizontal: 16.0, vertical: 8.0),
                       title: Text(
                         journalText,
-                        style: fontProvider.subheading(themeNotifier),
+                        style: fontProvider.subheadingbold(themeNotifier),
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
