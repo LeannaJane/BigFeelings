@@ -4,9 +4,10 @@ import 'package:big_feelings/Classes/route_animations.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_desktop.dart';
 import 'package:big_feelings/Pages/Auth/Login/login_mobile.dart';
+import 'package:big_feelings/Pages/Auth/Reset%20Password/reset_mobile.dart';
 import 'package:big_feelings/Pages/Auth/Sign%20up/signup_desktop.dart';
 import 'package:big_feelings/Pages/Auth/Sign%20up/signup_mobile.dart';
-import 'package:big_feelings/Pages/Auth/password_reset.dart';
+import 'package:big_feelings/Pages/Auth/Reset%20Password/reset_desktop.dart';
 import 'package:big_feelings/Pages/Auth/welcome_page.dart';
 import 'package:big_feelings/Pages/Journal%20Page/journal_entries.dart';
 import 'package:big_feelings/Pages/Journal%20Page/view_journals.dart';
@@ -160,8 +161,11 @@ Route<dynamic> _createRoute(RouteSettings settings) {
     case '/settings-page':
       page = const SettingsPage();
       break;
-    case '/password_reset':
-      page = const PasswordResetPage();
+    case '/reset-desktop':
+      page = const PasswordResetDesktop();
+      return RouteAnimations.instantAnimation(page);
+    case '/reset-mobile':
+      page = const PasswordResetMobile();
       return RouteAnimations.instantAnimation(page);
     case '/mini-game-options':
       page = const MiniGamesPage();
