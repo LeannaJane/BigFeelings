@@ -106,6 +106,7 @@ class CopingDescriptions {
             "• Allows you to track your moods and the triggers that cause this.\n"
             "\n"
             "The Big Feelings application offers a journalling tool, that allows you to write down your feelings, view and delete them. It also allows you to see when you have saved a journal.\n";
+      //? Ref 57
       case "Breathing":
         return "Breathing is like taking big, deep breaths in and out. It helps you feel calm when you're feeling worried or scared.\n\n"
             "When you breathe in, you count to three in your head, and when you breathe out, you count to three again. \n"
@@ -119,6 +120,7 @@ class CopingDescriptions {
             "5. Then slowly breathe out through your mouth, counting to three again.\n"
             "6. Repeat this process several times."
             "\n"
+            //? Ref 58
             "Example of a breathing technique: Yoga breathing\n"
             "\n"
             "Picture yourself as a bumblebee, softly buzzing as you breathe in and out. Feel your body becoming calm and peaceful.\n"
@@ -127,6 +129,7 @@ class CopingDescriptions {
             "\n"
             "Or three-part breathing! Breathe in, fill up your belly, then your chest, then your throat. It's like giving your body a warm hug.\n"
             "\n"
+            //? Ref 59
             "Benefits of practising breathing:\n"
             "\n"
             "• Relaxes the body.\n"
