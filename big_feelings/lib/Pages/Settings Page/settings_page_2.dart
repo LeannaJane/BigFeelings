@@ -45,8 +45,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           body: Column(
             children: [
-              //! Adding a sized box within the title and the settings container.
-              const SizedBox(height: 20),
               //! Add spacing between app bar and settings items
               Container(
                 margin: EdgeInsets.symmetric(

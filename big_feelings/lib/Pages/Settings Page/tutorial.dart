@@ -168,7 +168,15 @@ class Tutorial extends StatelessWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                           ),
                           child: Image.asset(
                             'assets/images/images_mood/sad.png',
@@ -182,7 +190,15 @@ class Tutorial extends StatelessWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.red,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                           ),
                           child: Image.asset(
                             'assets/images/images_mood/tired.png',
@@ -196,7 +212,15 @@ class Tutorial extends StatelessWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.green,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                           ),
                           child: Image.asset(
                             'assets/images/images_mood/surprised.png',
@@ -210,7 +234,15 @@ class Tutorial extends StatelessWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.yellow,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                           ),
                           child: Image.asset(
                             'assets/images/images_mood/ok.png',
@@ -224,7 +256,15 @@ class Tutorial extends StatelessWidget {
                           height: 100,
                           decoration: BoxDecoration(
                             color: Colors.orange,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
                           ),
                           child: Image.asset(
                             'assets/images/images_mood/happy.png',

@@ -267,7 +267,6 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? Klein-baer, R. (2022). How to Model Healthy Coping Skills. [online] Child Mind Institute. Available at: https://childmind.org/article/how-to-model-healthy-coping-skills/.
 * This website I used to gain information on scientific information around coping mechanism for kids, for the coping mechanism page.
 ‌
-/*
 
 52
 ? Dart packages. (n.d.). flutter_painter_themedata example | Flutter package. [online] Available at: https://pub.dev/packages/flutter_painter_themedata/example [Accessed 1 Feb. 2024].
@@ -280,7 +279,29 @@ This website taught me how to flip an icon using transform the the homepage dark
 
 
 */
+ 
+/*
+53
+? Coping Skills for Kids. (2016). Coping Skill Spotlight: Take a Mindful Walk. [online] Available at: https://copingskillsforkids.com/blog/coping-skill-spotlight-take-a-mindful-walk [Accessed 5 Apr. 2024].
+This website assisted me in writing my descriptions for the coping description page.
+‌
 
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 fix these
 <a href="https://www.flaticon.com/free-icons/child" title="child icons">Child icons created by Freepik - Flaticon</a>
 
@@ -317,9 +338,3 @@ https://www.freepik.com/icon/painting_9250268#fromView=search&page=1&position=11
 https://www.freepik.com/icon/help_2597143#fromView=search&page=1&position=30&uuid=5bcc30ac-35c0-4b70-bcde-b9b5d54f887b
 <a href="https://www.freepik.com/icon/help_2597143#fromView=search&page=1&position=30&uuid=5bcc30ac-35c0-4b70-bcde-b9b5d54f887b">Icon by Freepik</a>
  */
-
-
-
-
-
-
