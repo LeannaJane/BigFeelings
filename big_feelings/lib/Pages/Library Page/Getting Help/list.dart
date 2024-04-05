@@ -107,8 +107,33 @@ class CopingDescriptions {
             "\n"
             "The Big Feelings application offers a journalling tool, that allows you to write down your feelings, view and delete them. It also allows you to see when you have saved a journal.\n";
       case "Breathing":
-        return "\n\n"
-            "\n";
+        return "Breathing is like taking big, deep breaths in and out. It helps you feel calm when you're feeling worried or scared.\n\n"
+            "When you breathe in, you count to three in your head, and when you breathe out, you count to three again. \n"
+            "\n"
+            "How to practise your breathing:\n"
+            "\n"
+            "1. Find a quiet place where you feel comfortable.\n"
+            "2. Sit or lie down in a relaxed position.\n"
+            "3. Close your eyes if it helps you feel more peaceful.\n"
+            "4. Take a slow, deep breath in through your nose, counting to three in your head.\n"
+            "5. Then slowly breathe out through your mouth, counting to three again.\n"
+            "6. Repeat this process several times."
+            "\n"
+            "Example of a breathing technique: Yoga breathing\n"
+            "\n"
+            "Picture yourself as a bumblebee, softly buzzing as you breathe in and out. Feel your body becoming calm and peaceful.\n"
+            "\n"
+            "Or imagine you're blowing out birthday candles after a big tantrum. Take a deep breath, blow out slowly, and imagine collecting all your emotions like a big balloon.\n"
+            "\n"
+            "Or three-part breathing! Breathe in, fill up your belly, then your chest, then your throat. It's like giving your body a warm hug.\n"
+            "\n"
+            "Benefits of practising breathing:\n"
+            "\n"
+            "• Relaxes the body.\n"
+            "• Reduces stress and anxiety.\n"
+            "• Calming effects caused by the increase of oxygen.\n"
+            "• Improves your sleep quality.\n"
+            "• Improves overall well-being.\n";
       default:
         return "Description not available";
     }

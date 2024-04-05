@@ -295,6 +295,18 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? www.urmc.rochester.edu. (n.d.). Journaling for Mental Health - Health Encyclopedia - University of Rochester Medical Center. [online] Available at: https://www.urmc.rochester.edu/encyclopedia/content.aspx?ContentID=4552&ContentTypeID=1#:~:text=Write%20or%20draw%20whatever%20feels.
 * Gathered information on how to journal, and the benefits of journalling.
 ‌
+57
+? Barnardo’s. (n.d.). What is anxiety? [online] Available at: https://www.barnardos.org.uk/blog/what-anxiety?gclsrc=aw.ds&gad_source=1&gclid=CjwKCAjwwr6wBhBcEiwAfMEQs5BGDO4ugzhZ562pLTv5dg4ErmynVbhmpXzcOM6TVw-riGlc7eF2LhoCNpYQAvD_BwE [Accessed 5 Apr. 2024].
+* Gathering information on how to practise breathing.
+‌
+58
+? Philadelphia, T.C.H. of (2018). The Power of Yoga Breathing for Children. [online] www.chop.edu. Available at: https://www.chop.edu/news/health-tip/power-yoga-breathing-children#:~:text=Three%2Dpart%20breathing%20brings%20a [Accessed 5 Apr. 2024].
+* Gathering information on breathing techniques like yoga breathing and presenting an example in the card.
+
+59
+? Childrens.com. (2020). Breathing Exercises for Kids – Children’s Health. [online] Available at: https://www.childrens.com/health-wellness/breathing-exercises-for-kids#:~:text=%22Children%20can%20use%20deep%20breathing [Accessed 5 Apr. 2024].
+* Gathering informaiton on how breathing is helpful for children.
+‌
 
 */
 
