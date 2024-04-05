@@ -17,8 +17,6 @@ class MoodEntriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User? user = FirebaseAuth.instance.currentUser;
-
-    // Remove the 'const' keyword here
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       final fontProvider = Provider.of<FontProvider>(context);
       Color getContainerColor =

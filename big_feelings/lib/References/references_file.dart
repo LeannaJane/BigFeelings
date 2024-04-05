@@ -283,9 +283,14 @@ This website taught me how to flip an icon using transform the the homepage dark
 /*
 53
 ? Coping Skills for Kids. (2016). Coping Skill Spotlight: Take a Mindful Walk. [online] Available at: https://copingskillsforkids.com/blog/coping-skill-spotlight-take-a-mindful-walk [Accessed 5 Apr. 2024].
-This website assisted me in writing my descriptions for the coping description page.
+* This website assisted me in writing my descriptions for the coping description page.
+‌54
+? https://www.helpguide.org. (n.d.). Social Support for Stress Relief - HelpGuide.org. [online] Available at: https://www.helpguide.org/articles/stress/social-support-for-stress-relief.htm#:~:text=While%20a%20text%20or%20phone.
+* Gathered information recarding social interaction for the social interaciton card on the coping page.
+55
+? Gray, A. (2022). How does music affect your mood and reduce stress. [online] PPL PRS. Available at: https://pplprs.co.uk/health-wellbeing/music-reduce-stress/.
+* Gathered information for the music card page, to show the benefits of using music as a coping mechansim.
 ‌
-
 
 */
 
