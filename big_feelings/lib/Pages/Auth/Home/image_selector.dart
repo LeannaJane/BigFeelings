@@ -13,13 +13,13 @@ class ImageSelector extends StatefulWidget {
 
 class _ImageSelectorState extends State<ImageSelector> {
   //! Variable to hold the selected image path.
-  String selectedImage = '';
+  String selectedImage = 'assets/Home/penguin.png';
 
   //! List of image choices for the user to select.
   List<String> images = [
-    'assets/images/Penguin.png',
-    'assets/images/penguin_emotion.png',
-    'assets/images/penguin_cute.png',
+    'assets/Home/penguin.png',
+    'assets/Home/penguin_emotion.png',
+    'assets/Home/penguin_cute.png',
   ];
 
   //! Setting the state of what image they had previous.
@@ -32,10 +32,13 @@ class _ImageSelectorState extends State<ImageSelector> {
   //! Method to load the image the user had previously.
   Future<void> loadSelectedImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //! Retrieves the selected image path from sharedpreferences or default to Penguin.png
+    String imagePath =
+        prefs.getString('selectedImage') ?? 'assets/Home/penguin.png';
+    if (!images.contains(imagePath)) {
+      imagePath = images.first;
+    }
     setState(() {
-      selectedImage =
-          prefs.getString('selectedImage') ?? 'assets/images/Penguin.png';
+      selectedImage = imagePath;
     });
   }
 

@@ -139,7 +139,7 @@ class WelcomePage extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 60.0),
                               //! Added padding only to the bottom
                               child: Image.asset(
-                                'assets/images/penguin_emotion.png',
+                                'assets/Home/penguin_emotion.png',
                                 fit: BoxFit.contain,
                                 //! Changed it to a contain because the image kept cutting out.
                               ),

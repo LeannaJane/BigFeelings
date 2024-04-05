@@ -25,8 +25,8 @@ dependencies:
   url_launcher: ^6.2.5
   lottie: ^3.1.0
   flip_card: ^0.7.0
-  confetti: ^0.7.0    
-  
+  confetti: ^0.7.0 
+
   
 dev_dependencies:
   flutter_test:
@@ -38,11 +38,13 @@ flutter:
   assets:
     - web/icons/bigfeelings_logo.png
     - assets/images/
+    - assets/Home/
     - assets/icons/
     - assets/images/images_mood/
     - fonts/
     - assets/animation/
     - assets/images/coping_skills/
+
    
   fonts:
     - family: SingleDay
