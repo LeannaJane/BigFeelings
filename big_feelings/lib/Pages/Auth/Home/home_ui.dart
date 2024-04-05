@@ -1,7 +1,7 @@
 import 'package:big_feelings/Classes/bottom_app_bar.dart.dart';
-import 'package:big_feelings/Classes/floating_buttons_bar.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
+import 'package:big_feelings/Pages/Auth/Home/image_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,65 +9,6 @@ import 'package:provider/provider.dart';
 // ignore: use_key_in_widget_constructors
 class HomePage extends StatelessWidget {
   //
-
-  bool isDesktop1(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    bool result = width > 800 && height > 1000;
-    return result;
-  }
-
-  bool isDesktop2(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    bool result = width > 550 && height > 800;
-    return result;
-  }
-
-  bool ismobile(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    bool result = width > 300 && height > 600;
-    return result;
-  }
-
-  bool ismobile2(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    bool result = width > 150 && height > 400;
-    return result;
-  }
-
-  bool ismobile3(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    bool result = width > 100 && height > 200;
-    return result;
-  }
-
-  bool issmall(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    bool result = height > 200;
-    return result;
-  }
-
-  double checkimagesize(BuildContext context) {
-    double containerSize;
-    if (isDesktop1(context)) {
-      containerSize = 500;
-    } else if (isDesktop2(context)) {
-      containerSize = 350;
-    } else if (ismobile(context)) {
-      containerSize = 200;
-    } else if (ismobile2(context)) {
-      containerSize = 150;
-    } else if (issmall(context)) {
-      containerSize = 100;
-    } else {
-      containerSize = 100;
-    }
-    return containerSize;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,33 +44,8 @@ class HomePage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      Container(
-                        //! Creating a container for the image with styling.
-                        height: checkimagesize(context),
-                        margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15.0),
-                          child: Image.asset('assets/images/Penguin.png',
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                      //! Removes the button features due to not implemented.
-                    ],
-                  ),
+                  //! Calling the image selector method.
+                  ImageSelector(),
                   //! Adding space between the image and menu items.
                   const SizedBox(height: 10),
                   //! ListView.builder for menu items
