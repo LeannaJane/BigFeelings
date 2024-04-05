@@ -29,7 +29,7 @@ export 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two_option.dart';
 export 'package:big_feelings/Pages/Settings%20Page/delete_buffer.dart';
 export 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
 export 'package:big_feelings/Pages/Settings%20Page/tutorial.dart';
-export 'package:big_feelings/Pages/home_page.dart';
 export 'package:big_feelings/Pages/Minigames%20Page/MIni_game_option_page.dart/minigames_page.dart';
 export 'package:big_feelings/Pages/Mood%20Tracker/mood_tracker_page.dart'
     hide logger;
+export 'package:big_feelings/Pages/Auth/Home/home_ui.dart';
