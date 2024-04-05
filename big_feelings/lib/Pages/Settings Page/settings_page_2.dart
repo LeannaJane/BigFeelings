@@ -193,6 +193,43 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
               ),
+
+              Container(
+                margin: EdgeInsets.only(
+                  top: menuItemSpacing,
+                  left: 16.0,
+                  right: 16.0,
+                  bottom: menuItemSpacing,
+                ),
+                decoration: BoxDecoration(
+                  //! Set background colour
+                  color: getContainerColor,
+                  borderRadius:
+                      //! Setting the border radius
+                      BorderRadius.circular(15.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 6,
+                      //! Set shadow offset
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: ListTile(
+                  title: Center(
+                    child: Text(
+                      'Help',
+                      style: fontProvider.subheadinglogin(themeNotifier),
+                    ),
+                  ),
+                  // Show logout dialog
+                  onTap: () {
+                    Navigator.pushNamed(context, '/tutorial');
+                  },
+                ),
+              ),
               //! Moved the logout button to the bottom.
               Container(
                 margin: EdgeInsets.only(

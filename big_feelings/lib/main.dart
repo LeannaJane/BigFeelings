@@ -32,6 +32,7 @@ import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two.dart';
 import 'package:big_feelings/Pages/Quizzes/Submit%20quiz/quiz_two_option.dart';
 import 'package:big_feelings/Pages/Settings%20Page/delete_buffer.dart';
 import 'package:big_feelings/Pages/Settings%20Page/settings_page_2.dart';
+import 'package:big_feelings/Pages/Settings%20Page/tutorial.dart';
 import 'package:big_feelings/Pages/home_page.dart';
 import 'package:big_feelings/Pages/Minigames%20Page/MIni_game_option_page.dart/minigames_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -160,7 +161,7 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.instantAnimation(page);
     case '/settings-page':
       page = const SettingsPage();
-      break;
+      return RouteAnimations.piggyBackingAnimation(page);
     case '/reset-desktop':
       page = const PasswordResetDesktop();
       return RouteAnimations.instantAnimation(page);
@@ -204,6 +205,9 @@ Route<dynamic> _createRoute(RouteSettings settings) {
       return RouteAnimations.piggyBackingAnimation(page);
     case '/video-options':
       page = const VideoOptions();
+      return RouteAnimations.piggyBackingAnimation(page);
+    case '/tutorial':
+      page = const Tutorial();
       return RouteAnimations.piggyBackingAnimation(page);
     case '/coping-methods':
       page = const CopingMethods();
