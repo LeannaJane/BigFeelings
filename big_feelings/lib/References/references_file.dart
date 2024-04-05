@@ -319,6 +319,18 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? www.annafreud.org. (n.d.). Distraction techniques. [online] Available at: https://www.annafreud.org/resources/children-and-young-peoples-wellbeing/self-care/distraction-techniques/#:~:text=Having%20distraction%20techniques%20can%20help.
 * Gathering informaiton on distractions.
 ‌
+63
+? Mental Health Foundation (2022). Pets and mental health. [online] www.mentalhealth.org.uk. Available at: https://www.mentalhealth.org.uk/explore-mental-health/a-z-topics/pets-and-mental-health.
+* Gathering informaiton on mental health and pets.
+‌
+64
+? www.stylist.co.uk. (n.d.). Need an instant reset? Try splashing your face with cold water. [online] Available at: https://www.stylist.co.uk/health/mental-health/cold-water-splashing-face-benefits-anxiety-stress/870541 [Accessed 5 Apr. 2024].
+* Splashing water technique
+‌
+65
+? www.annafreud.org. (n.d.). Warm bath. [online] Available at: https://www.annafreud.org/resources/children-and-young-peoples-wellbeing/self-care/warm-bath/#:~:text=refreshing%20and%20calming.-.
+* Bath benefits.
+‌
 */
 
 

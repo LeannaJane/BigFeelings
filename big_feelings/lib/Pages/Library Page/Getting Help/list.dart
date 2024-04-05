@@ -6,8 +6,8 @@ List<String> copingMethods = [
   "Breathing",
   "Meditation",
   "Distractions",
-  "Playing with a pet",
-  "Splash water trick",
+  "Animals",
+  "Water",
   "Hold a icecube",
   "Ask for help",
   "Self Talk",
@@ -21,8 +21,8 @@ Map<String, String> copingMethodsWithImages = {
   "Breathing": 'assets/images/coping_skills/breathing.png',
   "Meditation": 'assets/images/coping_skills/meditation.png',
   "Distractions": 'assets/images/coping_skills/painting.png',
-  "Playing with a pet": 'assets/images/coping_skills/pets.png',
-  "Splash water trick": 'assets/images/coping_skills/splashwater.png',
+  "Animals": 'assets/images/coping_skills/pets.png',
+  "Water": 'assets/images/coping_skills/splashwater.png',
   "Hold a icecube": 'assets/images/coping_skills/ice.png',
   "Ask for help": 'assets/images/coping_skills/help.png',
   "Self Talk": 'assets/images/coping_skills/selftalk.png',
@@ -177,7 +177,39 @@ class CopingDescriptions {
             "• Encourages doing things that make you feel good.\n"
             "\n"
             "The Big Feelings application offers a card mini emotion matching game, that allows you to distract yourself by having fun and focusing on the different emotions while learning about your emotions.\n";
-
+      //? Ref 63
+      case "Animals":
+        return "Owning and caring for animals can be really helpful for your mental health. When you spend time with your pets, like playing with a dog or cuddling a cat, or watching a turtle swim around in a tank can help you feel happier and less stress.\n\n"
+            "Benefits of caring for animals:\n"
+            "\n"
+            "• Increases physical activity.\n"
+            "• Reduces anxiety.\n"
+            "• Boosts your confidence.\n"
+            "• Pets can make you feel like you have a friend when you feel alone.\n"
+            "• Caring for a pet can introduce structure to your day and keep a daily routine.\n"
+            "\n"
+            "What if I do not own or can't have a pet?\n"
+            "\n"
+            "• Spend time with your friends/family's pets.\n"
+            "• Visit zoos or animal sanctuaries to see and learn about different animnals.\n";
+      case "Water":
+        return "Water can have a soothing and calming effect on your mental well being. Whether it's splashing cold water on your face or having a warm bath, water based activities can help you relax and reduce stress.\n\n"
+            "What water activites does this include?:\n"
+            "\n"
+            //? Ref 64
+            "• Splashing cold water on your face\n"
+            "• Taking a warm bath\n"
+            "• Swimming in a pool\n"
+            "• Relaxing by a waterfall or fountain or by the sea\n"
+            "\n"
+            //? Ref 65
+            "Benefits of water based activities:\n"
+            "• Refreshing\n"
+            "• Allows you to stop and think and reset when splashing water in your face.\n"
+            "• Decreases stress\n"
+            "• Relaxes you, it could make you feel sleepy.\n"
+            "• Improves mood\n"
+            "• Provides sensory stimulation\n";
       default:
         return "Description not available";
     }
