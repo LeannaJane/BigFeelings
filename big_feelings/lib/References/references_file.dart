@@ -291,6 +291,10 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? Gray, A. (2022). How does music affect your mood and reduce stress. [online] PPL PRS. Available at: https://pplprs.co.uk/health-wellbeing/music-reduce-stress/.
 * Gathered information for the music card page, to show the benefits of using music as a coping mechansim.
 ‌
+56
+? www.urmc.rochester.edu. (n.d.). Journaling for Mental Health - Health Encyclopedia - University of Rochester Medical Center. [online] Available at: https://www.urmc.rochester.edu/encyclopedia/content.aspx?ContentID=4552&ContentTypeID=1#:~:text=Write%20or%20draw%20whatever%20feels.
+* Gathered information on how to journal, and the benefits of journalling.
+‌
 
 */
 

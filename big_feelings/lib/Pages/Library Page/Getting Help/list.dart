@@ -3,7 +3,7 @@ List<String> copingMethods = [
   "Social Interaction",
   "Music",
   "Journalling",
-  "Deep Breathing",
+  "Breathing",
   "Meditation",
   "Activites",
   "Playing with a pet",
@@ -18,7 +18,7 @@ Map<String, String> copingMethodsWithImages = {
   "Social Interaction": 'assets/images/coping_skills/phonecall.png',
   "Music": 'assets/images/coping_skills/headphones.png',
   "Journalling": 'assets/images/coping_skills/journal.png',
-  "Deep Breathing": 'assets/images/coping_skills/breathing.png',
+  "Breathing": 'assets/images/coping_skills/breathing.png',
   "Meditation": 'assets/images/coping_skills/meditation.png',
   "Activites": 'assets/images/coping_skills/painting.png',
   "Playing with a pet": 'assets/images/coping_skills/pets.png',
@@ -86,6 +86,29 @@ class CopingDescriptions {
             "\n"
             "• Explore music apps: Use apps like Spotify, Apple Music, or YouTube Music to discover different genres and playlists.\n"
             "• Search: Create searches like Mental health calming music, rain sounds, nature noises etc. \n";
+      //? Ref 56
+      case "Journalling":
+        return "\nJournaling is like writing down your thoughts and feelings in a book or even drawing them. It helps you understand your emotions better, feel less stressed, and make your mind feel calmer.\n"
+            "How to journal:\n"
+            "\n"
+            "1. Find a quiet and comfortable place to write.\n"
+            "2. Choose a journal or notebook that you like.\n"
+            "3. Write about your thoughts, feelings, and how your day was etc.\n"
+            "4. Be honest with yourself and don't worry about spelling or grammar.\n"
+            "5. Try to write regularly, even if it's just a few sentences each day.\n"
+            "\n"
+            "Benefits of Journalling:\n"
+            "\n"
+            "• Helps you express your feelings and thoughts.\n"
+            "• Allows you to understand yourself better.\n"
+            "• Relieves stress and promotes emotional wellbeing.\n"
+            "• Encourages self reflection and personal growth.\n"
+            "• Allows you to track your moods and the triggers that cause this.\n"
+            "\n"
+            "The Big Feelings application offers a journalling tool, that allows you to write down your feelings, view and delete them. It also allows you to see when you have saved a journal.\n";
+      case "Breathing":
+        return "\n\n"
+            "\n";
       default:
         return "Description not available";
     }
