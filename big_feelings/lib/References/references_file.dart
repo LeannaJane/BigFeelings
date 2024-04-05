@@ -307,7 +307,18 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? Childrens.com. (2020). Breathing Exercises for Kids – Children’s Health. [online] Available at: https://www.childrens.com/health-wellness/breathing-exercises-for-kids#:~:text=%22Children%20can%20use%20deep%20breathing [Accessed 5 Apr. 2024].
 * Gathering informaiton on how breathing is helpful for children.
 ‌
-
+60
+? Science of Spirituality. (n.d.). Benefits from Meditation|Improve Health>Reduce Anxiety>Enhance Emotional Wellbeing. [online] Available at: https://www.sos.org/benefits-from-meditation/?gad_source=1&gclid=CjwKCAjwwr6wBhBcEiwAfMEQs5L9z1E0Hu_4SoEb96hPbSR_WhsGXukS75fhmb4cpfHCTZbb00B0JhoC3u8QAvD_BwE [Accessed 5 Apr. 2024].
+* Gathering informaiton on how meditation is helpful for children.
+‌
+61
+? Staff, M. (2019). How to meditate. [online] Mindful. Available at: https://www.mindful.org/how-to-meditate/.
+* Gathering informaiton on how to meditate.
+‌
+62
+? www.annafreud.org. (n.d.). Distraction techniques. [online] Available at: https://www.annafreud.org/resources/children-and-young-peoples-wellbeing/self-care/distraction-techniques/#:~:text=Having%20distraction%20techniques%20can%20help.
+* Gathering informaiton on distractions.
+‌
 */
 
 

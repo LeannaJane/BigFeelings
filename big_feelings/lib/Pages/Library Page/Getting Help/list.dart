@@ -5,7 +5,7 @@ List<String> copingMethods = [
   "Journalling",
   "Breathing",
   "Meditation",
-  "Activites",
+  "Distractions",
   "Playing with a pet",
   "Splash water trick",
   "Hold a icecube",
@@ -20,7 +20,7 @@ Map<String, String> copingMethodsWithImages = {
   "Journalling": 'assets/images/coping_skills/journal.png',
   "Breathing": 'assets/images/coping_skills/breathing.png',
   "Meditation": 'assets/images/coping_skills/meditation.png',
-  "Activites": 'assets/images/coping_skills/painting.png',
+  "Distractions": 'assets/images/coping_skills/painting.png',
   "Playing with a pet": 'assets/images/coping_skills/pets.png',
   "Splash water trick": 'assets/images/coping_skills/splashwater.png',
   "Hold a icecube": 'assets/images/coping_skills/ice.png',
@@ -136,7 +136,48 @@ class CopingDescriptions {
             "• Reduces stress and anxiety.\n"
             "• Calming effects caused by the increase of oxygen.\n"
             "• Improves your sleep quality.\n"
-            "• Improves overall well-being.\n";
+            "• Improves overall well being.\n"
+            "\n"
+            "The Big Feelings application offers a Breathing tool, that allows you to time your breathing with a breathing animation for 3 seconds in and 3 seconds out.\n";
+      //? Ref 60
+      case "Meditation":
+        return "Meditation is like giving your mind a break from all the busyness and noise around you. It's a way to calm your thoughts and find peace within yourself.\n\n"
+            //? Ref 61
+            "How to meditate:\n"
+            "\n"
+            "1. Find a quiet and comfortable place to sit or lie down.\n"
+            "2. Close your eyes gently or focus on a single point.\n"
+            "3. Take slow, deep breaths, in through your nose and out through your mouth.\n"
+            "4. Try to clear your mind of any distractions or worries, focusing only on your breath.\n"
+            "5. If your mind wanders, gently bring your focus back to your breath without judgment.\n"
+            "6. Continue for a few minutes or as long as you feel comfortable.\n"
+            "\n"
+            "Benefits of meditation:\n"
+            "\n"
+            "• Reduces stress and anxiety.\n"
+            "• Improves focus and concentration.\n"
+            "• Promotes emotional well being. \n"
+            "• Enhances self-awareness.\n"
+            "• Boosts overall health.\n"
+            "• Relaxes the body.\n";
+      //? Ref 62
+      case "Distractions":
+        return "Distractions are activities that help take your mind off negative thoughts or feelings, giving you a break from stress and anxiety. These activities capture your attention and bring enjoyment or relaxation.\n\n"
+            "Examples of distraction activities:\n"
+            "\n"
+            "• Mindfulness Activities: Try deep breathing exercises \n"
+            "• Painting  \n• Coloring.\n"
+            "• Do things you enjoy.\n• Playing music. \n• Gardening. \n• Cooking. \n• Crafting.\n"
+            "\n"
+            "Benefits of distractions:\n"
+            "\n"
+            "• Gives temporary relief from stress and anxiety.\n"
+            "• Takes your mind off negative thoughts.\n"
+            "• Helps you relax and have fun.\n"
+            "• Encourages doing things that make you feel good.\n"
+            "\n"
+            "The Big Feelings application offers a card mini emotion matching game, that allows you to distract yourself by having fun and focusing on the different emotions while learning about your emotions.\n";
+
       default:
         return "Description not available";
     }

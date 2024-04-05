@@ -96,7 +96,7 @@ class LibraryPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Getting help',
+                        'Coping with your emotions',
                         style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
