@@ -8,6 +8,67 @@ import 'package:provider/provider.dart';
 //? Ref 38-42
 // ignore: use_key_in_widget_constructors
 class HomePage extends StatelessWidget {
+  //
+
+  bool isDesktop1(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    bool result = width > 800 && height > 1000;
+    return result;
+  }
+
+  bool isDesktop2(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    bool result = width > 550 && height > 800;
+    return result;
+  }
+
+  bool ismobile(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    bool result = width > 300 && height > 600;
+    return result;
+  }
+
+  bool ismobile2(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    bool result = width > 150 && height > 400;
+    return result;
+  }
+
+  bool ismobile3(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    bool result = width > 100 && height > 200;
+    return result;
+  }
+
+  bool issmall(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    bool result = height > 200;
+    return result;
+  }
+
+  double checkimagesize(BuildContext context) {
+    double containerSize;
+    if (isDesktop1(context)) {
+      containerSize = 500;
+    } else if (isDesktop2(context)) {
+      containerSize = 350;
+    } else if (ismobile(context)) {
+      containerSize = 200;
+    } else if (ismobile2(context)) {
+      containerSize = 150;
+    } else if (issmall(context)) {
+      containerSize = 100;
+    } else {
+      containerSize = 100;
+    }
+    return containerSize;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeNotifier>(
@@ -18,8 +79,8 @@ class HomePage extends StatelessWidget {
         Color iconColor = themeNotifier.getIconColor();
         //! Setting up spacing variables based on screen width
         final screenWidth = MediaQuery.of(context).size.width;
-        double menuItemSpacing = screenWidth * 0.008;
-        double minSpacing = 5.0;
+        double menuItemSpacing = screenWidth * 0.002;
+        double minSpacing = 1.0;
         menuItemSpacing = menuItemSpacing.clamp(minSpacing, double.infinity);
 
         //! Building the Scaffold widget
@@ -47,7 +108,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       Container(
                         //! Creating a container for the image with styling.
-                        height: 240,
+                        height: checkimagesize(context),
                         margin: const EdgeInsets.symmetric(horizontal: 16.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
@@ -66,13 +127,7 @@ class HomePage extends StatelessWidget {
                               fit: BoxFit.cover),
                         ),
                       ),
-                      //! Positioned FloatingButtonsBar that goes ontop of the image.
-                      const Positioned(
-                        bottom: 10,
-                        child: FloatingButtonsBar(
-                          bottomOffset: 20.0,
-                        ),
-                      ),
+                      //! Removes the button features due to not implemented.
                     ],
                   ),
                   //! Adding space between the image and menu items.
@@ -164,41 +219,63 @@ class HomePage extends StatelessWidget {
   ];
   //! Widget for displaying each menu item this contains the parameters, context, title, icon data, font family, spacing and background colour
   Widget menuItem(
-      BuildContext context,
-      String title,
-      IconData icon,
-      String selectedFontFamily,
-      double spacing,
-      Color backgroundColor,
-      Color iconColor) {
+    BuildContext context,
+    String title,
+    IconData icon,
+    String selectedFontFamily,
+    double spacing,
+    Color backgroundColor,
+    Color iconColor,
+  ) {
     final fontProvider = Provider.of<FontProvider>(context);
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    //! Container to hold each menu item with spacing and styling
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: spacing, horizontal: 16.0),
-      //! Styling the container with background color, border radius, and shadow
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(15.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      //! ListTile to structure the menu item with title and their icon - also allows to implement the selected font family into the fontfamily type.
-      child: ListTile(
-        title: Center(
-          child: Text(
-            title,
-            style: fontProvider.subheading(themeNotifier),
-          ),
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        height: 50,
+        margin: EdgeInsets.only(
+          top: spacing,
+          left: 16.0,
+          right: 16.0,
+          bottom: spacing,
         ),
-        //! Adding the icon colour based on theme changer.
-        leading: Icon(icon, color: iconColor),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 15.0), // Padding for left icon
+              child: Icon(icon, color: iconColor),
+            ),
+            const SizedBox(width: 8.0), // Space between icon and text
+            Expanded(
+              child: Text(
+                title,
+                style: fontProvider.subheading(themeNotifier),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(width: 8.0), // Space between text and icon
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 15.0), // Padding for right icon
+              child: Icon(icon, color: iconColor),
+            ),
+          ],
+        ),
       ),
     );
   }
