@@ -194,7 +194,7 @@ class CopingDescriptions {
             "• Visit zoos or animal sanctuaries to see and learn about different animnals.\n";
       case "Water":
         return "Water can have a soothing and calming effect on your mental well being. Whether it's splashing cold water on your face or having a warm bath, water based activities can help you relax and reduce stress.\n\n"
-            "What water activites does this include?:\n"
+            "What water activites does this include?\n"
             "\n"
             //? Ref 64
             "• Splashing cold water on your face\n"
@@ -204,6 +204,7 @@ class CopingDescriptions {
             "\n"
             //? Ref 65
             "Benefits of water based activities:\n"
+            "\n"
             "• Refreshing\n"
             "• Allows you to stop and think and reset when splashing water in your face.\n"
             "• Decreases stress\n"

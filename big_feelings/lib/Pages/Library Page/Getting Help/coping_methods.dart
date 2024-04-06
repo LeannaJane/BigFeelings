@@ -186,9 +186,9 @@ class _CopingMethodsState extends State<CopingMethods> {
                   transform: Matrix4.rotationY(math.pi),
                   child: IconButton(
                     onPressed: _togglePause,
-                    tooltip: _isPaused ? 'Back' : 'Forward',
+                    tooltip: _isPaused ? 'Image' : 'Text',
                     icon: Icon(
-                      _isPaused ? Icons.arrow_back : Icons.arrow_forward,
+                      Icons.refresh,
                       color: iconColor,
                     ),
                   ),
@@ -267,7 +267,6 @@ class _CopingMethodsState extends State<CopingMethods> {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SizedBox(
-                width: 500.0,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
