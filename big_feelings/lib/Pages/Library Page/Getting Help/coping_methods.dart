@@ -139,8 +139,7 @@ class _CopingMethodsState extends State<CopingMethods> {
                                   )
                                 : OverflowBox(
                                     child: Transform.scale(
-                                      scale:
-                                          0.5, // Adjust scale factor as needed
+                                      scale: 0.5,
                                       child: Image.asset(
                                         copingMethodsWithImages[
                                                 copingMethods[index]] ??
@@ -236,7 +235,7 @@ class _CopingMethodsState extends State<CopingMethods> {
                   ),
                 ),
               ),
-              Container(width: 50), // Adding space to center the last element
+              Container(width: 50),
             ],
           ),
         ),

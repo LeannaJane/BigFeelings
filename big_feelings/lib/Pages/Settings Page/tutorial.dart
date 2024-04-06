@@ -64,7 +64,6 @@ class Tutorial extends StatelessWidget {
                         horizontal: 20), // Add horizontal padding
                     child: Container(
                       width: double.infinity,
-                      height: 500,
                       margin: const EdgeInsets.only(bottom: 20.0),
                       decoration: BoxDecoration(
                         color: getContainerColor,
@@ -148,10 +147,28 @@ class Tutorial extends StatelessWidget {
                         ],
                       ),
                       child: Center(
-                        child: Text(
-                          'Big Feelings Tutorial',
-                          style: fontProvider.subheadinglogin(themeNotifier),
-                          textAlign: TextAlign.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.play_circle_fill,
+                              color: iconColor,
+                              size: 30,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Big Feelings Tutorial',
+                              style:
+                                  fontProvider.subheadinglogin(themeNotifier),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              Icons.play_circle_fill,
+                              color: iconColor,
+                              size: 30,
+                            ),
+                          ],
                         ),
                       ),
                     ),
