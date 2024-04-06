@@ -825,6 +825,42 @@ class FontProvider with ChangeNotifier {
     }
   }
 
+  TextStyle close(ThemeNotifier themeNotifier) {
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
+
+    switch (_selectedFontFamily) {
+      case 'Pacifico':
+        return GoogleFonts.pacifico(
+          fontSize: 16,
+          color: textColor,
+        );
+      case 'Roboto Mono':
+        return GoogleFonts.robotoMono(
+          fontSize: 16,
+          color: textColor,
+        );
+      case 'ShortStack':
+        return GoogleFonts.shortStack(
+          fontSize: 16,
+          color: textColor,
+        );
+      case 'SingleDay':
+        return TextStyle(
+          fontFamily: 'SingleDay',
+          fontSize: 18,
+          color: textColor,
+        );
+      default:
+        return TextStyle(
+          fontFamily: _selectedFontFamily,
+          fontSize: 18,
+          color: textColor,
+        );
+    }
+  }
+
   TextStyle subheadingBigBald(ThemeNotifier themeNotifier) {
     Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
         ? Colors.white
@@ -869,7 +905,9 @@ class FontProvider with ChangeNotifier {
   }
 
   TextStyle smalltextalert(ThemeNotifier themeNotifier) {
-    Color textColor = Colors.white;
+    Color textColor = themeNotifier.currentTheme == ThemeNotifier.darkTheme
+        ? Colors.white
+        : Colors.black;
     double fontSize = 16.0;
 
     switch (_selectedFontFamily) {
