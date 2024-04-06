@@ -13,6 +13,7 @@ List<String> copingMethods = [
   "Help",
 ];
 
+//? Ref 68
 Map<String, String> copingMethodsWithImages = {
   "Walking": 'assets/images/coping_skills/walking.png',
   "Social Interaction": 'assets/images/coping_skills/phonecall.png',

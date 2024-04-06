@@ -341,53 +341,34 @@ This website taught me how to flip an icon using transform the the homepage dark
 ‌
 ‌
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
-fix these
-<a href="https://www.flaticon.com/free-icons/child" title="child icons">Child icons created by Freepik - Flaticon</a>
 
-https://www.flaticon.com/free-icon/walking-to-school_835886?term=walk+kid&page=1&position=1&origin=search&related_id=835886
+68
 
-https://www.flaticon.com/free-icon/journal_2708780?term=journal&page=1&position=8&origin=search&related_id=2708780
-<a href="https://www.flaticon.com/free-icons/journal" title="journal icons">Journal icons created by Freepik - Flaticon</a>
+* Image icons used for the coping mechanism page.
+? Flaticon. (n.d.). 116,406 Free icons of child. [online] Available at: https://www.flaticon.com/free-icons/child.
 
-<a href="https://www.flaticon.com/free-icons/phone" title="phone icons">Phone icons created by Creaticca Creative Agency - Flaticon</a>
-https://www.flaticon.com/free-icon/phone-call_455705?term=call&page=1&position=3&origin=search&related_id=455705
+? Flaticon. (n.d.). 116,406 Walking icon. [online] Available at: https://www.flaticon.com/free-icon/walking-to-school_835886?term=walk+kid&page=1&position=1&origin=search&related_id=835886.
 
-<a href="https://www.flaticon.com/free-icons/headphones" title="headphones icons">Headphones icons created by Freepik - Flaticon</a>
+? Flaticon. (n.d.). 116,406 Jorunal. [online] Available at: https://www.flaticon.com/free-icon/journal_2708780?term=journal&page=1&position=8&origin=search&related_id=2708780. 
 
-https://www.flaticon.com/free-icon/headphones_3791429?term=headphone&page=1&position=6&origin=search&related_id=3791429
+? Flaticon. (n.d.). 116,406 Phone. [online] Available at: https://www.flaticon.com/free-icon/phone-call_455705?term=call&page=1&position=3&origin=search&related_id=455705. 
 
-<a href="https://www.flaticon.com/free-icons/ice" title="ice icons">Ice icons created by Freepik - Flaticon</a>
-https://www.flaticon.com/free-icon/ice-cube_2458132?term=ice&page=1&position=3&origin=search&related_id=2458132
+? Flaticon. (n.d.). 116,406 Heaphones. [online] Available at: https://www.flaticon.com/free-icon/headphones_3791429?term=headphone&page=1&position=6&origin=search&related_id=3791429. 
 
-https://www.flaticon.com/free-icon/drops_599508?term=splash&page=1&position=16&origin=search&related_id=599508
-<a href="https://www.flaticon.com/free-icons/water" title="water icons">Water icons created by Freepik - Flaticon</a>
+? Flaticon. (n.d.). 116,406 Ice. [online] Available at: https://www.flaticon.com/free-icon/ice-cube_2458132?term=ice&page=1&position=3&origin=search&related_id=2458132. 
 
-<a href="https://www.flaticon.com/free-icons/meditation" title="meditation icons">Meditation icons created by Freepik - Flaticon</a>
-https://www.flaticon.com/free-icon/meditation_2906496?term=meditation&page=1&position=1&origin=search&related_id=2906496
+? Flaticon. (n.d.). 116,406 Water. [online] Available at: https://www.flaticon.com/free-icon/drops_599508?term=splash&page=1&position=16&origin=search&related_id=599508. 
 
-<a href="https://www.flaticon.com/free-icons/reflection" title="reflection icons">Reflection icons created by Leremy - Flaticon</a>
-https://www.flaticon.com/free-icon/man_9981621?term=self+talk&page=1&position=7&origin=search&related_id=9981621
+? Flaticon. (n.d.). 116,406 Meditation. [online] Available at: https://www.flaticon.com/free-icon/meditation_2906496?term=meditation&page=1&position=1&origin=search&related_id=2906496.
 
-<a href="https://www.flaticon.com/free-icons/pets" title="pets icons">Pets icons created by iconixar - Flaticon</a>
-https://www.flaticon.com/free-icon/pets_3460335?term=pet&page=1&position=7&origin=search&related_id=3460335
+? Flaticon. (n.d.). 116,406 Pets. [online] Available at: https://www.flaticon.com/free-icon/pets_3460335?term=pet&page=1&position=7&origin=search&related_id=3460335.
 
-<a href="https://www.freepik.com/icon/painting_9250268#fromView=search&page=1&position=11&uuid=b3abb647-9b4a-4e13-9d92-b454dfe42fec">Icon by Aranagraphics</a>
-https://www.freepik.com/icon/painting_9250268#fromView=search&page=1&position=11&uuid=b3abb647-9b4a-4e13-9d92-b454dfe42fec
+? Flaticon. (n.d.). 116,406 Paint. [online] Available at:https://www.freepik.com/icon/painting_9250268#fromView=search&page=1&position=11&uuid=b3abb647-9b4a-4e13-9d92-b454dfe42fec
 
-https://www.freepik.com/icon/help_2597143#fromView=search&page=1&position=30&uuid=5bcc30ac-35c0-4b70-bcde-b9b5d54f887b
-<a href="https://www.freepik.com/icon/help_2597143#fromView=search&page=1&position=30&uuid=5bcc30ac-35c0-4b70-bcde-b9b5d54f887b">Icon by Freepik</a>
+? Flaticon. (n.d.). 116,406 Help. [online] Available at:https://www.freepik.com/icon/help_2597143#fromView=search&page=1&position=30&uuid=5bcc30ac-35c0-4b70-bcde-b9b5d54f887b.
+
+
  */
+
+
