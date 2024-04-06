@@ -20,6 +20,10 @@ class LoginLogic {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
+    if (email.isEmpty || password.isEmpty) {
+      setLoginError('Please type both email and password.');
+      return;
+    }
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);

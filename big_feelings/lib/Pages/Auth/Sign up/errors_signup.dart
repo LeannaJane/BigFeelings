@@ -35,6 +35,10 @@ class SignUpLogic {
       emailController.clear();
       passwordController.clear();
 
+      if (email.isEmpty || password.isEmpty) {
+        onError('Please type both email and password.');
+        return;
+      }
       //! Reset authentication state to not signed in as I dont want to automatically sign in users.
       await FirebaseAuth.instance.signOut();
 
