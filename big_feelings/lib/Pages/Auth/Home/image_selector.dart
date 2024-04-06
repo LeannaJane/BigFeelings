@@ -62,27 +62,30 @@ class _ImageSelectorState extends State<ImageSelector> {
               getContainerColor,
             );
           },
-          child: Container(
-            //! Setting the height based on the output of the size method.
-            height: _checkImageSize(context),
-            margin: const EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-              color: getContainerColor,
-              borderRadius: BorderRadius.circular(15.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 6,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            //! Reusing code from the home page.
-            //! Displaying the default or selected image.
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: Image.asset(selectedImage, fit: BoxFit.cover),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Container(
+              //! Setting the height based on the output of the size method.
+              height: _checkImageSize(context),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+              decoration: BoxDecoration(
+                color: getContainerColor,
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    spreadRadius: 1,
+                    blurRadius: 6,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              //! Reusing code from the home page.
+              //! Displaying the default or selected image.
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.asset(selectedImage, fit: BoxFit.cover),
+              ),
             ),
           ),
         );
@@ -92,36 +95,60 @@ class _ImageSelectorState extends State<ImageSelector> {
 
   //! Image dialog.
   Future<void> _showImageSelectionDialog(
-      BuildContext context,
-      FontProvider fontProvider,
-      ThemeNotifier themeNotifier,
-      Color getContainerColor) async {
+    BuildContext context,
+    FontProvider fontProvider,
+    ThemeNotifier themeNotifier,
+    Color getContainerColor,
+  ) async {
     final selectedImagePath = await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          //! Presenting user with text and the list of images.
           title: Text(
             'Select an Image',
             textAlign: TextAlign.center,
             style: fontProvider.subheadingBigBald(themeNotifier),
           ),
           backgroundColor: getContainerColor,
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: images
-                .map(
-                  (imagePath) => GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop(imagePath);
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(imagePath, width: 100, height: 100),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: images
+                  .map(
+                    (imagePath) => GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop(imagePath);
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: getContainerColor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                          border: Border.all(
+                            color: Colors.transparent,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            imagePath,
+                            width: _checkImageSize2(context),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
+                  )
+                  .toList(),
+            ),
           ),
         );
       },
@@ -157,6 +184,24 @@ class _ImageSelectorState extends State<ImageSelector> {
       containerSize = 150;
     } else if (height > 200) {
       containerSize = 100;
+    } else {
+      containerSize = 100;
+    }
+    //! returning the container sie based on the if media query.
+    return containerSize;
+  }
+
+  double _checkImageSize2(BuildContext context) {
+    double containerSize;
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
+    if (width > 800 && height > 1000) {
+      containerSize = 500;
+    } else if (width > 550 && height > 800) {
+      containerSize = 200;
+    } else if (width > 300 && height > 600) {
+      containerSize = 150;
     } else {
       containerSize = 100;
     }
