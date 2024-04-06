@@ -330,6 +330,15 @@ This website taught me how to flip an icon using transform the the homepage dark
 65
 ? www.annafreud.org. (n.d.). Warm bath. [online] Available at: https://www.annafreud.org/resources/children-and-young-peoples-wellbeing/self-care/warm-bath/#:~:text=refreshing%20and%20calming.-.
 * Bath benefits.
+
+‌66
+? Vanik, J. (2021). Ice Cube Hack for Panic Attacks - Be Present Ohio. [online] Available at: https://bepresentohio.org/ice-cube-hack-for-panic-attacks/#:~:text=The%20ice%20can%20also%20trigger [Accessed 5 Apr. 2024].
+* Gathering informaiton on icecubes and coping techniques.
+
+67
+? educationhub.blog.gov.uk. (n.d.). Mental health resources for children, students, parents, carers and school/college staff - The Education Hub. [online] Available at: https://educationhub.blog.gov.uk/2021/09/03/mental-health-resources-for-children-parents-carers-and-school-staff/.
+* Information resources numbers for children for the help card.
+‌
 ‌
 */
 

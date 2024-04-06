@@ -9,8 +9,8 @@ List<String> copingMethods = [
   "Animals",
   "Water",
   "Hold a icecube",
-  "Ask for help",
-  "Self Talk",
+  "Resources",
+  "Help",
 ];
 
 Map<String, String> copingMethodsWithImages = {
@@ -24,8 +24,8 @@ Map<String, String> copingMethodsWithImages = {
   "Animals": 'assets/images/coping_skills/pets.png',
   "Water": 'assets/images/coping_skills/splashwater.png',
   "Hold a icecube": 'assets/images/coping_skills/ice.png',
-  "Ask for help": 'assets/images/coping_skills/help.png',
-  "Self Talk": 'assets/images/coping_skills/selftalk.png',
+  "Resources": 'assets/icons/book.png',
+  "Help": 'assets/images/coping_skills/help.png',
 };
 
 //? Ref 53
@@ -210,6 +210,35 @@ class CopingDescriptions {
             "• Relaxes you, it could make you feel sleepy.\n"
             "• Improves mood\n"
             "• Provides sensory stimulation\n";
+      //? Ref 66
+      case "Hold a icecube":
+        return "Holding an ice cube can be a simple yet effective way to manage overwhelming emotions and sensations. The sensation of cold can help ground you in the present moment and provide relief from intense feelings.\n\n"
+            "How to hold an ice cube:\n"
+            "\n"
+            "1. Get an ice cube from the freezer.\n"
+            "2. Hold it gently in your hand or fingers.\n"
+            "3. Pay attention to the sensation of coldness on your skin.\n"
+            "4. Focus on your breathing while holding the ice cube.\n"
+            "5. Notice any changes in how you feel as you hold the ice cube.\n"
+            "\n"
+            "Benefits of holding an ice cube:\n"
+            "\n"
+            "• Immediate distraction: The icecube coldness distracts you from your feelings.\n"
+            "• Calming effect: The cold sensation can help your body relax and feel calmer.\n"
+            "• Sensory stimulation: Touching the ice cube can be interesting and calming for your senses.\n";
+      //? Ref 67
+      case "Help":
+        return "If you're feeling sad or scared and need someone to talk to, it's important to talk to a grown-up you trust, like a parent, teacher, or school counselor. They can help you find the right kind of help.\n\n"
+            "Here's what you can do if you need help:\n"
+            "\n"
+            "1. Talk to a Grown-up: Share how you're feeling with a grown-up you trust, like a parent or teacher. They can listen to you and help you figure out what to do next.\n"
+            "\n"
+            "2. Use Helplines: If you can't talk to a grown-up or need more help, there are special phone numbers you can call or text for help. \n• You can text SHOUT to 85258 \n• Call Childline on 0800 1111 \n• Call the Mix on 0808 808 4994.\n"
+            "\n"
+            "3. Talk to Your School Teachers: If you're at school, you can talk to your school teacher you feel comfortable with. They're trained to help kids like you and can find you the support you need.\n"
+            "\n"
+            "Remember, it's okay to ask for help when you need it, and there are people who care about you and want to support you through tough times.";
+
       default:
         return "Description not available";
     }
