@@ -27,6 +27,11 @@ class LoginLogic {
       //! If the user authentication is successful
       User? user = userCredential.user;
       if (user != null) {
+        //! Checks if email is verified
+        if (!user.emailVerified) {
+          setLoginError('Email is not verified. Please verify your email.');
+          return;
+        }
         //! This gets the user id.
         String userId = user.uid;
         //! This prints user logged in and userID to the terminal.
@@ -54,6 +59,9 @@ class LoginLogic {
             'Invalid credentials. Please check your email and password.');
         //! Then a unknown error, this will print out the full firebase error.
         //! Once this error has been found, ill handle it by adding it to this if statement.
+      } else if (e.message!.contains('malformed')) {
+        setLoginError(
+            'Invalid credentials. Please check your email and password.');
       } else if (e.message!.contains('malformed')) {
         setLoginError(
             'Invalid credentials. Please check your email and password.');
