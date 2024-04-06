@@ -69,11 +69,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/memory-game-desktop':
       final Color selectedColor = settings.arguments as Color;
       page = GameBoard(color: selectedColor);
-      return RouteAnimations.piggyBackingAnimation(page);
+      return RouteAnimations.instantAnimation(page);
     case '/memory-mobile':
       final Color selectedColor = settings.arguments as Color;
       page = GameBoardMobile(color: selectedColor);
-      return RouteAnimations.piggyBackingAnimation(page);
+      return RouteAnimations.instantAnimation(page);
     case '/journal-options':
       page = const JournalOptionPage();
       return RouteAnimations.piggyBackingAnimation(page);

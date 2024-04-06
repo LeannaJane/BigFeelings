@@ -72,38 +72,6 @@ class MentalHealthActivitiesPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {},
-                child: Center(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    width: 300,
-                    height: 180,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15.0, horizontal: 30.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 6,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                      color: getContainerColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Other activity not completed',
-                        style: fontProvider.subheading(themeNotifier),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),
