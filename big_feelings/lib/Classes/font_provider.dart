@@ -365,7 +365,7 @@ class FontProvider with ChangeNotifier {
         ? Colors.white
         : Colors.black;
 
-    double fontSize = 18.0;
+    double fontSize = 16.0;
 
     switch (_selectedFontFamily) {
       case 'Pacifico':
@@ -386,7 +386,7 @@ class FontProvider with ChangeNotifier {
       case 'SingleDay':
         return TextStyle(
           fontFamily: 'SingleDay',
-          fontSize: fontSize,
+          fontSize: 18,
           color: textColor,
         );
       default:
