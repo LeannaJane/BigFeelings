@@ -132,9 +132,6 @@ class _ImageSelectorState extends State<ImageSelector> {
                               offset: const Offset(0, 3),
                             ),
                           ],
-                          border: Border.all(
-                            color: Colors.transparent,
-                          ),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
