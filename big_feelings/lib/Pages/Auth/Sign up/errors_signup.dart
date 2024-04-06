@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:big_feelings/Classes/font_provider.dart';
 import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:logger/logger.dart';
@@ -15,6 +16,8 @@ class SignUpLogic {
     BuildContext context,
     FontProvider fontProvider,
     ThemeNotifier themeNotifier,
+    TextEditingController emailController,
+    TextEditingController passwordController,
   ) async {
     try {
       if (email.isEmpty || password.isEmpty) {
@@ -25,6 +28,13 @@ class SignUpLogic {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
+      //! Sends the verification email to the user
+      await userCredential.user?.sendEmailVerification();
+
+      //! Clear texts from text controllers
+      emailController.clear();
+      passwordController.clear();
+
       //! Reset authentication state to not signed in as I dont want to automatically sign in users.
       await FirebaseAuth.instance.signOut();
 
@@ -32,7 +42,7 @@ class SignUpLogic {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Sign up successful',
+              'Sign up successful. Verification email sent.',
               style: fontProvider.subheadinglogin(themeNotifier),
               textAlign: TextAlign.center,
             ),

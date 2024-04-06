@@ -224,13 +224,20 @@ class _SignupMobileState extends State<SignupMobile> {
                   height: 45,
                   child: GestureDetector(
                     onTap: () async {
-                      SignUpLogic.signup(_emailController.text.trim(),
-                              _passwordController.text.trim(), (error) {
-                        setState(() {
-                          _signupError = error;
-                        });
-                      }, context, fontProvider, themeNotifier)
-                          .then((_) {
+                      SignUpLogic.signup(
+                        _emailController.text.trim(),
+                        _passwordController.text.trim(),
+                        (error) {
+                          setState(() {
+                            _signupError = error;
+                          });
+                        },
+                        context,
+                        fontProvider,
+                        themeNotifier,
+                        _emailController,
+                        _passwordController,
+                      ).then((_) {
                         if (_signupError == null) {
                           setState(() {
                             _signupError = null;

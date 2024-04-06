@@ -36,6 +36,11 @@ class LoginLogic {
         String userId = user.uid;
         //! This prints user logged in and userID to the terminal.
         logger.i('User logged in successfully. UserID: $userId');
+
+        //! Clear texts from text controllers
+        emailController.clear();
+        passwordController.clear();
+
         //! Navigate to the home page
         navigateToHome(userId);
       }
