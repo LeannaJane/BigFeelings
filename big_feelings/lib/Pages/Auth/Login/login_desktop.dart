@@ -245,7 +245,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 TextButton(
                   onPressed: () => _forgotPassword(context),
                   child: Text(
@@ -254,15 +254,13 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                     style: fontProvider.greentext(),
                   ),
                 ),
+                const SizedBox(height: 5),
                 if (_loginError != null)
                   Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        _loginError!,
-                        textAlign: TextAlign.center,
-                        style: fontProvider.errortext(),
-                      ),
+                    child: Text(
+                      _loginError!,
+                      textAlign: TextAlign.center,
+                      style: fontProvider.errortext(),
                     ),
                   ),
               ],

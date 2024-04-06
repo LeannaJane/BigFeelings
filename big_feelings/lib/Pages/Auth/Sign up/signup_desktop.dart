@@ -265,13 +265,57 @@ class _SignupdesktopState extends State<Signupdesktop> {
                         ),
                       )),
                 ),
-                if (_signupError != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      _signupError!,
-                      style: fontProvider.errortext(),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return TermsAndPrivacyDialog();
+                      },
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: fontProvider.desktoplogin(themeNotifier),
+                        children: [
+                          TextSpan(
+                            text: 'By signing up, you are accepting the ',
+                            style: fontProvider.desktoplogin(themeNotifier),
+                          ),
+                          TextSpan(
+                            text: 'Terms & Conditions',
+                            style: fontProvider
+                                .desktoplogin(themeNotifier)
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: ' and ',
+                            style: fontProvider.desktoplogin(themeNotifier),
+                          ),
+                          TextSpan(
+                            text: 'Privacy Policy',
+                            style: fontProvider
+                                .desktoplogin(themeNotifier)
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '.',
+                            style: fontProvider.desktoplogin(themeNotifier),
+                          ),
+                        ],
+                      ),
                     ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                if (_signupError != null)
+                  Text(
+                    _signupError!,
+                    style: fontProvider.errortext(),
                   ),
               ],
             ),
@@ -352,51 +396,6 @@ class _SignupdesktopState extends State<Signupdesktop> {
                 ),
               )
             ],
-          ),
-        ),
-        bottomSheet: GestureDetector(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return TermsAndPrivacyDialog();
-              },
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: fontProvider.desktoplogin(themeNotifier),
-                children: [
-                  TextSpan(
-                    text: 'By signing up, you are accepting the ',
-                    style: fontProvider.desktoplogin(themeNotifier),
-                  ),
-                  TextSpan(
-                    text: 'Terms & Conditions',
-                    style: fontProvider
-                        .desktoplogin(themeNotifier)
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(
-                    text: ' and ',
-                    style: fontProvider.desktoplogin(themeNotifier),
-                  ),
-                  TextSpan(
-                    text: 'Privacy Policy',
-                    style: fontProvider
-                        .desktoplogin(themeNotifier)
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(
-                    text: '.',
-                    style: fontProvider.desktoplogin(themeNotifier),
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
       );

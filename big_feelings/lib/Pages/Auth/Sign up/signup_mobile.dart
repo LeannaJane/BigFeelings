@@ -40,7 +40,7 @@ class _SignupMobileState extends State<SignupMobile> {
 
   @override
   Widget build(BuildContext context) {
-    double imageWidth = 120;
+    double imageWidth = 100;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       Color cursorColor = themeNotifier.cursorColor();
       final fontProvider = Provider.of<FontProvider>(context);
@@ -153,7 +153,7 @@ class _SignupMobileState extends State<SignupMobile> {
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10.0,
+                                    vertical: 12.0,
                                   ),
                                 ),
                               ),
@@ -207,7 +207,7 @@ class _SignupMobileState extends State<SignupMobile> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.symmetric(
-                                        vertical: 16.0, horizontal: 14.0),
+                                        vertical: 17.0, horizontal: 14.0),
                                   ),
                                 ),
                               ),
@@ -269,13 +269,57 @@ class _SignupMobileState extends State<SignupMobile> {
                     ),
                   ),
                 ),
-                if (_signupError != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      _signupError!,
-                      style: fontProvider.errortext(),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return TermsAndPrivacyDialog();
+                      },
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: fontProvider.desktoplogin(themeNotifier),
+                        children: [
+                          TextSpan(
+                            text: 'By signing up, you are accepting the ',
+                            style: fontProvider.desktoplogin(themeNotifier),
+                          ),
+                          TextSpan(
+                            text: 'Terms & Conditions',
+                            style: fontProvider
+                                .desktoplogin(themeNotifier)
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: ' and ',
+                            style: fontProvider.desktoplogin(themeNotifier),
+                          ),
+                          TextSpan(
+                            text: 'Privacy Policy',
+                            style: fontProvider
+                                .desktoplogin(themeNotifier)
+                                .copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          TextSpan(
+                            text: '.',
+                            style: fontProvider.desktoplogin(themeNotifier),
+                          ),
+                        ],
+                      ),
                     ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                if (_signupError != null)
+                  Text(
+                    _signupError!,
+                    style: fontProvider.errortext(),
                   ),
               ],
             ),
@@ -356,51 +400,6 @@ class _SignupMobileState extends State<SignupMobile> {
                 ),
               )
             ],
-          ),
-        ),
-        bottomSheet: GestureDetector(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return TermsAndPrivacyDialog();
-              },
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: fontProvider.desktoplogin(themeNotifier),
-                children: [
-                  TextSpan(
-                    text: 'By signing up, you are accepting the ',
-                    style: fontProvider.desktoplogin(themeNotifier),
-                  ),
-                  TextSpan(
-                    text: 'Terms & Conditions',
-                    style: fontProvider
-                        .desktoplogin(themeNotifier)
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(
-                    text: ' and ',
-                    style: fontProvider.desktoplogin(themeNotifier),
-                  ),
-                  TextSpan(
-                    text: 'Privacy Policy',
-                    style: fontProvider
-                        .desktoplogin(themeNotifier)
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  TextSpan(
-                    text: '.',
-                    style: fontProvider.desktoplogin(themeNotifier),
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
       );

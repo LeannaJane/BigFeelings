@@ -46,7 +46,7 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
   //! The elevated buttons have all been changed to containers with gestures due to wanting shadows
   @override
   Widget build(BuildContext context) {
-    double imageWidth = 120;
+    double imageWidth = 100;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       Color cursorColor = themeNotifier.cursorColor();
       final fontProvider = Provider.of<FontProvider>(context);
@@ -248,17 +248,7 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                     ),
                   ),
                 ),
-                if (_loginError != null)
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        _loginError!,
-                        textAlign: TextAlign.center,
-                        style: fontProvider.errortext(),
-                      ),
-                    ),
-                  ),
+                const SizedBox(height: 20),
                 TextButton(
                   onPressed: () => _forgotPassword(context),
                   child: Text(
@@ -267,6 +257,15 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                     style: fontProvider.greentext(),
                   ),
                 ),
+                const SizedBox(height: 5),
+                if (_loginError != null)
+                  Center(
+                    child: Text(
+                      _loginError!,
+                      textAlign: TextAlign.center,
+                      style: fontProvider.errortext(),
+                    ),
+                  ),
               ],
             ),
           ),

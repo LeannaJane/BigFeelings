@@ -29,7 +29,8 @@ class LoginLogic {
       if (user != null) {
         //! Checks if email is verified
         if (!user.emailVerified) {
-          setLoginError('Email is not verified. Please verify your email.');
+          setLoginError(
+              'Email is not verified. Please verify your email. Check your spam/junk folder.');
           return;
         }
         //! This gets the user id.
