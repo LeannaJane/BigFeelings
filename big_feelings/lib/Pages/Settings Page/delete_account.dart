@@ -74,7 +74,8 @@ class DeleteAccountDialog {
     return TextButton(
       onPressed: () {
         Navigator.of(context).pop();
-        _handleDelete(context, selectedFontFamily, onSuccess, fontProvider);
+        _handleDelete(context, selectedFontFamily, onSuccess, fontProvider,
+            themeNotifier);
       },
       child: Text(
         'Yes',
@@ -86,14 +87,13 @@ class DeleteAccountDialog {
   }
 
   static void _handleDelete(
-    BuildContext context,
-    String selectedFontFamily,
-    VoidCallback onSuccess,
-    FontProvider fontProvider,
-  ) {
+      BuildContext context,
+      String selectedFontFamily,
+      VoidCallback onSuccess,
+      FontProvider fontProvider,
+      ThemeNotifier themeNotifier) {
     final user = FirebaseAuth.instance.currentUser;
-    final scaffoldMessenger =
-        ScaffoldMessenger.of(context); // Store the ScaffoldMessengerState
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     if (user != null) {
       deleteUserAccount(user).then((result) {
         if (result == 'success') {
@@ -105,25 +105,29 @@ class DeleteAccountDialog {
           scaffoldMessenger.showSnackBar(SnackBar(
             content: Text(
               snackBarMessage,
-              style: fontProvider
-                  .smalltextfontstyle1()
-                  .copyWith(color: Colors.white),
+              style: fontProvider.subheadinglogin(themeNotifier),
+              textAlign: TextAlign.center,
             ),
             backgroundColor: Colors.red,
           ));
         }
       }).catchError((error) {
         logger.e(error);
-        scaffoldMessenger.showSnackBar(const SnackBar(
+        scaffoldMessenger.showSnackBar(SnackBar(
           content: Text(
             'An unexpected error occurred.',
+            style: fontProvider.subheadinglogin(themeNotifier),
+            textAlign: TextAlign.center,
           ),
           backgroundColor: Colors.red,
         ));
       });
     } else {
-      scaffoldMessenger.showSnackBar(const SnackBar(
-        content: Text('User not found.'),
+      scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text(
+          'User not found.',
+          style: fontProvider.subheadinglogin(themeNotifier),
+        ),
         backgroundColor: Colors.red,
       ));
     }
