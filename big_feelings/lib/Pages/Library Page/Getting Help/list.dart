@@ -238,7 +238,24 @@ class CopingDescriptions {
             "3. Talk to Your School Teachers: If you're at school, you can talk to your school teacher you feel comfortable with. They're trained to help kids like you and can find you the support you need.\n"
             "\n"
             "Remember, it's okay to ask for help when you need it, and there are people who care about you and want to support you through tough times.";
-
+      //? Ref 67
+      case "Resources":
+        return "There are many online resources available to support your mental health and wellbeing.\n\n"
+            "Here are some key online resources you can explore:\n"
+            "\n"
+            "1. NHS Mental Health Services: The NHS website provides  information on mental health services, including access to 24-hour urgent helplines in most parts of England.\n"
+            "\n"
+            "2. Childline: Childline's website offers a range of resources and advice.\n"
+            "\n"
+            "3. Young Minds: Young Minds provides a variety of resources on common mental health issues, self-care tips, and guidance on seeking help.\n"
+            "\n"
+            "4. Anna Freud National Centre for Children and Families: This website offers resources on self care strategies, tools, and information on specific mental health topics.\n"
+            "\n"
+            "5. Place2Be: Place2Be's website provides resources on guidance on supporting mental health in schools, self help tools, and information on Place2Be's services.\n"
+            "\n"
+            "6. Headspace: Headspace offers mindfulness and meditation resources on guided meditations, breathing exercises, and mindfulness activities.\n"
+            "\n"
+            "These online resources cover a wide range of topics and can be accessed anytime, anywhere with an internet connection. Remember to explore these resources and reach out for support if needed.";
       default:
         return "Description not available";
     }
