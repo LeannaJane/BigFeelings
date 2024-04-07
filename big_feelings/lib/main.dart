@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Big Feelings',
-      theme: Provider.of<ThemeNotifier>(context).currentTheme,
+      theme: themeNotifier.currentTheme.copyWith(
+        textSelectionTheme: themeNotifier.textSelectionTheme,
+      ),
       home: const AuthenticationWrapper(),
       onGenerateRoute: generateRoute,
       themeMode: themeNotifier.currentTheme.brightness == Brightness.dark

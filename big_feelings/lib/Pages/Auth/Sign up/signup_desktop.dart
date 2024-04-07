@@ -40,7 +40,7 @@ class _SignupdesktopState extends State<Signupdesktop> {
 
   @override
   Widget build(BuildContext context) {
-    double imageWidth = 150;
+    double imageWidth = 160;
     return Consumer<ThemeNotifier>(builder: (context, themeNotifier, child) {
       Color cursorColor = themeNotifier.cursorColor();
       final fontProvider = Provider.of<FontProvider>(context);
@@ -87,11 +87,11 @@ class _SignupdesktopState extends State<Signupdesktop> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 10),
                 Container(
                   width: 400,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                  ),
+                  padding: const EdgeInsets.only(
+                      right: 8, left: 8, top: 8, bottom: 26),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: getContainerColor,
@@ -110,7 +110,10 @@ class _SignupdesktopState extends State<Signupdesktop> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.only(
+                          right: 8,
+                          left: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
@@ -125,43 +128,47 @@ class _SignupdesktopState extends State<Signupdesktop> {
                               style: fontProvider.desktoplogin(themeNotifier),
                             ),
                             const SizedBox(height: 10),
-                            Container(
-                              width: 600,
-                              height: 40,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 0),
-                                  ),
-                                ],
-                                color: getContainerColor,
-                              ),
-                              child: TextField(
-                                controller: _emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                cursorColor: cursorColor,
-                                style: fontProvider.desktoplogin(themeNotifier),
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 13.0,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8, left: 8),
+                              child: Container(
+                                width: 600,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 0),
+                                    ),
+                                  ],
+                                  color: getContainerColor,
+                                ),
+                                child: TextField(
+                                  controller: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  cursorColor: cursorColor,
+                                  style:
+                                      fontProvider.desktoplogin(themeNotifier),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 15, right: 10),
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.only(
+                          right: 8,
+                          left: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
@@ -177,8 +184,8 @@ class _SignupdesktopState extends State<Signupdesktop> {
                             ),
                             const SizedBox(height: 10),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
+                              padding: const EdgeInsets.only(
+                                  right: 8, left: 8, bottom: 8),
                               child: Container(
                                 width: 600,
                                 height: 40,
@@ -203,8 +210,8 @@ class _SignupdesktopState extends State<Signupdesktop> {
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 18.0, horizontal: 16.0),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 15, right: 10),
                                   ),
                                 ),
                               ),

@@ -146,8 +146,6 @@ class _PasswordResetMobileState extends State<PasswordResetMobile> {
                               Container(
                                 width: 400,
                                 height: 40,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 16.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   boxShadow: [
@@ -169,9 +167,8 @@ class _PasswordResetMobileState extends State<PasswordResetMobile> {
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0,
-                                    ),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 15, right: 10),
                                   ),
                                 ),
                               )

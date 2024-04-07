@@ -6,6 +6,7 @@ import 'package:big_feelings/Pages/Auth/Login/login_logic.dart';
 import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
 import 'package:big_feelings/Pages/Settings%20Page/theme_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
@@ -92,11 +93,11 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 10),
                 Container(
-                  width: 350,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                  ),
+                  width: 400,
+                  padding: const EdgeInsets.only(
+                      right: 8, left: 8, top: 8, bottom: 26),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: getContainerColor,
@@ -115,7 +116,10 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.only(
+                          right: 8,
+                          left: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
@@ -127,48 +131,50 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                             Text(
                               'Please Enter Email',
                               textAlign: TextAlign.center,
-                              style:
-                                  fontProvider.subheadinglogin(themeNotifier),
+                              style: fontProvider.desktoplogin(themeNotifier),
                             ),
                             const SizedBox(height: 10),
-                            Container(
-                              width: 600,
-                              height: 40,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 0),
-                                  ),
-                                ],
-                                color: getContainerColor,
-                              ),
-                              child: TextField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                cursorColor: cursorColor,
-                                style:
-                                    fontProvider.subheadinglogin(themeNotifier),
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10.0,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8, left: 8),
+                              child: Container(
+                                width: 600,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 0),
+                                    ),
+                                  ],
+                                  color: getContainerColor,
+                                ),
+                                child: TextField(
+                                  controller: emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  cursorColor: cursorColor,
+                                  style:
+                                      fontProvider.desktoplogin(themeNotifier),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 14, right: 10),
                                   ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10),
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.only(
+                          right: 8,
+                          left: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
@@ -180,13 +186,12 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                             Text(
                               'Please Enter Password',
                               textAlign: TextAlign.center,
-                              style:
-                                  fontProvider.subheadinglogin(themeNotifier),
+                              style: fontProvider.desktoplogin(themeNotifier),
                             ),
                             const SizedBox(height: 10),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
+                              padding: const EdgeInsets.only(
+                                  right: 8, left: 8, bottom: 8),
                               child: Container(
                                 width: 600,
                                 height: 40,
@@ -206,13 +211,13 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                                   controller: passwordController,
                                   obscureText: true,
                                   cursorColor: cursorColor,
-                                  style: fontProvider
-                                      .subheadinglogin(themeNotifier),
+                                  style:
+                                      fontProvider.desktoplogin(themeNotifier),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 14.0, horizontal: 16.0),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 10, right: 10),
                                   ),
                                 ),
                               ),
@@ -248,7 +253,7 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 TextButton(
                   onPressed: () => _forgotPassword(context),
                   child: Text(

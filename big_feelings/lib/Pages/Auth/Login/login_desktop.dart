@@ -92,6 +92,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 10),
                 Container(
                   width: 400,
                   padding: const EdgeInsets.symmetric(
@@ -115,56 +116,57 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding:
+                            const EdgeInsets.only(right: 8, left: 8, bottom: 8),
                         decoration: BoxDecoration(
                           color: getContainerColor,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Please Enter Email',
-                              textAlign: TextAlign.center,
-                              style: fontProvider.desktoplogin(themeNotifier),
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              width: 600,
-                              height: 40,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 0),
-                                  ),
-                                ],
-                                color: getContainerColor,
-                              ),
-                              child: TextField(
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                cursorColor: cursorColor,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Please Enter Password',
+                                textAlign: TextAlign.center,
                                 style: fontProvider.desktoplogin(themeNotifier),
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 12.0,
+                              ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 8, left: 8, bottom: 8),
+                                child: Container(
+                                  width: 600,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 0),
+                                      ),
+                                    ],
+                                    color: getContainerColor,
+                                  ),
+                                  child: TextField(
+                                    controller: emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    cursorColor: cursorColor,
+                                    style: fontProvider
+                                        .desktoplogin(themeNotifier),
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.only(
+                                          left: 18, bottom: 15, right: 10),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ]),
                       ),
-                      const SizedBox(height: 16),
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -182,8 +184,8 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                             ),
                             const SizedBox(height: 10),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
+                              padding: const EdgeInsets.only(
+                                  right: 8, left: 8, bottom: 8),
                               child: Container(
                                 width: 600,
                                 height: 40,
@@ -208,8 +210,8 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 18.0, horizontal: 16.0),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 15, right: 10),
                                   ),
                                 ),
                               ),

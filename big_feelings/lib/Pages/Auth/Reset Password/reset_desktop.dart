@@ -57,7 +57,7 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
   //! Pressed it executes the _sendPasswordResetEmail and then provides the user with an output.
   @override
   Widget build(BuildContext context) {
-    double imageWidth = 150;
+    double imageWidth = 160;
     return Consumer<ThemeNotifier>(
       builder: (context, themeNotifier, child) {
         Color cursorColor = themeNotifier.cursorColor();
@@ -146,8 +146,6 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
                               Container(
                                 width: 400,
                                 height: 40,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 16.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
                                   boxShadow: [
@@ -169,9 +167,8 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      vertical: 12.0,
-                                    ),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 18, bottom: 15, right: 10),
                                   ),
                                 ),
                               )

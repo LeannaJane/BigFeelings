@@ -95,4 +95,16 @@ class ThemeNotifier with ChangeNotifier {
   IconData getThemeIcon() {
     return _currentTheme == darkTheme ? Icons.brightness_2 : Icons.sunny;
   }
+
+  TextSelectionThemeData get textSelectionTheme {
+    return TextSelectionThemeData(
+      cursorColor: cursorColor(),
+      selectionHandleColor: _currentTheme == darkTheme
+          ? const Color.fromARGB(255, 155, 155, 155)
+          : Colors.grey,
+      selectionColor: _currentTheme == darkTheme
+          ? const Color.fromARGB(255, 155, 155, 155)
+          : Colors.grey,
+    );
+  }
 }
