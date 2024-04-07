@@ -211,7 +211,7 @@ class _PasswordResetDesktopState extends State<PasswordResetDesktop> {
                       child: Text(
                         _emailSent!
                             ? 'If your email is associated with an account, a password reset email has been sent.'
-                            : 'Invalid email format. Please enter a valid email address.',
+                            : 'Please type a valid email.',
                         textAlign: TextAlign.center,
                         style: _emailSent!
                             ? fontProvider.greentext()

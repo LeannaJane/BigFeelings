@@ -155,7 +155,7 @@ class _SignupMobileState extends State<SignupMobile> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        left: 18, bottom: 14, right: 10),
+                                        left: 18, bottom: 16, right: 10),
                                   ),
                                 ),
                               ),
@@ -211,7 +211,7 @@ class _SignupMobileState extends State<SignupMobile> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        left: 18, bottom: 10, right: 10),
+                                        left: 16, bottom: 14, right: 10),
                                   ),
                                 ),
                               ),
@@ -242,10 +242,14 @@ class _SignupMobileState extends State<SignupMobile> {
                         _emailController,
                         _passwordController,
                       ).then((_) {
-                        if (_signupError == null) {
-                          setState(() {
-                            _signupError = null;
-                          });
+                        if (_signupError != null) {
+                          Center(
+                            child: Text(
+                              _signupError!,
+                              style: fontProvider.errortext(),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
                         }
                       });
                     },

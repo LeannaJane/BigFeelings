@@ -160,7 +160,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
                                       contentPadding: EdgeInsets.only(
-                                          left: 18, bottom: 15, right: 10),
+                                          left: 18, bottom: 14, right: 10),
                                     ),
                                   ),
                                 ),

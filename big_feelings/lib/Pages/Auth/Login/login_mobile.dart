@@ -161,7 +161,7 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        left: 18, bottom: 14, right: 10),
+                                        left: 18, bottom: 16, right: 10),
                                   ),
                                 ),
                               ),
@@ -217,7 +217,7 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     contentPadding: EdgeInsets.only(
-                                        left: 18, bottom: 10, right: 10),
+                                        left: 18, bottom: 14, right: 10),
                                   ),
                                 ),
                               ),

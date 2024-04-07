@@ -60,8 +60,8 @@ class SignUpLogic {
     } on FirebaseAuthException catch (e) {
       logger.e('FirebaseAuthException: ${e.code}');
       logger.e('FirebaseAuthException Message: ${e.message}');
-      if (e.code == 'email-already-in-use') {
-        onError('The email address is already in use by another account.');
+      if (e.code == 'email-already-in-use.') {
+        onError('Email already in use');
       } else if (e.code == 'invalid-email') {
         onError('Please enter a valid email address.');
       } else if (e.code == 'weak-password') {

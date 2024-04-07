@@ -210,7 +210,7 @@ class _PasswordResetMobileState extends State<PasswordResetMobile> {
                       child: Text(
                         _emailSent!
                             ? 'If your email is associated with an account, a password reset email has been sent.'
-                            : 'Please type in a valid email',
+                            : 'Please type in a valid email.',
                         textAlign: TextAlign.center,
                         style: _emailSent!
                             ? fontProvider.greentext()
