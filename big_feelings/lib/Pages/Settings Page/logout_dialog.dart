@@ -3,12 +3,7 @@ import 'package:big_feelings/Classes/theme_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-/*
-! Reference:
-* Stack Overflow. (n.d.). How to prompt user to logout in flutter? [online] Available at: https://stackoverflow.com/questions/58210126/how-to-prompt-user-to-logout-in-flutter [Accessed 7 Feb. 2024].
-* This website was used to help me understand how to logout. But can be also used to return to another page or exit from the webpage.
-*/
-
+//? Ref 69
 class LogoutDialog {
   static void show(BuildContext context, ThemeNotifier themeNotifier,
       FontProvider fontProvider) {
@@ -100,13 +95,8 @@ class LogoutDialog {
     );
   }
 
-  /*
-  ! Reference
-  * GeeksforGeeks. (2022). Flutter - Implementing Signing Out the User. [online] Available at: https://www.geeksforgeeks.org/flutter-implementing-signing-out-the-user/ [Accessed 7 Feb. 2024].
-  * I origionally used the code provided from geekforgeeks but I kept recieving a error that you cannot use async with context. 
-  * So I changed it to a context.mounted.
-  */
-  // Method to handle logout
+  //? Ref 70
+  //! Method to handle logout
   static Future<void> _handleLogout(BuildContext context) async {
     await FirebaseAuth.instance
         //! Sign out the user using Firebase authentication
