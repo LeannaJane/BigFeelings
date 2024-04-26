@@ -1,4 +1,4 @@
-// ignore: file_names
+// ignore_for_file: file_names
 import 'dart:math';
 import 'package:big_feelings/Pages/Minigames%20Page/Memory%20card%20game/Logic/card.dart';
 import 'package:flutter/material.dart';

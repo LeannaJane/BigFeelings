@@ -6,7 +6,6 @@ import 'package:big_feelings/Pages/Auth/Login/login_logic.dart';
 import 'package:big_feelings/Pages/Settings%20Page/font_dialog.dart';
 import 'package:big_feelings/Pages/Settings%20Page/theme_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
