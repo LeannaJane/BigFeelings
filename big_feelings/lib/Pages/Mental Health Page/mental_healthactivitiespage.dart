@@ -19,7 +19,7 @@ class MentalHealthActivitiesPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Mental health acivities',
+            'Mental health activities',
             style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),

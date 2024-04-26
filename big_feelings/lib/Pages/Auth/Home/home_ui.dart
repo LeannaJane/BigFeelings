@@ -113,7 +113,7 @@ class HomePage extends StatelessWidget {
       'route': '/mental-health-activities',
     },
     {
-      'title': 'Your Journal',
+      'title': 'Journal',
       'icon': Icons.book,
       'route': '/journal-options',
     },

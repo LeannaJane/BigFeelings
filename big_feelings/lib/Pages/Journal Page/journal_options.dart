@@ -99,7 +99,7 @@ class JournalOptionPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        'Read past Journals',
+                        'View Journals',
                         style: fontProvider.subheading(themeNotifier),
                       ),
                     ),
