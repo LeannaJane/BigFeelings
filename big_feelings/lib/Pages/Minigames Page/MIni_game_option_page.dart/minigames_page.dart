@@ -17,7 +17,7 @@ class MiniGamesPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Mini Games',
+            'Mini Games Options',
             style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),

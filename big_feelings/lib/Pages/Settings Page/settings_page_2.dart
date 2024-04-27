@@ -121,7 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: ListTile(
                   title: Center(
                     child: Text(
-                      'Customise Theme',
+                      'Customise Themes',
                       style: fontProvider.subheadinglogin(themeNotifier),
                     ),
                   ),

@@ -109,7 +109,7 @@ class MoodOptionPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         //! View your mood entries option. forwards them to the mood entry page.
-                        'View Your Mood Entries',
+                        'View Mood Entries',
                         style: fontProvider.subheading(themeNotifier),
                       ),
                     ),

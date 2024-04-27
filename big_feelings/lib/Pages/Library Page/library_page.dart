@@ -17,7 +17,7 @@ class LibraryPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Library',
+            'Library Options',
             style: fontProvider.getOtherTitleStyle(themeNotifier),
             textAlign: TextAlign.center,
           ),
