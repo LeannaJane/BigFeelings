@@ -127,7 +127,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Please Enter Password',
+                                'Please Enter Email',
                                 textAlign: TextAlign.center,
                                 style: fontProvider.desktoplogin(themeNotifier),
                               ),
@@ -151,6 +151,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                                     color: getContainerColor,
                                   ),
                                   child: TextField(
+                                    key: const Key('emailTextField'),
                                     controller: emailController,
                                     keyboardType: TextInputType.emailAddress,
                                     cursorColor: cursorColor,
@@ -202,6 +203,7 @@ class _LoginPageDesktopState extends State<LoginPageDesktop> {
                                   color: getContainerColor,
                                 ),
                                 child: TextField(
+                                  key: const Key('passwordTextField'),
                                   controller: passwordController,
                                   obscureText: true,
                                   cursorColor: cursorColor,
