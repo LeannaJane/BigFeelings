@@ -63,7 +63,7 @@ class SignUpLogic {
       if (e.code == 'email-already-in-use.') {
         onError('Email already in use');
       } else if (e.code == 'invalid-email') {
-        onError('Please enter a valid email address.');
+        onError('Invalid email format. Please check your email address.');
       } else if (e.code == 'weak-password') {
         onError('Password should be at least 6 characters.');
       } else {

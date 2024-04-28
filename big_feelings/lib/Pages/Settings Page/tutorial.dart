@@ -37,7 +37,7 @@ class Tutorial extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Tutorial',
+              'Help',
               style: fontProvider.getOtherTitleStyle(themeNotifier),
               textAlign: TextAlign.center,
             ),
