@@ -5,6 +5,7 @@ import 'package:big_feelings/Firebase/firebase_config.dart';
 import 'package:big_feelings/Routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dcdg/dcdg.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
