@@ -1,0 +1,76 @@
+@startuml UIComponentsAndTheming
+set namespaceSeparator ::
+
+class "big_feelings::Classes::bottom_app_bar.dart.dart::CustomBottomAppBar" {
+  +void Function() onHomePressed
+  +void Function() onSettingsPressed
+  +Widget build()
+}
+"big_feelings::Classes::bottom_app_bar.dart.dart::CustomBottomAppBar" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Classes::bottom_app_bar.dart.dart::CustomBottomAppBar"
+
+class "big_feelings::Classes::floating_buttons_bar.dart::FloatingButtonsBar" {
+  +double height
+  +double width
+  +double bottomOffset
+  +double leftOffset
+  +Widget build()
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Classes::floating_buttons_bar.dart::FloatingButtonsBar"
+
+class "big_feelings::Classes::font_provider.dart::FontProvider" {
+  -String _selectedFontFamily
+  -List<String> _supportedFontFamilies
+  +String selectedFontFamily
+  +List<String> supportedFontFamilies
+  +dynamic setFontFamily()
+  +dynamic loadSelectedFontFamily()
+  +TextStyle getRegularFontStyle()
+  +TextStyle getOtherTitleStyle()
+  +TextStyle getTitleFontStyle()
+  +TextStyle smalltextfontstyle1()
+  +TextStyle breathingtext()
+  +TextStyle smalltextfontstyle()
+  +TextStyle subheading()
+  +TextStyle subheadingbold()
+  +TextStyle subheadinglogin()
+  +TextStyle desktoplogin()
+  +TextStyle subheadingBig()
+  +TextStyle buttonText()
+  +TextStyle getSubTitleStyle()
+  +TextStyle errortext()
+  +TextStyle greentext()
+  +TextStyle fontstylenotbald()
+  +TextStyle calenderText()
+  +TextStyle quiztextquestion()
+  +TextStyle quiztext()
+  +TextStyle libarytext()
+  +TextStyle description()
+  +TextStyle close()
+  +TextStyle subheadingBigBald()
+  +TextStyle smalltextalert()
+  +TextStyle errormessages()
+}
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Classes::font_provider.dart::FontProvider"
+
+class "big_feelings::Classes::theme_notifier.dart::ThemeNotifier" {
+  {static} +ThemeData lightTheme
+  {static} +ThemeData darkTheme
+  -ThemeData _currentTheme
+  +ThemeData currentTheme
+  +TextSelectionThemeData textSelectionTheme
+  +void setTheme()
+  -dynamic _loadThemePreference()
+  -dynamic _saveThemePreference()
+  +Color getIconColor()
+  +Color getContainerColor()
+  +Color hoverColour()
+  +Color getOutlineColor()
+  +Color cursorColor()
+  +IconData getThemeIcon()
+}
+"big_feelings::Classes::theme_notifier.dart::ThemeNotifier" o-- "flutter::src::material::theme_data.dart::ThemeData"
+"big_feelings::Classes::theme_notifier.dart::ThemeNotifier" o-- "flutter::src::material::text_selection_theme.dart::TextSelectionThemeData"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Classes::theme_notifier.dart::ThemeNotifier"
+
+@enduml

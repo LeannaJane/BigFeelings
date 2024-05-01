@@ -1,0 +1,438 @@
+@startuml BigFeelings_Logout
+
+' Major Application Components
+class MyApp
+
+' Relationships
+MyApp --> WelcomePage
+WelcomePage --> Signupdesktop
+WelcomePage --> SignupMobile
+WelcomePage --> LoginPageMobile
+WelcomePage --> LoginPageDesktop
+SignupMobile --> TermsAndPrivacyDialog
+Signupdesktop --> TermsAndPrivacyDialog
+
+LoginPageMobile --> PasswordResetMobile
+LoginPageDesktop --> PasswordResetDesktop
+
+LoginPageDesktop --> HomePage
+LoginPageMobile --> HomePage
+LogoutDialog --> WelcomePage
+DeleteAccountDialog--> WelcomePage
+
+HomePage --> MentalHealthActivitiesPage
+HomePage --> MoodOptions
+HomePage --> LibraryPage
+HomePage --> SettingsPage
+HomePage --> JournalOptionPage
+HomePage --> QuizOption
+HomePage --> MiniGamesPage
+MiniGamesPage --> StartGame
+StartGame --> GameBoard
+StartGame --> GameBoardMobile
+
+MentalHealthActivitiesPage --> BreathingPage
+QuizOption --> Quizzes
+QuizOption --> QuizResults
+MoodOptions --> MoodTrackerPage
+MoodOptions --> MoodEntriesPage
+JournalOptionPage --> JournalEntriesPage
+JournalOptionPage --> JournalViewer
+LibraryPage --> VideoOptions
+LibraryPage --> CopingMethods
+
+SettingsPage --> LogoutDialog
+SettingsPage --> DeleteAccountDialog
+SettingsPage --> FontDropdownDialog
+SettingsPage --> ThemeDropdownDialog
+SettingsPage --> Tutorial
+MyApp --> DefaultFirebaseOptions
+
+FontDropdownDialog --> FontProvider
+ThemeDropdownDialog --> ThemeNotifier
+Quizzes --> QuizPage1
+Quizzes --> QuizPage2
+QuizPage1 --> StartQuiz1
+QuizPage2  --> StartQuiz2
+class QuizOption {
+    + const QuizOption()
+    + build(): Widget
+}
+class Quizzes {
+    + Quizzes()
+    + build(): Widget
+}
+
+class QuizResults {
+    + QuizResults()
+    + build(): Widget
+    - logger: Logger
+}
+class QuizPage1 {
+    + QuizPage1()
+    - showQuiz: bool
+    + build(): Widget
+}
+class QuizPage2 {
+    + QuizPage2()
+    - showQuiz: bool
+    + build(): Widget
+}
+
+class DefaultFirebaseOptions {
+    - static FirebaseOptions web
+    - static FirebaseOptions android
+    - static FirebaseOptions ios
+    - static FirebaseOptions currentPlatform
+    + DefaultFirebaseOptions()
+}
+class StartQuiz1 {
+    + StartQuiz1()
+    - quizData: List<>
+    - currentQuestionIndex: int
+    - userAnswers: List<>
+    - showScore: bool
+    - score: int
+    + initState()
+    + fetchQuizData(): Future<void>
+    + submitAnswer()
+    + submitQuiz(): Future<void>
+    + calculateScore(): int
+    + showMessage()
+    + build(): Widget
+}
+class StartQuiz2 {
+    + StartQuiz2()
+    - quizData: List<>
+    - currentQuestionIndex: int
+    - userAnswers: List<>
+    - showScore: bool
+    - score: int
+    + initState()
+    + fetchQuizData(): Future<void>
+    + submitAnswer()
+    + submitQuiz(): Future<void>
+    + calculateScore(): int
+    + showMessage()
+    + build(): Widget
+}
+class LibraryPage {
+    + build(): Widget
+}
+
+class JournalEntriesPage {
+    - _entries: List<>
+    - _focusedDay: DateTime
+    - _textController: TextEditingController
+    - _firestore: FirebaseFirestore
+    - _lastjournalEntryTime: DateTime?
+    - _debounceTimer: Timer?
+    - _journalSelectionCount: int
+    + initState()
+    + dispose()
+    + isDesktop(): bool
+    + isDesktop2(): bool
+    + checkssize(): int
+    + _containerSize(): double
+    + _containerSizewidth(): double
+    + retrieveEntries()
+    + _hasEntryForDate(): bool
+    + _saveJournalEntry()
+    + build(): Widget
+}
+class BreathingPage {
+    - AnimationController _controller
+    - Timer? _timer
+    - bool _isBreathing
+    - bool _isAnimating
+    - Color? selectedColour
+    - bool inhale
+    - final Duration cycleDuration
+    - int _secondsElapsed
+    - Timer _timerHandler
+    - List<> availableColours
+    - Map<> colorNames
+    + initState(): void
+    + void _startTimer(): void
+    + void _startPulsatingAnimation(): void
+    + void _showPopupMenu(): void
+    + String colourName(): String
+    + dispose(): void
+    + Widget build(): Widget
+}
+
+class MentalHealthActivitiesPage {
+    + build(): Widget
+}
+class CopingMethods {
+    - bool _isPaused
+    - Color selectedColor
+    + initState(): void
+    + void _togglePause(): void
+    + String _getCopingMethodDescription(): String
+    + Widget build(): Widget
+    - void _showCopingMethodDialog(): void
+}
+
+class VideoOptions {
+    - _launchURL(): void
+    + build(BuildContext context): Widget
+    - Widget buildVideoContainer(): Widget
+}
+
+
+class JournalOptionPage {
+    - build(): Widget
+}
+
+class JournalViewer {
+    - build(): Widget
+}
+
+
+Class ThemeNotifier {
+ - _currentTheme: ThemeData
++ currentTheme: ThemeData
++ setTheme(): void
+- _loadThemePreference(): Future<void>
+- _saveThemePreference(): Future<void>
++ getIconColor(): Color
++ getContainerColor(): Color
++ hoverColour(): Color
++ getOutlineColor(): Color
++ cursorColor(): Color
++ getThemeIcon(): IconData
++ textSelectionTheme: TextSelectionThemeData
+}
+Class FontProvider {
+ - _selectedFontFamily: String
+- _supportedFontFamilies: List<String>
++ selectedFontFamily: String
++ supportedFontFamilies: List<String>
++ setFontFamily(): Future<void>
++ loadSelectedFontFamily(): Future<void>
++ getRegularFontStyle(): TextStyle
++ getOtherTitleStyle(): TextStyle
++ getTitleFontStyle(): TextStyle
++ smalltextfontstyle1(): TextStyle
++ breathingtext(): TextStyle
++ smalltextfontstyle(): TextStyle
++ subheading(): TextStyle
++ subheadingbold(): TextStyle
++ subheadinglogin(): TextStyle
++ desktoplogin(): TextStyle
++ subheadingBig(): TextStyle
++ buttonText(): TextStyle
++ getSubTitleStyle(): TextStyle
++ errortext(): TextStyle
++ greentext(): TextStyle
++ fontstylenotbald(): TextStyle
++ calenderText(): TextStyle
++ quiztextquestion(): TextStyle
++ quiztext(): TextStyle
++ libarytext(): TextStyle
++ description(): TextStyle
++ close(): TextStyle
++ subheadingBigBald(): TextStyle
++ smalltextalert(): TextStyle
++ errormessages(): TextStyle
+}
+
+
+' Logout and Delete Account Flow
+class LoginPageDesktop {
+    - emailController: TextEditingController
+    - passwordController: TextEditingController
+    + initState(): void
+    - _loginError: String
+    + _handleLogin(): void
+    + _forgotPassword(): void
+    + _clearError(): void
+    + build(BuildContext): Widget
+}
+class LoginPageMobile {
+    + initState(): void
+    - emailController: TextEditingController
+    - passwordController: TextEditingController
+    - _loginError: String
+    + _handleLogin(): void
+    + _forgotPassword(): void
+    + _clearError(): void
+    + build(BuildContext): Widget
+}
+
+class PasswordResetDesktop {
+    - emailController: TextEditingController
+    - _emailSent: bool
+
+    + initState(): void
+    + _clearError(): void
+    + _sendPasswordResetEmail(): void
+    + build(): Widget
+}
+class PasswordResetMobile {
+    - emailController: TextEditingController
+    - _emailSent: bool
+    + initState(): void
+    + _clearError(): void
+    + _sendPasswordResetEmail(): void
+    + build(): Widget
+}
+
+class HomePage {
+    + build(): Widget
+    - navigateToPage(): void
+    - menuItems: List<>
+    - menuItem(): Widget
+}
+
+class WelcomePage {
+    - double imageWidth
+    - double containerWidth
+    - double containerHeight
+    - double buttonWidth
+    - double buttonHeight
+    + WelcomePage()
+    + build(): Widget
+    + isDesktop(): bool
+    + navigatetologin(): void
+    + navigatesignup(): void
+}
+
+class TermsAndPrivacyDialog {
+    - bool showTerms
+    + _buildTermsContent(): Widget
+    + _buildPrivacyContent(): Widget
+    + build(): Widget
+}
+
+class SignupMobile {
+    - _emailController: TextEditingController
+    - _passwordController: TextEditingController
+    - _signupError: String?
+    + initState(): void
+    + _clearError(): void
+    + build(BuildContext): Widget
+}
+class Signupdesktop {
+    - _emailController: TextEditingController
+    - _passwordController: TextEditingController
+    - _signupError: String?
+    + initState(): void
+    + _clearError(): void
+    + build(BuildContext): Widget
+}
+
+class MoodEntriesPage {
+    - logger: Logger
+    + MoodEntriesPage()
+    + build(): Widget
+}
+class MoodOptions {
+    + MoodOptionPage()
+    + build(): Widget
+}
+class MoodTrackerPage {
+   - int selectedEmotionIndex
+   - bool showImage
+   - bool showDescription
+   - FirebaseFirestore _firestore
+   - DateTime _focusedDay
+   - List<DocumentSnapshot> _moods
+   - DateTime? _lastMoodEntryTime
+   - Timer? _debounceTimer
+   - int _moodSelectionCount
+   + initState()
+   + _navigateForward()
+   + _navigateBackward()
+   + retrieveEntries()
+   + _hasEntryForDate()
+   + _saveMoodToFirestore()
+   + build(): Widget
+}
+class MiniGamesPage {
+    build(): Widget
+}
+
+class StartGame {
+    - showQuiz: bool
+    - selectedColor: Color
+    - colorSelected: bool
+    + getColorName(): String
+    + navigateToGame(): void
+    + build(): Widget
+}
+
+class GameBoardMobile {
+  - timer: Timer
+  - game: Game
+  - duration: Duration
+  - bestTime: int
+  - showConfetti: bool
+  - isPaused: bool
+  + initState(): void
+  + dispose(): void
+  + getBestTime(): Future<void>
+  + saveBestTime(): Future<void>
+  + startTimer(): void
+  + _resetGame(): void
+  + _pauseGame(): void
+  + build(): Widget
+}
+class GameBoard {
+  - timer: Timer
+  - game: Game
+  - duration: Duration
+  - bestTime: int
+  - showConfetti: bool
+  - isPaused: bool
+  + initState(): void
+  + dispose(): void
+  + getBestTime(): Future<void>
+  + saveBestTime(): Future<void>
+  + startTimer(): void
+  + _resetGame(): void
+  + _pauseGame(): void
+  + build(): Widget
+}
+
+class DeleteAccountDialog {
+  + logger: Logger
+  + show(): void
+  + _buildCancelButton(): Widget
+  + _buildDeleteButton(): Widget
+  + _handleDelete(): void
+  + deleteUserAccount(): Future<String>
+}
+
+class Tutorial {
+  - _launchURL(): void
+  + build(): Widget
+}
+
+class ThemeDropdownDialog {
+  - fontProvider: FontProvider
+  - themeNotifier: ThemeNotifier
+  + ThemeDropdownDialog()
+  + build(): Widget
+}
+
+class SettingsPage {
+  - menuItemSpacing: double
+  + SettingsPage()
+  + build(BuildContext): Widget
+}
+
+class LogoutDialog {
+  + show(): void
+  - _buildCancelButton(): Widget
+  - _buildLogoutButton(): Widget
+  - _handleLogout(): Future<void>
+}
+
+class FontDropdownDialog {
+  + FontDropdownDialog()
+  - build(BuildContext): Widget
+}
+
+@enduml

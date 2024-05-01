@@ -1,0 +1,831 @@
+@startuml BigFeelings
+set namespaceSeparator ::
+
+class "big_feelings::Classes::authentication_refresh.dart::AuthenticationWrapper" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Classes::authentication_refresh.dart::AuthenticationWrapper"
+
+class "big_feelings::Classes::bottom_app_bar.dart.dart::CustomBottomAppBar" {
+  +void Function() onHomePressed
+  +void Function() onSettingsPressed
+  +Widget build()
+}
+
+"big_feelings::Classes::bottom_app_bar.dart.dart::CustomBottomAppBar" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Classes::bottom_app_bar.dart.dart::CustomBottomAppBar"
+
+class "big_feelings::Classes::floating_buttons_bar.dart::FloatingButtonsBar" {
+  +double height
+  +double width
+  +double bottomOffset
+  +double leftOffset
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Classes::floating_buttons_bar.dart::FloatingButtonsBar"
+
+class "big_feelings::Classes::font_provider.dart::FontProvider" {
+  -String _selectedFontFamily
+  -List<String> _supportedFontFamilies
+  +String selectedFontFamily
+  +List<String> supportedFontFamilies
+  +dynamic setFontFamily()
+  +dynamic loadSelectedFontFamily()
+  +TextStyle getRegularFontStyle()
+  +TextStyle getOtherTitleStyle()
+  +TextStyle getTitleFontStyle()
+  +TextStyle smalltextfontstyle1()
+  +TextStyle breathingtext()
+  +TextStyle smalltextfontstyle()
+  +TextStyle subheading()
+  +TextStyle subheadingbold()
+  +TextStyle subheadinglogin()
+  +TextStyle desktoplogin()
+  +TextStyle subheadingBig()
+  +TextStyle buttonText()
+  +TextStyle getSubTitleStyle()
+  +TextStyle errortext()
+  +TextStyle greentext()
+  +TextStyle fontstylenotbald()
+  +TextStyle calenderText()
+  +TextStyle quiztextquestion()
+  +TextStyle quiztext()
+  +TextStyle libarytext()
+  +TextStyle description()
+  +TextStyle close()
+  +TextStyle subheadingBigBald()
+  +TextStyle smalltextalert()
+  +TextStyle errormessages()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Classes::font_provider.dart::FontProvider"
+
+class "big_feelings::Classes::route_animations.dart::RouteAnimations" {
+  {static} +PageRouteBuilder<dynamic> forwardAnimation()
+  {static} +PageRouteBuilder<dynamic> instantAnimation()
+  {static} +PageRouteBuilder<dynamic> backAnimation()
+  {static} +PageRouteBuilder<dynamic> piggyBackingAnimation()
+}
+
+class "big_feelings::Classes::theme_notifier.dart::ThemeNotifier" {
+  {static} +ThemeData lightTheme
+  {static} +ThemeData darkTheme
+  -ThemeData _currentTheme
+  +ThemeData currentTheme
+  +TextSelectionThemeData textSelectionTheme
+  +void setTheme()
+  -dynamic _loadThemePreference()
+  -dynamic _saveThemePreference()
+  +Color getIconColor()
+  +Color getContainerColor()
+  +Color hoverColour()
+  +Color getOutlineColor()
+  +Color cursorColor()
+  +IconData getThemeIcon()
+}
+
+"big_feelings::Classes::theme_notifier.dart::ThemeNotifier" o-- "flutter::src::material::theme_data.dart::ThemeData"
+"big_feelings::Classes::theme_notifier.dart::ThemeNotifier" o-- "flutter::src::material::text_selection_theme.dart::TextSelectionThemeData"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Classes::theme_notifier.dart::ThemeNotifier"
+
+class "big_feelings::Firebase::firebase_options.dart::DefaultFirebaseOptions" {
+  {static} +FirebaseOptions web
+  {static} +FirebaseOptions android
+  {static} +FirebaseOptions ios
+  {static} +FirebaseOptions currentPlatform
+}
+
+"big_feelings::Firebase::firebase_options.dart::DefaultFirebaseOptions" o-- "firebase_core_platform_interface::firebase_core_platform_interface.dart::FirebaseOptions"
+
+class "big_feelings::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::main.dart::MyApp"
+
+class "big_feelings::Pages::Auth::Home::home_ui.dart::HomePage" {
+  +List<Map<String, dynamic>> menuItems
+  +Widget build()
+  +void navigateToPage()
+  +Widget menuItem()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::Home::home_ui.dart::HomePage"
+
+class "big_feelings::Pages::Auth::Home::image_selector.dart::ImageSelector" {
+  +_ImageSelectorState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Home::image_selector.dart::ImageSelector"
+
+class "big_feelings::Pages::Auth::Home::image_selector.dart::_ImageSelectorState" {
+  +String selectedImage
+  +List<String> images
+  +void initState()
+  +dynamic loadSelectedImage()
+  +Widget build()
+  -dynamic _showImageSelectionDialog()
+  +dynamic saveSelectedImage()
+  -double _checkImageSize()
+  -double _checkImageSize2()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Home::image_selector.dart::_ImageSelectorState"
+
+class "big_feelings::Pages::Auth::Login::login_desktop.dart::LoginPageDesktop" {
+  +_LoginPageDesktopState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Login::login_desktop.dart::LoginPageDesktop"
+
+class "big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -String? _loginError
+  +void initState()
+  -void _clearError()
+  -void _forgotPassword()
+  +Widget build()
+  -void _handleLogin()
+}
+
+"big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState"
+
+class "big_feelings::Pages::Auth::Login::login_logic.dart::LoginLogic" {
+  {static} +void login()
+}
+
+class "big_feelings::Pages::Auth::Login::login_mobile.dart::LoginMobilePage" {
+  +_LoginMobilePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Login::login_mobile.dart::LoginMobilePage"
+
+class "big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -String? _loginError
+  +void initState()
+  -void _clearError()
+  -void _forgotPassword()
+  +Widget build()
+  -void _handleLogin()
+}
+
+"big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::PasswordResetDesktop" {
+  +_PasswordResetDesktopState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::PasswordResetDesktop"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::_PasswordResetDesktopState" {
+  +TextEditingController emailController
+  -bool? _emailSent
+  +void initState()
+  -void _clearError()
+  -void _sendPasswordResetEmail()
+  +Widget build()
+}
+
+"big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::_PasswordResetDesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::_PasswordResetDesktopState"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::PasswordResetMobile" {
+  +_PasswordResetMobileState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::PasswordResetMobile"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::_PasswordResetMobileState" {
+  +TextEditingController emailController
+  -bool? _emailSent
+  +void initState()
+  -void _clearError()
+  -void _sendPasswordResetEmail()
+  +Widget build()
+}
+
+"big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::_PasswordResetMobileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::_PasswordResetMobileState"
+
+class "big_feelings::Pages::Auth::Sign%20up::errors_signup.dart::SignUpLogic" {
+  {static} +dynamic signup()
+}
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::Signupdesktop" {
+  +_SignupdesktopState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::Signupdesktop"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -String? _signupError
+  +void initState()
+  -void _clearError()
+  +Widget build()
+}
+
+"big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::SignupMobile" {
+  +_SignupMobileState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::SignupMobile"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -String? _signupError
+  +void initState()
+  -void _clearError()
+  +Widget build()
+}
+
+"big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState"
+
+class "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::TermsAndPrivacyDialog" {
+  +_TermsAndPrivacyDialogState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::TermsAndPrivacyDialog"
+
+class "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::_TermsAndPrivacyDialogState" {
+  +bool showTerms
+  +Widget build()
+  -Widget _buildTermsContent()
+  -Widget _buildPrivacyContent()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::_TermsAndPrivacyDialogState"
+
+class "big_feelings::Pages::Auth::welcome_page.dart::WelcomePage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::welcome_page.dart::WelcomePage"
+
+class "big_feelings::Pages::Journal%20Page::journal_entries.dart::JournalEntriesPage" {
+  +_JournalEntriesPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Journal%20Page::journal_entries.dart::JournalEntriesPage"
+
+class "big_feelings::Pages::Journal%20Page::journal_entries.dart::_JournalEntriesPageState" {
+  -List<DocumentSnapshot<Object?>> _entries
+  -DateTime _focusedDay
+  -TextEditingController _textController
+  -FirebaseFirestore _firestore
+  -DateTime? _lastjournalEntryTime
+  -Timer? _debounceTimer
+  -int _journalSelectionCount
+  +void initState()
+  +void dispose()
+  +bool isDesktop()
+  +bool isDesktop2()
+  +int checkssize()
+  -double _containerSize()
+  -double _containerSizewidth()
+  +void retrieveEntries()
+  -bool _hasEntryForDate()
+  -void _saveJournalEntry()
+  +Widget build()
+}
+
+"big_feelings::Pages::Journal%20Page::journal_entries.dart::_JournalEntriesPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"big_feelings::Pages::Journal%20Page::journal_entries.dart::_JournalEntriesPageState" o-- "cloud_firestore::cloud_firestore.dart::FirebaseFirestore"
+"big_feelings::Pages::Journal%20Page::journal_entries.dart::_JournalEntriesPageState" o-- "dart::async::Timer"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Journal%20Page::journal_entries.dart::_JournalEntriesPageState"
+
+class "big_feelings::Pages::Journal%20Page::journal_options.dart::JournalOptionPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Journal%20Page::journal_options.dart::JournalOptionPage"
+
+class "big_feelings::Pages::Journal%20Page::view_journals.dart::JournalViewer" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Journal%20Page::view_journals.dart::JournalViewer"
+
+class "big_feelings::Pages::Library%20Page::Educational%20Videos::video_option_page.dart::VideoOptions" {
+  -void _launchURL()
+  +Widget build()
+  +Widget buildVideoContainer()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Library%20Page::Educational%20Videos::video_option_page.dart::VideoOptions"
+
+class "big_feelings::Pages::Library%20Page::Getting%20Help::colors_help.dart::Colordialogcope" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Library%20Page::Getting%20Help::colors_help.dart::Colordialogcope"
+
+class "big_feelings::Pages::Library%20Page::Getting%20Help::coping_methods.dart::CopingMethods" {
+  +_CopingMethodsState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Library%20Page::Getting%20Help::coping_methods.dart::CopingMethods"
+
+class "big_feelings::Pages::Library%20Page::Getting%20Help::coping_methods.dart::_CopingMethodsState" {
+  -bool _isPaused
+  +Color selectedColor
+  +void initState()
+  -void _togglePause()
+  -String _getCopingMethodDescription()
+  +Widget build()
+  -void _showCopingMethodDialog()
+}
+
+"big_feelings::Pages::Library%20Page::Getting%20Help::coping_methods.dart::_CopingMethodsState" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Library%20Page::Getting%20Help::coping_methods.dart::_CopingMethodsState"
+
+class "big_feelings::Pages::Library%20Page::Getting%20Help::list.dart::CopingDescriptions" {
+  {static} +String getDescription()
+}
+
+class "big_feelings::Pages::Library%20Page::library_page.dart::LibraryPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Library%20Page::library_page.dart::LibraryPage"
+
+class "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::BreathingPage" {
+  +_BreathingPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::BreathingPage"
+
+class "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::_BreathingPageState" {
+  -AnimationController _controller
+  -Timer? _timer
+  -bool _isBreathing
+  -bool _isAnimating
+  +Color? selectedColour
+  +bool inhale
+  +Duration cycleDuration
+  -int _secondsElapsed
+  -Timer _timerHandler
+  +List<Color> availableColours
+  +Map<Color, String> colorNames
+  -String? _currentMessage
+  +String colourName()
+  +void initState()
+  -void _startTimer()
+  -void _startPulsatingAnimation()
+  -void _showPopupMenu()
+  +void dispose()
+  +Widget build()
+}
+
+"big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::_BreathingPageState" o-- "flutter::src::animation::animation_controller.dart::AnimationController"
+"big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::_BreathingPageState" o-- "dart::async::Timer"
+"big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::_BreathingPageState" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::_BreathingPageState"
+"flutter::src::widgets::ticker_provider.dart::SingleTickerProviderStateMixin" <|-- "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::breathing_page.dart::_BreathingPageState"
+
+class "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::pulsating_animation.dart::PulsatingCirclesPainter" {
+  -Animation<double> _animation
+  -Color _selectedColor
+  -bool _inhale
+  -FontProvider _fontProvider
+  +void drawPulsatingCircle()
+  +void paint()
+  +bool shouldRepaint()
+}
+
+"big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::pulsating_animation.dart::PulsatingCirclesPainter" o-- "flutter::src::animation::animation.dart::Animation<double>"
+"big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::pulsating_animation.dart::PulsatingCirclesPainter" o-- "dart::ui::Color"
+"big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::pulsating_animation.dart::PulsatingCirclesPainter" o-- "big_feelings::Classes::font_provider.dart::FontProvider"
+"flutter::src::rendering::custom_paint.dart::CustomPainter" <|-- "big_feelings::Pages::Mental%20Health%20Page::Breathing%20Page::pulsating_animation.dart::PulsatingCirclesPainter"
+
+class "big_feelings::Pages::Mental%20Health%20Page::mental_healthactivitiespage.dart::MentalHealthActivitiesPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Mental%20Health%20Page::mental_healthactivitiespage.dart::MentalHealthActivitiesPage"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardItem" {
+  +int value
+  +String imagePath
+  +Color color
+  +CardState state
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardItem" o-- "dart::ui::Color"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardItem" o-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardState"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardState" {
+  +int index
+  {static} +List<CardState> values
+  {static} +CardState hidden
+  {static} +CardState visible
+  {static} +CardState guessed
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardState" o-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardState"
+"dart::core::Enum" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardState"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::color.dart::ColorDialog" {
+  +List<Color> colors
+  +List<String> colorNames
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::color.dart::ColorDialog"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::confetti.dart::GameConfetti" {
+  +State<GameConfetti> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::confetti.dart::GameConfetti"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::confetti.dart::_GameConfettiState" {
+  +ConfettiController controllerCenter
+  +void initState()
+  +void dispose()
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::confetti.dart::_GameConfettiState" o-- "confetti::src::confetti.dart::ConfettiController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::confetti.dart::_GameConfettiState"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::GameBoard" {
+  +Color color
+  +_GameBoardState createState()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::GameBoard" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::GameBoard"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::_GameBoardState" {
+  +Timer timer
+  +Game game
+  +Duration duration
+  +int bestTime
+  +bool showConfetti
+  +bool isPaused
+  +void initState()
+  +void dispose()
+  +void getBestTime()
+  +dynamic saveBestTime()
+  +dynamic startTimer()
+  -void _resetGame()
+  -void _pauseGame()
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::_GameBoardState" o-- "dart::async::Timer"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::_GameBoardState" o-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::game.dart::Game"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::desktop_ui.dart::_GameBoardState"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::Game.dart::Game" {
+  +List<CardItem> cards
+  +bool isGameOver
+  +List<String> imagePaths
+  -bool _processing
+  -List<int> _visibleCardIndexes
+  +int gridSize
+  +void generateCardsAndImages()
+  +void resetGame()
+  +void onCardPressed()
+  -List<CardItem> _createCardItems()
+  -bool _isGameOver()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::Game.dart::Game"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::GameBoardMobile" {
+  +Color color
+  +State<GameBoardMobile> createState()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::GameBoardMobile" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::GameBoardMobile"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::_GameBoardMobileState" {
+  +Timer timer
+  +Game game
+  +Duration duration
+  +int bestTime
+  +bool showConfetti
+  +bool isPaused
+  +void initState()
+  +void dispose()
+  +void getBestTime()
+  +dynamic saveBestTime()
+  +dynamic startTimer()
+  -void _resetGame()
+  -void _pauseGame()
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::_GameBoardMobileState" o-- "dart::async::Timer"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::_GameBoardMobileState" o-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::game.dart::Game"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::mobile_ui.dart::_GameBoardMobileState"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::pause_game.dart::PauseGame" {
+  +bool isPaused
+  +void Function() pauseGame
+  +Color color
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::pause_game.dart::PauseGame" o-- "null::void Function()"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::pause_game.dart::PauseGame" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::pause_game.dart::PauseGame"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::restart.dart::RestartGame" {
+  +bool isGameOver
+  +void Function() restartGame
+  +Color color
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::restart.dart::RestartGame" o-- "null::void Function()"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::restart.dart::RestartGame" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::restart.dart::RestartGame"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::start_game.dart::StartGame" {
+  +_StartGameState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::start_game.dart::StartGame"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::start_game.dart::_StartGameState" {
+  +bool showQuiz
+  +Color selectedColor
+  +bool colorSelected
+  +bool isDesktop()
+  +String getColorName()
+  +void navigateToGame()
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::start_game.dart::_StartGameState" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::start_game.dart::_StartGameState"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::time.dart::GameTimer" {
+  +Duration time
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::time.dart::GameTimer"
+
+class "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::user_interface_cards.dart::MemoryCard" {
+  +int index
+  +CardItem card
+  +void Function(int) onCardPressed
+  +Color frontColor
+  +bool isPaused
+  +double cardSize
+  +Color backColor
+  +Widget build()
+}
+
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::user_interface_cards.dart::MemoryCard" o-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::card.dart::CardItem"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::user_interface_cards.dart::MemoryCard" o-- "null::void Function(int)"
+"big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::user_interface_cards.dart::MemoryCard" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Minigames%20Page::Memory%20card%20game::Logic::user_interface_cards.dart::MemoryCard"
+
+class "big_feelings::Pages::Minigames%20Page::MIni_game_option_page.dart::minigames_page.dart::MiniGamesPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Minigames%20Page::MIni_game_option_page.dart::minigames_page.dart::MiniGamesPage"
+
+class "big_feelings::Pages::Mood%20Tracker::mood_entires_page.dart::MoodEntriesPage" {
+  +Logger logger
+  +Widget build()
+}
+
+"big_feelings::Pages::Mood%20Tracker::mood_entires_page.dart::MoodEntriesPage" o-- "logger::src::logger.dart::Logger"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Mood%20Tracker::mood_entires_page.dart::MoodEntriesPage"
+
+class "big_feelings::Pages::Mood%20Tracker::mood_option_page.dart::MoodOptionPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Mood%20Tracker::mood_option_page.dart::MoodOptionPage"
+
+class "big_feelings::Pages::Mood%20Tracker::mood_tracker_page.dart::MoodTrackerPage" {
+  +_MoodTrackerPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Mood%20Tracker::mood_tracker_page.dart::MoodTrackerPage"
+
+class "big_feelings::Pages::Mood%20Tracker::mood_tracker_page.dart::_MoodTrackerPageState" {
+  +int selectedEmotionIndex
+  +bool showImage
+  +bool showDescription
+  -FirebaseFirestore _firestore
+  -DateTime _focusedDay
+  -List<DocumentSnapshot<Object?>> _moods
+  -DateTime? _lastMoodEntryTime
+  -Timer? _debounceTimer
+  -int _moodSelectionCount
+  +bool isDesktop2()
+  -double _containerSizewidth()
+  +void initState()
+  -void _navigateForward()
+  -void _navigateBackward()
+  +void retrieveEntries()
+  -bool _hasEntryForDate()
+  -void _saveMoodToFirestore()
+  +Widget build()
+}
+
+"big_feelings::Pages::Mood%20Tracker::mood_tracker_page.dart::_MoodTrackerPageState" o-- "cloud_firestore::cloud_firestore.dart::FirebaseFirestore"
+"big_feelings::Pages::Mood%20Tracker::mood_tracker_page.dart::_MoodTrackerPageState" o-- "dart::async::Timer"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Mood%20Tracker::mood_tracker_page.dart::_MoodTrackerPageState"
+
+class "big_feelings::Pages::Quizzes::quiz_option.dart::QuizOption" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Quizzes::quiz_option.dart::QuizOption"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_logic.dart::QuizFetcher" {
+  {static} -Logger _logger
+  {static} +dynamic fetchQuizData()
+}
+
+"big_feelings::Pages::Quizzes::Submit%20quiz::quiz_logic.dart::QuizFetcher" o-- "logger::src::logger.dart::Logger"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_logic.dart::QuizSubmitter" {
+  {static} -Logger _logger
+  {static} +dynamic submitQuiz()
+}
+
+"big_feelings::Pages::Quizzes::Submit%20quiz::quiz_logic.dart::QuizSubmitter" o-- "logger::src::logger.dart::Logger"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one.dart::StartQuiz1" {
+  +_StartQuiz1State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one.dart::StartQuiz1"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one.dart::_StartQuiz1State" {
+  +List<Map<String, dynamic>> quizData
+  +int currentQuestionIndex
+  +List<String?> userAnswers
+  +bool showScore
+  +int score
+  +void initState()
+  +dynamic fetchQuizData()
+  +void submitAnswer()
+  +void submitQuiz()
+  +int calculateScore()
+  +void showMessage()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one.dart::_StartQuiz1State"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one_option.dart::QuizPage1" {
+  +_QuizPage1State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one_option.dart::QuizPage1"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one_option.dart::_QuizPage1State" {
+  +bool showQuiz
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_one_option.dart::_QuizPage1State"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_page.dart::Quizzes" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_page.dart::Quizzes"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two.dart::StartQuiz2" {
+  +_StartQuiz2State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two.dart::StartQuiz2"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two.dart::_StartQuiz2State" {
+  +List<Map<String, dynamic>> quizData
+  +int currentQuestionIndex
+  +List<String?> userAnswers
+  +bool showScore
+  +int score
+  +void initState()
+  +dynamic fetchQuizData()
+  +void submitAnswer()
+  +void submitQuiz()
+  +int calculateScore()
+  +void showMessage()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two.dart::_StartQuiz2State"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two_option.dart::QuizPage2" {
+  +_QuizPage2State createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two_option.dart::QuizPage2"
+
+class "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two_option.dart::_QuizPage2State" {
+  +bool showQuiz
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Quizzes::Submit%20quiz::quiz_two_option.dart::_QuizPage2State"
+
+class "big_feelings::Pages::Quizzes::View%20Quiz%20results::view_quiz_results.dart::QuizResults" {
+  +Logger logger
+  +Widget build()
+}
+
+"big_feelings::Pages::Quizzes::View%20Quiz%20results::view_quiz_results.dart::QuizResults" o-- "logger::src::logger.dart::Logger"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Quizzes::View%20Quiz%20results::view_quiz_results.dart::QuizResults"
+
+class "big_feelings::Pages::Settings%20Page::delete_account.dart::DeleteAccountDialog" {
+  {static} +Logger logger
+  {static} +void show()
+  {static} -Widget _buildCancelButton()
+  {static} -Widget _buildDeleteButton()
+  {static} -void _handleDelete()
+  {static} +dynamic deleteUserAccount()
+}
+
+"big_feelings::Pages::Settings%20Page::delete_account.dart::DeleteAccountDialog" o-- "logger::src::logger.dart::Logger"
+
+class "big_feelings::Pages::Settings%20Page::delete_buffer.dart::DeletingBufferingPage" {
+  +_DeletingBufferingPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Settings%20Page::delete_buffer.dart::DeletingBufferingPage"
+
+class "big_feelings::Pages::Settings%20Page::delete_buffer.dart::_DeletingBufferingPageState" {
+  {static} +Logger logger
+  +void initState()
+  +dynamic deleteUserAccount()
+  +Widget build()
+}
+
+"big_feelings::Pages::Settings%20Page::delete_buffer.dart::_DeletingBufferingPageState" o-- "logger::src::logger.dart::Logger"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Settings%20Page::delete_buffer.dart::_DeletingBufferingPageState"
+
+class "big_feelings::Pages::Settings%20Page::font_dialog.dart::FontDropdownDialog" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Settings%20Page::font_dialog.dart::FontDropdownDialog"
+
+class "big_feelings::Pages::Settings%20Page::logout_dialog.dart::LogoutDialog" {
+  {static} +void show()
+  {static} -Widget _buildCancelButton()
+  {static} -Widget _buildLogoutButton()
+  {static} -dynamic _handleLogout()
+}
+
+class "big_feelings::Pages::Settings%20Page::settings_page_2.dart::SettingsPage" {
+  +State<StatefulWidget> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Settings%20Page::settings_page_2.dart::SettingsPage"
+
+class "big_feelings::Pages::Settings%20Page::settings_page_2.dart::_SettingsPageState" {
+  +double menuItemSpacing
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Settings%20Page::settings_page_2.dart::_SettingsPageState"
+
+class "big_feelings::Pages::Settings%20Page::theme_dialog.dart::ThemeDropdownDialog" {
+  +FontProvider fontProvider
+  +ThemeNotifier themeNotifier
+  +Widget build()
+}
+
+"big_feelings::Pages::Settings%20Page::theme_dialog.dart::ThemeDropdownDialog" o-- "big_feelings::Classes::font_provider.dart::FontProvider"
+"big_feelings::Pages::Settings%20Page::theme_dialog.dart::ThemeDropdownDialog" o-- "big_feelings::Classes::theme_notifier.dart::ThemeNotifier"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Settings%20Page::theme_dialog.dart::ThemeDropdownDialog"
+
+class "big_feelings::Pages::Settings%20Page::tutorial.dart::Tutorial" {
+  -void _launchURL()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Settings%20Page::tutorial.dart::Tutorial"
+
+
+@enduml

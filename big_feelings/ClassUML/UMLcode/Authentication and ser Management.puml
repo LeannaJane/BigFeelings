@@ -1,0 +1,161 @@
+@startuml AuthenticationAndUserManagement
+set namespaceSeparator ::
+
+class "big_feelings::Classes::authentication_refresh.dart::AuthenticationWrapper" {
+  +Widget build()
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Classes::authentication_refresh.dart::AuthenticationWrapper"
+
+class "big_feelings::Pages::Auth::Home::home_ui.dart::HomePage" {
+  +List<Map<String, dynamic>> menuItems
+  +Widget build()
+  +void navigateToPage()
+  +Widget menuItem()
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::Home::home_ui.dart::HomePage"
+
+class "big_feelings::Pages::Auth::Home::image_selector.dart::ImageSelector" {
+  +_ImageSelectorState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Home::image_selector.dart::ImageSelector"
+
+class "big_feelings::Pages::Auth::Home::image_selector.dart::_ImageSelectorState" {
+  +String selectedImage
+  +List<String> images
+  +void initState()
+  +dynamic loadSelectedImage()
+  +Widget build()
+  -dynamic _showImageSelectionDialog()
+  +dynamic saveSelectedImage()
+  -double _checkImageSize()
+  -double _checkImageSize2()
+}
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Home::image_selector.dart::_ImageSelectorState"
+
+class "big_feelings::Pages::Auth::Login::login_desktop.dart::LoginPageDesktop" {
+  +_LoginPageDesktopState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Login::login_desktop.dart::LoginPageDesktop"
+
+class "big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -String? _loginError
+  +void initState()
+  -void _clearError()
+  -void _forgotPassword()
+  +Widget build()
+  -void _handleLogin()
+}
+"big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState"
+
+class "big_feelings::Pages::Auth::Login::login_logic.dart::LoginLogic" {
+  {static} +void login()
+}
+
+class "big_feelings::Pages::Auth::Login::login_mobile.dart::LoginMobilePage" {
+  +_LoginMobilePageState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Login::login_mobile.dart::LoginMobilePage"
+
+class "big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -String? _loginError
+  +void initState()
+  -void _clearError()
+  -void _forgotPassword()
+  +Widget build()
+  -void _handleLogin()
+}
+"big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::PasswordResetDesktop" {
+  +_PasswordResetDesktopState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::PasswordResetDesktop"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::_PasswordResetDesktopState" {
+  +TextEditingController emailController
+  -bool? _emailSent
+  +void initState()
+  -void _clearError()
+  -void _sendPasswordResetEmail()
+  +Widget build()
+}
+"big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::_PasswordResetDesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_desktop.dart::_PasswordResetDesktopState"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::PasswordResetMobile" {
+  +_PasswordResetMobileState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::PasswordResetMobile"
+
+class "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::_PasswordResetMobileState" {
+  +TextEditingController emailController
+  -bool? _emailSent
+  +void initState()
+  -void _clearError()
+  -void _sendPasswordResetEmail()
+  +Widget build()
+}
+"big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::_PasswordResetMobileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Reset%20Password::reset_mobile.dart::_PasswordResetMobileState"
+
+class "big_feelings::Pages::Auth::Sign%20up::errors_signup.dart::SignUpLogic" {
+  {static} +dynamic signup()
+}
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::Signupdesktop" {
+  +_SignupdesktopState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::Signupdesktop"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -String? _signupError
+  +void initState()
+  -void _clearError()
+  +Widget build()
+}
+"big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::SignupMobile" {
+  +_SignupMobileState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::SignupMobile"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -String? _signupError
+  +void initState()
+  -void _clearError()
+  +Widget build()
+}
+"big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState"
+
+class "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::TermsAndPrivacyDialog" {
+  +_TermsAndPrivacyDialogState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::TermsAndPrivacyDialog"
+
+class "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::_TermsAndPrivacyDialogState" {
+  +bool showTerms
+  +Widget build()
+  -Widget _buildTermsContent()
+  -Widget _buildPrivacyContent()
+}
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Terms%20and%20coniditons::terms_condiiton.dart::_TermsAndPrivacyDialogState"
+
+class "big_feelings::Pages::Auth::welcome_page.dart::WelcomePage" {
+  +Widget build()
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::welcome_page.dart::WelcomePage"
+
+@enduml

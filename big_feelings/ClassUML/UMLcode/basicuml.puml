@@ -1,0 +1,141 @@
+@startuml BigFeelings
+set namespaceSeparator ::
+
+' Major Application Components
+class "big_feelings::main.dart::MyApp" {
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::main.dart::MyApp"
+
+' Authentication and User Management
+class "big_feelings::Pages::Auth::WelcomePage" {
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::WelcomePage"
+
+class "big_feelings::Pages::Auth::LoginPage" {
+  +void loginUser()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::LoginPage"
+
+class "big_feelings::Pages::Auth::SignupPage" {
+  +void registerUser()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::SignupPage"
+
+class "big_feelings::Pages::Auth::ResetPasswordPage" {
+  +void resetPassword()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::Auth::ResetPasswordPage"
+
+' Journaling Feature
+class "big_feelings::Pages::JournalOptions::JournalEntry" {
+  +void createJournalEntry()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::JournalOptions::JournalEntry"
+
+class "big_feelings::Pages::JournalOptions::ViewJournals" {
+  +List<JournalEntry> loadEntries()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::JournalOptions::ViewJournals"
+
+' Library and Learning Resources
+class "big_feelings::Pages::LibraryOptions::CopingMethods" {
+  +List<String> getCopingMethods()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::LibraryOptions::CopingMethods"
+
+class "big_feelings::Pages::LibraryOptions::VideoOptions" {
+  +void playVideo(String videoUrl)
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::LibraryOptions::VideoOptions"
+
+' Settings and Configuration
+class "big_feelings::Pages::SettingsPage::SettingsPage" {
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::SettingsPage::SettingsPage"
+
+class "big_feelings::Pages::SettingsPage::FontSettings" {
+  +void changeFont(String fontName)
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::SettingsPage::FontSettings"
+
+class "big_feelings::Pages::SettingsPage::ThemeSettings" {
+  +void changeTheme(String themeName)
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::SettingsPage::ThemeSettings"
+
+class "big_feelings::Pages::SettingsPage::LogoutOption" {
+  +void logout()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::SettingsPage::LogoutOption"
+
+class "big_feelings::Pages::SettingsPage::DeleteAccountOption" {
+  +void deleteAccount()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::SettingsPage::DeleteAccountOption"
+
+class "big_feelings::Pages::SettingsPage::HelpOption" {
+  +void getHelp()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::SettingsPage::HelpOption"
+
+' Theme and Font Management
+class "big_feelings::Classes::theme_notifier.dart::ThemeNotifier" {
+  +void setTheme(String theme)
+  +ThemeData currentTheme
+}
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Classes::theme_notifier.dart::ThemeNotifier"
+
+class "big_feelings::Classes::font_provider.dart::FontProvider" {
+  +void setFontFamily(String fontFamily)
+  +TextStyle getTitleFontStyle()
+}
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "big_feelings::Classes::font_provider.dart::FontProvider"
+
+' Core Firebase Integration
+class "big_feelings::Firebase::DefaultFirebaseOptions" {
+  +FirebaseOptions get currentOptions()
+}
+"big_feelings::Firebase::DefaultFirebaseOptions" o-- "firebase_core_platform_interface::firebase_core_platform_interface.dart::FirebaseOptions"
+
+' Mood Tracking Features
+class "big_feelings::Pages::MoodOptions::MoodTrackerPage" {
+  +void recordMood(String mood)
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::MoodOptions::MoodTrackerPage"
+
+class "big_feelings::Pages::MoodOptions::MoodEntriesPage" {
+  +List<MoodEntry> getMoodEntries()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::MoodOptions::MoodEntriesPage"
+
+' Quizzes and Assessments
+class "big_feelings::Pages::QuizOptions::Quizzes" {
+  +void startQuiz()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::QuizOptions::Quizzes"
+
+class "big_feelings::Pages::QuizOptions::ViewQuizzesPage" {
+  +List<QuizResult> viewResults()
+  +Widget build(BuildContext context)
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::Pages::QuizOptions::ViewQuizzesPage"
+
+@enduml

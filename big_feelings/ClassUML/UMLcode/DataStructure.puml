@@ -1,0 +1,62 @@
+@startuml
+
+' Define the skin parameters for better visualization
+skinparam rectangle {
+  StrokeColor Black
+  BorderColor Black
+}
+
+' Entities
+entity User {
+  + User UID: String
+  + Email: String
+  + Password: String
+}
+
+entity QuizCollection {
+  + QuizID: String
+  + QuizQuestions: List
+  + QuizOptions: List
+  + QuizAnswers: List
+}
+
+entity QuizCollectionResults {
+  + quizID: String
+  + Score: Number
+  + id: PK
+  + timestamp: Date
+}
+
+entity JournalCollection {
+  + DocumentID: String
+  + Entry: String
+  + Time: Date
+}
+
+entity MoodsCollection {
+  + DocumentID: String
+  + Mood: String
+  + Time: Date
+}
+
+' Firebase database mockup
+rectangle Firebase {
+  ' Placeholder to represent Firebase
+}
+
+' Data flows
+User --> Firebase : Stores Credentials
+User --> QuizCollection : Retrieves Questions
+QuizCollection --> User : Sends Questions
+User --> QuizCollectionResults : Stores Results
+User --> JournalCollection : Stores Entries
+JournalCollection --> User : Retrieves Entries
+User --> MoodsCollection : Stores Moods
+MoodsCollection --> User : Retrieves Moods
+
+' Showing data storage in Firebase
+Firebase <-- QuizCollectionResults : Stores Quiz Results
+Firebase <-- JournalCollection : Stores Journal Entries
+Firebase <-- MoodsCollection : Stores Mood Data
+
+@enduml

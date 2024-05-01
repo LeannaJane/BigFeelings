@@ -1,0 +1,44 @@
+@startuml UserLogin
+set namespaceSeparator ::
+
+class "big_feelings::Pages::Auth::Login::login_desktop.dart::LoginPageDesktop" {
+  +_LoginPageDesktopState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Login::login_desktop.dart::LoginPageDesktop"
+
+class "big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -String? _loginError
+  +void initState()
+  -void _clearError()
+  -void _forgotPassword()
+  +Widget build()
+  -void _handleLogin()
+}
+"big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Login::login_desktop.dart::_LoginPageDesktopState"
+
+class "big_feelings::Pages::Auth::Login::login_mobile.dart::LoginMobilePage" {
+  +_LoginMobilePageState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Login::login_mobile.dart::LoginMobilePage"
+
+class "big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -String? _loginError
+  +void initState()
+  -void _clearError()
+  -void _forgotPassword()
+  +Widget build()
+  -void _handleLogin()
+}
+"big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Login::login_mobile.dart::_LoginMobilePageState"
+
+class "big_feelings::Pages::Auth::Login::login_logic.dart::LoginLogic" {
+  {static} +void login()
+}
+
+@enduml

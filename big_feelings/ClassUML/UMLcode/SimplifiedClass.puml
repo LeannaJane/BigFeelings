@@ -1,0 +1,60 @@
+@startuml BigFeelings_Logout
+
+' Major Application Components
+class MyApp
+
+' Relationships
+MyApp --> WelcomePage
+WelcomePage --> Signupdesktop
+WelcomePage --> SignupMobile
+WelcomePage --> LoginPageMobile
+WelcomePage --> LoginPageDesktop
+SignupMobile --> TermsAndPrivacyDialog
+Signupdesktop --> TermsAndPrivacyDialog
+
+LoginPageMobile --> PasswordResetMobile
+LoginPageDesktop --> PasswordResetDesktop
+
+LoginPageDesktop --> HomePage
+LoginPageMobile --> HomePage
+LogoutDialog --> WelcomePage
+DeleteAccountDialog--> WelcomePage
+
+HomePage --> MentalHealthActivitiesPage
+HomePage --> MoodOptions
+HomePage --> LibraryPage
+HomePage --> SettingsPage
+HomePage --> JournalOptionPage
+HomePage --> QuizOption
+HomePage --> MiniGamesPage
+MiniGamesPage --> StartGame
+StartGame --> GameBoard
+StartGame --> GameBoardMobile
+
+MentalHealthActivitiesPage --> BreathingPage
+QuizOption --> Quizzes
+QuizOption --> QuizResults
+MoodOptions --> MoodTrackerPage
+MoodOptions --> MoodEntriesPage
+JournalOptionPage --> JournalEntriesPage
+JournalOptionPage --> JournalViewer
+LibraryPage --> VideoOptions
+LibraryPage --> CopingMethods
+
+SettingsPage --> LogoutDialog
+SettingsPage --> DeleteAccountDialog
+SettingsPage --> FontDropdownDialog
+SettingsPage --> ThemeDropdownDialog
+SettingsPage --> Tutorial
+MyApp --> DefaultFirebaseOptions
+
+FontDropdownDialog --> FontProvider
+ThemeDropdownDialog --> ThemeNotifier
+Quizzes --> QuizPage1
+Quizzes --> QuizPage2
+QuizPage1 --> StartQuiz1
+QuizPage2  --> StartQuiz2
+
+' Additional class details here...
+
+@enduml

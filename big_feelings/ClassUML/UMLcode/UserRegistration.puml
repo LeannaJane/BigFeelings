@@ -1,0 +1,40 @@
+@startuml UserRegistration
+set namespaceSeparator ::
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::Signupdesktop" {
+  +_SignupdesktopState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::Signupdesktop"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -String? _signupError
+  +void initState()
+  -void _clearError()
+  +Widget build()
+}
+"big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_desktop.dart::_SignupdesktopState"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::SignupMobile" {
+  +_SignupMobileState createState()
+}
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::SignupMobile"
+
+class "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState" {
+  -TextEditingController _emailController
+  -TextEditingController _passwordController
+  -String? _signupError
+  +void initState()
+  -void _clearError()
+  +Widget build()
+}
+"big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "big_feelings::Pages::Auth::Sign%20up::signup_mobile.dart::_SignupMobileState"
+
+class "big_feelings::Pages::Auth::Sign%20up::errors_signup.dart::SignUpLogic" {
+  {static} +dynamic signup()
+}
+
+@enduml

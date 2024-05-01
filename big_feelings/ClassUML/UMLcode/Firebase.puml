@@ -1,0 +1,17 @@
+@startuml FirebaseAndAppSetup
+set namespaceSeparator ::
+
+class "big_feelings::Firebase::firebase_options.dart::DefaultFirebaseOptions" {
+  {static} +FirebaseOptions web
+  {static} +FirebaseOptions android
+  {static} +FirebaseOptions ios
+  {static} +FirebaseOptions currentPlatform
+}
+"big_feelings::Firebase::firebase_options.dart::DefaultFirebaseOptions" o-- "firebase_core_platform_interface::firebase_core_platform_interface.dart::FirebaseOptions"
+
+class "big_feelings::main.dart::MyApp" {
+  +Widget build()
+}
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "big_feelings::main.dart::MyApp"
+
+@enduml

@@ -1,0 +1,144 @@
+@startuml BigFeelings_Logout
+
+' Major Application Components
+class MyApp {
+}
+
+' Authentication and User Management
+class WelcomePage {
+}
+class LoginPageMobile {
+}
+class LoginPageDesktop {
+}
+class SignupMobile {
+}
+class Signupdesktop {
+}
+class PasswordResetMobile {
+}
+class PasswordResetDesktop {
+}
+class LogoutDialog {
+}
+class DeleteAccountDialog {
+}
+
+MyApp --> WelcomePage
+WelcomePage --> LoginPageMobile
+WelcomePage --> LoginPageDesktop
+WelcomePage --> SignupMobile
+WelcomePage --> Signupdesktop
+LoginPageMobile --> PasswordResetMobile
+LoginPageDesktop --> PasswordResetDesktop
+LoginPageDesktop --> HomePage
+LoginPageMobile --> HomePage
+LogoutDialog --> WelcomePage
+DeleteAccountDialog --> WelcomePage
+
+' Home Page and its Features
+class HomePage {
+}
+class MentalHealthActivitiesPage {
+}
+class MoodOptions {
+}
+class LibraryPage {
+}
+class SettingsPage {
+}
+class JournalOptionPage {
+}
+class QuizOption {
+}
+class MiniGamesPage {
+}
+
+HomePage --> MentalHealthActivitiesPage
+HomePage --> MoodOptions
+HomePage --> LibraryPage
+HomePage --> SettingsPage
+HomePage --> JournalOptionPage
+HomePage --> QuizOption
+HomePage --> MiniGamesPage
+MiniGamesPage --> StartGame
+
+' Features Specific Classes
+class BreathingPage {
+}
+class Quizzes {
+}
+class QuizResults {
+}
+class MoodTrackerPage {
+}
+class MoodEntriesPage {
+}
+class JournalEntriesPage {
+}
+class JournalViewer {
+}
+class VideoOptions {
+}
+class CopingMethods {
+}
+
+MentalHealthActivitiesPage --> BreathingPage
+QuizOption --> Quizzes
+QuizOption --> QuizResults
+MoodOptions --> MoodTrackerPage
+MoodOptions --> MoodEntriesPage
+JournalOptionPage --> JournalEntriesPage
+JournalOptionPage --> JournalViewer
+LibraryPage --> VideoOptions
+LibraryPage --> CopingMethods
+
+' Games and Quizzes Flow
+class StartGame {
+}
+class GameBoard {
+}
+class GameBoardMobile {
+}
+class QuizPage1 {
+}
+class QuizPage2 {
+}
+class StartQuiz1 {
+}
+class StartQuiz2 {
+}
+
+StartGame --> GameBoard
+StartGame --> GameBoardMobile
+Quizzes --> QuizPage1
+Quizzes --> QuizPage2
+QuizPage1 --> StartQuiz1
+QuizPage2 --> StartQuiz2
+
+' Settings and Customisation
+class DefaultFirebaseOptions {
+}
+class FontDropdownDialog {
+}
+class ThemeDropdownDialog {
+}
+class ThemeNotifier {
+}
+class FontProvider {
+}
+
+SettingsPage --> LogoutDialog
+SettingsPage --> DeleteAccountDialog
+SettingsPage --> FontDropdownDialog
+SettingsPage --> ThemeDropdownDialog
+SettingsPage --> Tutorial
+MyApp --> DefaultFirebaseOptions
+FontDropdownDialog --> FontProvider
+ThemeDropdownDialog --> ThemeNotifier
+
+' Additional Components
+class Tutorial {
+}
+
+@enduml

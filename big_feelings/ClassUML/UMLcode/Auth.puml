@@ -1,0 +1,18 @@
+@startuml
+start
+:Opens App;
+:Welcome Page;
+while (Selects Option)
+  if (login) then (yes)
+  :User enters credentials;
+  else (Signup)
+   :User selects "Signup" button;
+   :Display Signup Page;
+   :User enters credentials;
+    repeat
+   :Create User Account;
+    if (Display Error Message) then (yes)
+      stop
+    endif
+  repeat while (Third attempt?) is (no) not (yes)
+@enduml

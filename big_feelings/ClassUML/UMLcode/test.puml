@@ -1,0 +1,36 @@
+@startuml
+
+start
+:Opens App;
+:Welcome Page;
+
+' Decision for user action
+if (Selects Option) then (Login)
+    :User selects "Login" button;
+    :Display Login Page;
+    :User enters credentials;
+    :Authenticate User;
+    if (Authentication Success) then (yes)
+        :User Successfully Logged In;
+        stop
+    else (no)
+        :Display Error Message;
+        :Allow Retry;
+        stop
+    endif
+else (Signup)
+    :User selects "Signup" button;
+    :Display Signup Page;
+    :User enters credentials;
+    :Create User Account;
+    if (Account Creation Success) then (yes)
+        :Account Created Successfully;
+        :Verification Code Sent;
+        stop
+    else (no)
+        :Display Error Message;
+        ->[Back]User enters credentials;
+    endif
+endif
+
+@enduml
