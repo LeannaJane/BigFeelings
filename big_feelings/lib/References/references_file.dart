@@ -383,5 +383,9 @@ This website taught me how to flip an icon using transform the the homepage dark
 ? GeeksforGeeks. (2022). Flutter - Implementing Signing Out the User. [online] Available at: https://www.geeksforgeeks.org/flutter-implementing-signing-out-the-user/ [Accessed 7 Feb. 2024].
 * I origionally used the code provided from geekforgeeks but I kept recieving a error that you cannot use async with context. 
 * So I changed it to a context.mounted.
-  
+
+
+71 
+? stocktune.com. (n.d.). Visions In Digital Haze Stock Music - Download Free Song Now - StockTune. [online] Available at: https://stocktune.com/free-music/visions-in-digital-haze-39015-42719 [Accessed 5 May 2024].
+*  Audio used for the Big Feelings tutorial video, open source. 
 */

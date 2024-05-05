@@ -127,7 +127,7 @@ class Tutorial extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     _launchURL(
-                        context, 'https://www.youtube.com/watch?v=9ekY8EvrZmM');
+                        context, 'https://www.youtube.com/watch?v=j7784hn_n1U');
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),

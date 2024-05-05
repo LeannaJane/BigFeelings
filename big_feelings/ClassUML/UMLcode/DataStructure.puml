@@ -45,18 +45,19 @@ rectangle Firebase {
 }
 
 ' Data flows
-User --> Firebase : Stores Credentials
-User --> QuizCollection : Retrieves Questions
+User --> Firebase : Checks Email and Password
+Firebase --> User : Retrieves User UID (if email and password match)
+User --> Firebase : Stores User UID as Variable
+Firebase --> QuizCollection : Retrieves Questions
 QuizCollection --> User : Sends Questions
-User --> QuizCollectionResults : Stores Results
-User --> JournalCollection : Stores Entries
+User <-- QuizCollectionResults : Retrieves Results
+Firebase --> JournalCollection : Stores Entries
 JournalCollection --> User : Retrieves Entries
-User --> MoodsCollection : Stores Moods
+Firebase <-- MoodsCollection : Stores Moods
 MoodsCollection --> User : Retrieves Moods
 
 ' Showing data storage in Firebase
 Firebase <-- QuizCollectionResults : Stores Quiz Results
 Firebase <-- JournalCollection : Stores Journal Entries
-Firebase <-- MoodsCollection : Stores Mood Data
 
 @enduml
