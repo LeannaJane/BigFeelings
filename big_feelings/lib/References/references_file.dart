@@ -388,4 +388,8 @@ This website taught me how to flip an icon using transform the the homepage dark
 71 
 ? stocktune.com. (n.d.). Visions In Digital Haze Stock Music - Download Free Song Now - StockTune. [online] Available at: https://stocktune.com/free-music/visions-in-digital-haze-39015-42719 [Accessed 5 May 2024].
 *  Audio used for the Big Feelings tutorial video, open source. 
+
+71
+? Termly. (n.d.). GDPR Compliance Software for Websites & Online Businesses. [online] Available at: https://termly.io/.
+* Terms and conditions and privacy notice.
 */

@@ -105,15 +105,15 @@ TABLE OF CONTENTS
 
 1. Use License
 
-Permission is granted to temporarily download one copy of the materials (information or software) on the App for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+Permission is granted to temporarily download one copy of the materials (information or software) on the App for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license, you may not:
 
 • Modify or copy the materials;
-• Use the materials for any commercial purpose, or for any public display (commercial or non-commercial);
-• Attempt to decompile or reverse engineer any software contained on the App;
-• Remove any copyright or other proprietary notations from the materials; or
+• Use the materials for any commercial purpose or for any public display (commercial or non-commercial);
+• Attempt to decompile or reverse engineer any software contained in the App;
+• Remove any copyright or other proprietary notations from the materials or
 • Transfer the materials to another person or "mirror" the materials on any other server.
 
-This license shall automatically terminate if you violate any of these restrictions and may be terminated by us at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.
+This license shall automatically terminate if you violate any of these restrictions and may be terminated by us at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession, whether in electronic or printed format.
 
 2. Age Requirement
 
@@ -137,7 +137,7 @@ b. Respect for Privacy: Users must respect the privacy of others, including refr
 
 c. Compliance with Community Guidelines: Users are required to comply with the community guidelines outlined by Big Feelings. These guidelines are designed to ensure a safe and supportive environment for all users. Violation of these guidelines may result in the termination of your account or access to the App.
 
-d. Reporting of Concerns: Users are encouraged to report any concerns or inappropriate behavior observed within the App. This helps us maintain a positive and secure environment for all users.
+d. Reporting of Concerns: Users are encouraged to report any concerns or inappropriate behaviour observed within the App. This helps us maintain a positive and secure environment for all users.
 
 e. Parental Supervision: Parents or legal guardians are responsible for supervising their children's use of the App, particularly for users under the age of 13. It is important for parents to monitor their children's activities and ensure compliance with these Terms and any applicable laws or regulations.
 
@@ -151,13 +151,13 @@ We may revise these terms of service for the App at any time without notice. By 
 
 7. Governing Law
 
-These terms and conditions are governed by and construed in accordance with the laws of United Kingdom and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
+These terms and conditions are governed by and construed in accordance with the laws of the United Kingdom, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
 
 8. Contact Us
 
 If you have any questions about these Terms, please contact us at leannaalt@gmail.com.
 
-We would like to acknowledge that Termly.io assisted us in crafting this Terms and conditions notice to ensure compliance with best practices and legal requirements. Your trust is paramount to us, and with the support of Termly.io, we are dedicated to addressing any inquiries or issues you may have promptly and courteously. Thank you for entrusting us with your privacy.
+We would like to acknowledge that Termly.io assisted us in crafting this Terms and Conditions notice to ensure compliance with best practices and legal requirements. Your trust is paramount to us, and with the support of Termly.io, we are dedicated to addressing any inquiries or issues you may have promptly and courteously. Thank you for entrusting us with your privacy.
 
 ''', style: fontProvider.description(themeNotifier)),
         ],
